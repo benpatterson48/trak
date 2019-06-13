@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,12 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		FirebaseApp.configure()
-		
-		UIFont.familyNames.forEach({ familyName in
-			let fontNames = UIFont.fontNames(forFamilyName: familyName)
-			print(familyName, fontNames)
-		})
-		
+		window = UIWindow()
+		window?.makeKeyAndVisible()
+		if Auth.auth().currentUser != nil {
+			// start them on home screen
+		} else {
+			let getStarted = GetStartedVC()
+			window?.rootViewController = getStarted
+		}
 		// Override point for customization after application launch.
 		return true
 	}
