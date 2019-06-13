@@ -12,6 +12,13 @@
 		1DF1943D22B1C1F400DFC41B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1943B22B1C1F400DFC41B /* LaunchScreen.storyboard */; };
 		1DF1944C22B1C46D00DFC41B /* GetStartedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1944B22B1C46D00DFC41B /* GetStartedVC.swift */; };
 		1DF1945022B1C4ED00DFC41B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1944F22B1C4ED00DFC41B /* GoogleService-Info.plist */; };
+		1DF1945822B1DA5600DFC41B /* SF-Pro-Text-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1945222B1D7AD00DFC41B /* SF-Pro-Text-Thin.otf */; };
+		1DF1945922B1DA5900DFC41B /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1945622B1D7C600DFC41B /* SF-Pro-Text-Bold.otf */; };
+		1DF1945A22B1DA5C00DFC41B /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1945322B1D7C600DFC41B /* SF-Pro-Text-Light.otf */; };
+		1DF1945B22B1DA5E00DFC41B /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1945422B1D7C600DFC41B /* SF-Pro-Text-Medium.otf */; };
+		1DF1945C22B1DA6100DFC41B /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1945722B1D7C600DFC41B /* SF-Pro-Text-Regular.otf */; };
+		1DF1945D22B1DA6400DFC41B /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1945522B1D7C600DFC41B /* SF-Pro-Text-Semibold.otf */; };
+		1DF1945F22B1DA9200DFC41B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1945E22B1DA9200DFC41B /* Font.swift */; };
 		B7056937B20CCF95D1794A0A /* Pods_Trak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1753A5574B0ED15D1DCB61D4 /* Pods_Trak.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +31,13 @@
 		1DF1943E22B1C1F400DFC41B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1DF1944B22B1C46D00DFC41B /* GetStartedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedVC.swift; sourceTree = "<group>"; };
 		1DF1944F22B1C4ED00DFC41B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		1DF1945222B1D7AD00DFC41B /* SF-Pro-Text-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Thin.otf"; sourceTree = "<group>"; };
+		1DF1945322B1D7C600DFC41B /* SF-Pro-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Light.otf"; sourceTree = "<group>"; };
+		1DF1945422B1D7C600DFC41B /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; };
+		1DF1945522B1D7C600DFC41B /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
+		1DF1945622B1D7C600DFC41B /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
+		1DF1945722B1D7C600DFC41B /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
+		1DF1945E22B1DA9200DFC41B /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		5554D9DB2981E6AF945BCC7A /* Pods-Trak.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trak.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trak/Pods-Trak.release.xcconfig"; sourceTree = "<group>"; };
 		D82D2220994A9A5A2CC5EE6F /* Pods-Trak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trak.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Trak/Pods-Trak.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,6 +115,7 @@
 		1DF1944722B1C3B200DFC41B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				1DF1945122B1D77600DFC41B /* Fonts */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -115,8 +130,22 @@
 		1DF1944A22B1C3BF00DFC41B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				1DF1945E22B1DA9200DFC41B /* Font.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1DF1945122B1D77600DFC41B /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				1DF1945222B1D7AD00DFC41B /* SF-Pro-Text-Thin.otf */,
+				1DF1945622B1D7C600DFC41B /* SF-Pro-Text-Bold.otf */,
+				1DF1945322B1D7C600DFC41B /* SF-Pro-Text-Light.otf */,
+				1DF1945422B1D7C600DFC41B /* SF-Pro-Text-Medium.otf */,
+				1DF1945722B1D7C600DFC41B /* SF-Pro-Text-Regular.otf */,
+				1DF1945522B1D7C600DFC41B /* SF-Pro-Text-Semibold.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		38BBC18312411FBB5DDE7F9E /* Pods */ = {
@@ -196,8 +225,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DF1945822B1DA5600DFC41B /* SF-Pro-Text-Thin.otf in Resources */,
+				1DF1945922B1DA5900DFC41B /* SF-Pro-Text-Bold.otf in Resources */,
+				1DF1945A22B1DA5C00DFC41B /* SF-Pro-Text-Light.otf in Resources */,
 				1DF1943D22B1C1F400DFC41B /* LaunchScreen.storyboard in Resources */,
 				1DF1943A22B1C1F400DFC41B /* Assets.xcassets in Resources */,
+				1DF1945B22B1DA5E00DFC41B /* SF-Pro-Text-Medium.otf in Resources */,
+				1DF1945D22B1DA6400DFC41B /* SF-Pro-Text-Semibold.otf in Resources */,
+				1DF1945C22B1DA6100DFC41B /* SF-Pro-Text-Regular.otf in Resources */,
 				1DF1945022B1C4ED00DFC41B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,6 +303,7 @@
 			files = (
 				1DF1943322B1C1F200DFC41B /* AppDelegate.swift in Sources */,
 				1DF1944C22B1C46D00DFC41B /* GetStartedVC.swift in Sources */,
+				1DF1945F22B1DA9200DFC41B /* Font.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
