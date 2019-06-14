@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		if Auth.auth().currentUser != nil {
 			// start them on home screen
 		} else {
-			let getStarted = GetStartedVC()
+			let getStarted = CreateAccountVC()
 			window?.rootViewController = getStarted
 		}
 		// Override point for customization after application launch.

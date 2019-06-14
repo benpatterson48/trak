@@ -19,6 +19,15 @@
 		1DF1945C22B1DA6100DFC41B /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1945722B1D7C600DFC41B /* SF-Pro-Text-Regular.otf */; };
 		1DF1945D22B1DA6400DFC41B /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1945522B1D7C600DFC41B /* SF-Pro-Text-Semibold.otf */; };
 		1DF1945F22B1DA9200DFC41B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1945E22B1DA9200DFC41B /* Font.swift */; };
+		1DF1946122B1E06E00DFC41B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1946022B1E06E00DFC41B /* Color.swift */; };
+		1DF1946322B2003B00DFC41B /* LogoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1946222B2003B00DFC41B /* LogoImageView.swift */; };
+		1DF1946722B2069A00DFC41B /* GetStartedStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1946622B2069A00DFC41B /* GetStartedStackView.swift */; };
+		1DF1946B22B206F900DFC41B /* LabelAndButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1946A22B206F900DFC41B /* LabelAndButtonStackView.swift */; };
+		1DF1946D22B2156A00DFC41B /* Underline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1946C22B2156A00DFC41B /* Underline.swift */; };
+		1DF1946F22B21BDC00DFC41B /* MainBlueButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1946E22B21BDC00DFC41B /* MainBlueButton.swift */; };
+		1DF1947122B336B800DFC41B /* CreateAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1947022B336B800DFC41B /* CreateAccountVC.swift */; };
+		1DF1947522B3469000DFC41B /* CreateAccountStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1947422B3469000DFC41B /* CreateAccountStackView.swift */; };
+		1DF1947922B378BE00DFC41B /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1947822B378BE00DFC41B /* UnderlineTextField.swift */; };
 		B7056937B20CCF95D1794A0A /* Pods_Trak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1753A5574B0ED15D1DCB61D4 /* Pods_Trak.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +47,15 @@
 		1DF1945622B1D7C600DFC41B /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
 		1DF1945722B1D7C600DFC41B /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
 		1DF1945E22B1DA9200DFC41B /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		1DF1946022B1E06E00DFC41B /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		1DF1946222B2003B00DFC41B /* LogoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoImageView.swift; sourceTree = "<group>"; };
+		1DF1946622B2069A00DFC41B /* GetStartedStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedStackView.swift; sourceTree = "<group>"; };
+		1DF1946A22B206F900DFC41B /* LabelAndButtonStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelAndButtonStackView.swift; sourceTree = "<group>"; };
+		1DF1946C22B2156A00DFC41B /* Underline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Underline.swift; sourceTree = "<group>"; };
+		1DF1946E22B21BDC00DFC41B /* MainBlueButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBlueButton.swift; sourceTree = "<group>"; };
+		1DF1947022B336B800DFC41B /* CreateAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountVC.swift; sourceTree = "<group>"; };
+		1DF1947422B3469000DFC41B /* CreateAccountStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountStackView.swift; sourceTree = "<group>"; };
+		1DF1947822B378BE00DFC41B /* UnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
 		5554D9DB2981E6AF945BCC7A /* Pods-Trak.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trak.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trak/Pods-Trak.release.xcconfig"; sourceTree = "<group>"; };
 		D82D2220994A9A5A2CC5EE6F /* Pods-Trak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trak.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Trak/Pods-Trak.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				1DF1944B22B1C46D00DFC41B /* GetStartedVC.swift */,
+				1DF1947022B336B800DFC41B /* CreateAccountVC.swift */,
 			);
 			path = Controllder;
 			sourceTree = "<group>";
@@ -101,6 +120,8 @@
 		1DF1944522B1C3AD00DFC41B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1DF1946522B2068000DFC41B /* Onboarding */,
+				1DF1946422B2065500DFC41B /* Global */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -131,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				1DF1945E22B1DA9200DFC41B /* Font.swift */,
+				1DF1946022B1E06E00DFC41B /* Color.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -146,6 +168,27 @@
 				1DF1945522B1D7C600DFC41B /* SF-Pro-Text-Semibold.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		1DF1946422B2065500DFC41B /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				1DF1946A22B206F900DFC41B /* LabelAndButtonStackView.swift */,
+				1DF1946222B2003B00DFC41B /* LogoImageView.swift */,
+				1DF1947822B378BE00DFC41B /* UnderlineTextField.swift */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+		1DF1946522B2068000DFC41B /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				1DF1946622B2069A00DFC41B /* GetStartedStackView.swift */,
+				1DF1946C22B2156A00DFC41B /* Underline.swift */,
+				1DF1946E22B21BDC00DFC41B /* MainBlueButton.swift */,
+				1DF1947422B3469000DFC41B /* CreateAccountStackView.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		38BBC18312411FBB5DDE7F9E /* Pods */ = {
@@ -301,8 +344,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DF1946D22B2156A00DFC41B /* Underline.swift in Sources */,
 				1DF1943322B1C1F200DFC41B /* AppDelegate.swift in Sources */,
+				1DF1947922B378BE00DFC41B /* UnderlineTextField.swift in Sources */,
+				1DF1946122B1E06E00DFC41B /* Color.swift in Sources */,
 				1DF1944C22B1C46D00DFC41B /* GetStartedVC.swift in Sources */,
+				1DF1946B22B206F900DFC41B /* LabelAndButtonStackView.swift in Sources */,
+				1DF1946F22B21BDC00DFC41B /* MainBlueButton.swift in Sources */,
+				1DF1946322B2003B00DFC41B /* LogoImageView.swift in Sources */,
+				1DF1946722B2069A00DFC41B /* GetStartedStackView.swift in Sources */,
+				1DF1947522B3469000DFC41B /* CreateAccountStackView.swift in Sources */,
+				1DF1947122B336B800DFC41B /* CreateAccountVC.swift in Sources */,
 				1DF1945F22B1DA9200DFC41B /* Font.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
