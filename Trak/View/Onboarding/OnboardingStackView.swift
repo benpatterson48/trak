@@ -8,16 +8,15 @@
 
 import UIKit
 
-class CreateAccountStackView: UIView {
+class OnboardingStackView: UIView {
 	
 	let underline = Underline()
-	let button = MainBlueButton(title: "Create Account")
+	let button = MainBlueButton()
 	let email = UnderlineTextField(placeholder: "Email Address")
 	let password = UnderlineTextField(placeholder: "Password")
 	
 	let mainTitle: UILabel = {
 		let main = UILabel()
-		main.text = "Create your account"
 		main.textColor = UIColor.main.darkText
 		main.textAlignment = .left
 		main.font = UIFont.mainSemiBoldFont(ofSize: 26)
@@ -28,8 +27,15 @@ class CreateAccountStackView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		createStackView()
+		password.textField.isSecureTextEntry = true 
 		button.translatesAutoresizingMaskIntoConstraints = false
 		underline.translatesAutoresizingMaskIntoConstraints = false
+	}
+	
+	public convenience init(mainTitleText: String, buttonTitleText: String) {
+		self.init(frame: .zero)
+		mainTitle.text = mainTitleText
+		button.setTitle(buttonTitleText, for: .normal)
 	}
 	
 	fileprivate func createStackView() {
@@ -54,7 +60,7 @@ class CreateAccountStackView: UIView {
 		stackView.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -35).isActive = true
 		underline.widthAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1/4).isActive = true
 		
-		button.heightAnchor.constraint(equalToConstant: 56).isActive = true
+		button.heightAnchor.constraint(equalToConstant: 58).isActive = true
 		button.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 30).isActive = true
 		button.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
 		button.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true

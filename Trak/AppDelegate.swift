@@ -21,9 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		window = UIWindow()
 		window?.makeKeyAndVisible()
 		if Auth.auth().currentUser != nil {
-			// start them on home screen
+			let expenses = ExpensesVC()
+			window?.rootViewController = expenses
 		} else {
-			let getStarted = CreateAccountVC()
+			let getStarted = GetStartedVC()
 			window?.rootViewController = getStarted
 		}
 		// Override point for customization after application launch.

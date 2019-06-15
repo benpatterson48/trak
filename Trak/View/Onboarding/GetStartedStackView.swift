@@ -11,7 +11,7 @@ import UIKit
 class GetStartedStackView: UIView {
 	
 	let underline = Underline()
-	let button = MainBlueButton(title: "Join Trak")
+	let button = MainBlueButton()
 	
 	let mainTitle: UILabel = {
 		let main = UILabel()
@@ -37,6 +37,7 @@ class GetStartedStackView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		createViews()
+		button.setTitle("Join Trak", for: .normal)
 		button.translatesAutoresizingMaskIntoConstraints = false
 	}
 	
@@ -55,7 +56,7 @@ class GetStartedStackView: UIView {
 		titleStackView.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -50).isActive = true
 		underline.widthAnchor.constraint(equalTo: titleStackView.widthAnchor, multiplier: 1/4).isActive = true
 		
-		button.heightAnchor.constraint(equalToConstant: 56).isActive = true
+		button.heightAnchor.constraint(equalToConstant: 58).isActive = true
 		button.topAnchor.constraint(equalTo: titleStackView.bottomAnchor, constant: 50).isActive = true
 		button.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
 		button.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true

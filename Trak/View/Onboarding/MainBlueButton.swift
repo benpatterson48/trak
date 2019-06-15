@@ -20,11 +20,6 @@ class MainBlueButton: UIButton {
 		titleLabel?.font = UIFont.mainFont(ofSize: 18)
 	}
 	
-	public convenience init(title: String) {
-		self.init(frame: .zero)
-		setTitle(title, for: .normal)
-	}
-	
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}

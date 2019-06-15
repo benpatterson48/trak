@@ -18,6 +18,8 @@ class GetStartedVC: UIViewController {
         super.viewDidLoad()
 		view.backgroundColor = .white 
 		addViews()
+		stackView.button.addTarget(self, action: #selector(getStartedButtonWasPressed), for: .touchUpInside)
+		signUpTextButton.button.addTarget(self, action: #selector(signinButtonWasPressed), for: .touchUpInside)
     }
 	
 	fileprivate func addViews() {
@@ -39,6 +41,16 @@ class GetStartedVC: UIViewController {
 		stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true 
 		stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 28).isActive = true
 		stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -28).isActive = true
+	}
+	
+	@objc func getStartedButtonWasPressed() {
+		let signup = CreateAccountVC()
+		present(signup, animated: true, completion: nil)
+	}
+	
+	@objc func signinButtonWasPressed() {
+		let login = LoginVC()
+		present(login, animated: true, completion: nil)
 	}
 
 }

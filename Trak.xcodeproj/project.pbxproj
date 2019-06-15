@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D136D0F22B40E8B0030C48D /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D136D0E22B40E8B0030C48D /* LoginVC.swift */; };
+		1D136D1122B4206D0030C48D /* ExpensesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D136D1022B4206D0030C48D /* ExpensesVC.swift */; };
+		1D136D1322B560450030C48D /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D136D1222B560450030C48D /* Button.swift */; };
 		1DF1943322B1C1F200DFC41B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1943222B1C1F200DFC41B /* AppDelegate.swift */; };
 		1DF1943A22B1C1F400DFC41B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1943922B1C1F400DFC41B /* Assets.xcassets */; };
 		1DF1943D22B1C1F400DFC41B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1943B22B1C1F400DFC41B /* LaunchScreen.storyboard */; };
@@ -26,13 +29,16 @@
 		1DF1946D22B2156A00DFC41B /* Underline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1946C22B2156A00DFC41B /* Underline.swift */; };
 		1DF1946F22B21BDC00DFC41B /* MainBlueButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1946E22B21BDC00DFC41B /* MainBlueButton.swift */; };
 		1DF1947122B336B800DFC41B /* CreateAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1947022B336B800DFC41B /* CreateAccountVC.swift */; };
-		1DF1947522B3469000DFC41B /* CreateAccountStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1947422B3469000DFC41B /* CreateAccountStackView.swift */; };
+		1DF1947522B3469000DFC41B /* OnboardingStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1947422B3469000DFC41B /* OnboardingStackView.swift */; };
 		1DF1947922B378BE00DFC41B /* UnderlineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1947822B378BE00DFC41B /* UnderlineTextField.swift */; };
 		B7056937B20CCF95D1794A0A /* Pods_Trak.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1753A5574B0ED15D1DCB61D4 /* Pods_Trak.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1753A5574B0ED15D1DCB61D4 /* Pods_Trak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D136D0E22B40E8B0030C48D /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		1D136D1022B4206D0030C48D /* ExpensesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesVC.swift; sourceTree = "<group>"; };
+		1D136D1222B560450030C48D /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		1DF1942F22B1C1F200DFC41B /* Trak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF1943222B1C1F200DFC41B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1DF1943922B1C1F400DFC41B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -54,7 +60,7 @@
 		1DF1946C22B2156A00DFC41B /* Underline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Underline.swift; sourceTree = "<group>"; };
 		1DF1946E22B21BDC00DFC41B /* MainBlueButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBlueButton.swift; sourceTree = "<group>"; };
 		1DF1947022B336B800DFC41B /* CreateAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountVC.swift; sourceTree = "<group>"; };
-		1DF1947422B3469000DFC41B /* CreateAccountStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountStackView.swift; sourceTree = "<group>"; };
+		1DF1947422B3469000DFC41B /* OnboardingStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStackView.swift; sourceTree = "<group>"; };
 		1DF1947822B378BE00DFC41B /* UnderlineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineTextField.swift; sourceTree = "<group>"; };
 		5554D9DB2981E6AF945BCC7A /* Pods-Trak.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trak.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trak/Pods-Trak.release.xcconfig"; sourceTree = "<group>"; };
 		D82D2220994A9A5A2CC5EE6F /* Pods-Trak.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trak.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Trak/Pods-Trak.debug.xcconfig"; sourceTree = "<group>"; };
@@ -113,6 +119,8 @@
 			children = (
 				1DF1944B22B1C46D00DFC41B /* GetStartedVC.swift */,
 				1DF1947022B336B800DFC41B /* CreateAccountVC.swift */,
+				1D136D0E22B40E8B0030C48D /* LoginVC.swift */,
+				1D136D1022B4206D0030C48D /* ExpensesVC.swift */,
 			);
 			path = Controllder;
 			sourceTree = "<group>";
@@ -153,6 +161,7 @@
 			children = (
 				1DF1945E22B1DA9200DFC41B /* Font.swift */,
 				1DF1946022B1E06E00DFC41B /* Color.swift */,
+				1D136D1222B560450030C48D /* Button.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -186,7 +195,7 @@
 				1DF1946622B2069A00DFC41B /* GetStartedStackView.swift */,
 				1DF1946C22B2156A00DFC41B /* Underline.swift */,
 				1DF1946E22B21BDC00DFC41B /* MainBlueButton.swift */,
-				1DF1947422B3469000DFC41B /* CreateAccountStackView.swift */,
+				1DF1947422B3469000DFC41B /* OnboardingStackView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -351,9 +360,12 @@
 				1DF1944C22B1C46D00DFC41B /* GetStartedVC.swift in Sources */,
 				1DF1946B22B206F900DFC41B /* LabelAndButtonStackView.swift in Sources */,
 				1DF1946F22B21BDC00DFC41B /* MainBlueButton.swift in Sources */,
+				1D136D1122B4206D0030C48D /* ExpensesVC.swift in Sources */,
 				1DF1946322B2003B00DFC41B /* LogoImageView.swift in Sources */,
 				1DF1946722B2069A00DFC41B /* GetStartedStackView.swift in Sources */,
-				1DF1947522B3469000DFC41B /* CreateAccountStackView.swift in Sources */,
+				1D136D1322B560450030C48D /* Button.swift in Sources */,
+				1D136D0F22B40E8B0030C48D /* LoginVC.swift in Sources */,
+				1DF1947522B3469000DFC41B /* OnboardingStackView.swift in Sources */,
 				1DF1947122B336B800DFC41B /* CreateAccountVC.swift in Sources */,
 				1DF1945F22B1DA9200DFC41B /* Font.swift in Sources */,
 			);
