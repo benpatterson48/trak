@@ -17,7 +17,7 @@ class ExpensesVC: UIViewController {
         super.viewDidLoad()
 		addViews()
 		addButtonTargets()
-		view.backgroundColor = .white 
+		view.backgroundColor = .white
 	}
 	
 	fileprivate func addButtonTargets() {

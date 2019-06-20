@@ -14,6 +14,16 @@
 		1D136D1822B7D4F30030C48D /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D136D1722B7D4F30030C48D /* Header.swift */; };
 		1D136D1A22B887CC0030C48D /* AddExpenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D136D1922B887CC0030C48D /* AddExpenseVC.swift */; };
 		1D136D1D22B8937A0030C48D /* AddExpenseStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D136D1C22B8937A0030C48D /* AddExpenseStackView.swift */; };
+		1D6B9B1122B9E90900E07920 /* ImageAndTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B9B1022B9E90900E07920 /* ImageAndTextButton.swift */; };
+		1D6B9B1322B9EE9200E07920 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B9B1222B9EE9200E07920 /* Labels.swift */; };
+		1D6B9B1722BA01F800E07920 /* ReminderTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B9B1622BA01F800E07920 /* ReminderTableView.swift */; };
+		1D80CE4D22BAD52C00D69E71 /* ReminderSwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80CE4C22BAD52C00D69E71 /* ReminderSwitchCell.swift */; };
+		1D80CE4F22BAD53C00D69E71 /* SetReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80CE4E22BAD53C00D69E71 /* SetReminderCell.swift */; };
+		1D80CE5122BAD54C00D69E71 /* RepeatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80CE5022BAD54C00D69E71 /* RepeatCell.swift */; };
+		1D80CE5322BAE76700D69E71 /* AddNewCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80CE5222BAE76700D69E71 /* AddNewCategoryVC.swift */; };
+		1D80CE5522BB1F9500D69E71 /* ExpenseDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80CE5422BB1F9500D69E71 /* ExpenseDatePicker.swift */; };
+		1D80CE5922BB369A00D69E71 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80CE5822BB369A00D69E71 /* DataService.swift */; };
+		1D80CE5B22BB519E00D69E71 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80CE5A22BB519E00D69E71 /* String.swift */; };
 		1DF1943322B1C1F200DFC41B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1943222B1C1F200DFC41B /* AppDelegate.swift */; };
 		1DF1943A22B1C1F400DFC41B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1943922B1C1F400DFC41B /* Assets.xcassets */; };
 		1DF1943D22B1C1F400DFC41B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1943B22B1C1F400DFC41B /* LaunchScreen.storyboard */; };
@@ -47,6 +57,16 @@
 		1D136D1722B7D4F30030C48D /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		1D136D1922B887CC0030C48D /* AddExpenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseVC.swift; sourceTree = "<group>"; };
 		1D136D1C22B8937A0030C48D /* AddExpenseStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseStackView.swift; sourceTree = "<group>"; };
+		1D6B9B1022B9E90900E07920 /* ImageAndTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAndTextButton.swift; sourceTree = "<group>"; };
+		1D6B9B1222B9EE9200E07920 /* Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
+		1D6B9B1622BA01F800E07920 /* ReminderTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTableView.swift; sourceTree = "<group>"; };
+		1D80CE4C22BAD52C00D69E71 /* ReminderSwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderSwitchCell.swift; sourceTree = "<group>"; };
+		1D80CE4E22BAD53C00D69E71 /* SetReminderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetReminderCell.swift; sourceTree = "<group>"; };
+		1D80CE5022BAD54C00D69E71 /* RepeatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatCell.swift; sourceTree = "<group>"; };
+		1D80CE5222BAE76700D69E71 /* AddNewCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCategoryVC.swift; sourceTree = "<group>"; };
+		1D80CE5422BB1F9500D69E71 /* ExpenseDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDatePicker.swift; sourceTree = "<group>"; };
+		1D80CE5822BB369A00D69E71 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		1D80CE5A22BB519E00D69E71 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		1DF1942F22B1C1F200DFC41B /* Trak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF1943222B1C1F200DFC41B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1DF1943922B1C1F400DFC41B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -98,8 +118,20 @@
 			isa = PBXGroup;
 			children = (
 				1D136D1C22B8937A0030C48D /* AddExpenseStackView.swift */,
+				1D6B9B1622BA01F800E07920 /* ReminderTableView.swift */,
+				1D80CE5422BB1F9500D69E71 /* ExpenseDatePicker.swift */,
 			);
 			path = AddExpense;
+			sourceTree = "<group>";
+		};
+		1D80CE4B22BAD51000D69E71 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1D80CE4C22BAD52C00D69E71 /* ReminderSwitchCell.swift */,
+				1D80CE4E22BAD53C00D69E71 /* SetReminderCell.swift */,
+				1D80CE5022BAD54C00D69E71 /* RepeatCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		1DF1942622B1C1F200DFC41B = {
@@ -146,6 +178,7 @@
 				1D136D0E22B40E8B0030C48D /* LoginVC.swift */,
 				1D136D1022B4206D0030C48D /* ExpensesVC.swift */,
 				1D136D1922B887CC0030C48D /* AddExpenseVC.swift */,
+				1D80CE5222BAE76700D69E71 /* AddNewCategoryVC.swift */,
 			);
 			path = Controllder;
 			sourceTree = "<group>";
@@ -153,6 +186,7 @@
 		1DF1944522B1C3AD00DFC41B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1D80CE4B22BAD51000D69E71 /* Cells */,
 				1D136D1B22B893640030C48D /* AddExpense */,
 				1D136D1422B56B2F0030C48D /* Expenses */,
 				1DF1946522B2068000DFC41B /* Onboarding */,
@@ -179,6 +213,7 @@
 		1DF1944822B1C3B400DFC41B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				1D80CE5822BB369A00D69E71 /* DataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -189,6 +224,7 @@
 				1DF1945E22B1DA9200DFC41B /* Font.swift */,
 				1DF1946022B1E06E00DFC41B /* Color.swift */,
 				1D136D1222B560450030C48D /* Button.swift */,
+				1D80CE5A22BB519E00D69E71 /* String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -210,9 +246,11 @@
 			isa = PBXGroup;
 			children = (
 				1DF1946A22B206F900DFC41B /* LabelAndButtonStackView.swift */,
+				1D6B9B1022B9E90900E07920 /* ImageAndTextButton.swift */,
 				1DF1946222B2003B00DFC41B /* LogoImageView.swift */,
 				1DF1947822B378BE00DFC41B /* UnderlineTextField.swift */,
 				1D136D1722B7D4F30030C48D /* Header.swift */,
+				1D6B9B1222B9EE9200E07920 /* Labels.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -384,22 +422,32 @@
 				1DF1946D22B2156A00DFC41B /* Underline.swift in Sources */,
 				1DF1943322B1C1F200DFC41B /* AppDelegate.swift in Sources */,
 				1DF1947922B378BE00DFC41B /* UnderlineTextField.swift in Sources */,
+				1D6B9B1122B9E90900E07920 /* ImageAndTextButton.swift in Sources */,
 				1DF1946122B1E06E00DFC41B /* Color.swift in Sources */,
 				1DF1944C22B1C46D00DFC41B /* GetStartedVC.swift in Sources */,
 				1DF1946B22B206F900DFC41B /* LabelAndButtonStackView.swift in Sources */,
+				1D80CE5322BAE76700D69E71 /* AddNewCategoryVC.swift in Sources */,
 				1DF1946F22B21BDC00DFC41B /* MainBlueButton.swift in Sources */,
+				1D80CE5922BB369A00D69E71 /* DataService.swift in Sources */,
 				1D136D1122B4206D0030C48D /* ExpensesVC.swift in Sources */,
+				1D80CE5522BB1F9500D69E71 /* ExpenseDatePicker.swift in Sources */,
 				1D136D1822B7D4F30030C48D /* Header.swift in Sources */,
+				1D80CE4F22BAD53C00D69E71 /* SetReminderCell.swift in Sources */,
+				1D6B9B1322B9EE9200E07920 /* Labels.swift in Sources */,
 				1DF1946322B2003B00DFC41B /* LogoImageView.swift in Sources */,
 				1DF1946722B2069A00DFC41B /* GetStartedStackView.swift in Sources */,
+				1D6B9B1722BA01F800E07920 /* ReminderTableView.swift in Sources */,
 				1D136D1322B560450030C48D /* Button.swift in Sources */,
 				1D136D1D22B8937A0030C48D /* AddExpenseStackView.swift in Sources */,
 				1D136D1622B56BD40030C48D /* EmptyState.swift in Sources */,
 				1D136D0F22B40E8B0030C48D /* LoginVC.swift in Sources */,
 				1DF1947522B3469000DFC41B /* OnboardingStackView.swift in Sources */,
 				1D136D1A22B887CC0030C48D /* AddExpenseVC.swift in Sources */,
+				1D80CE4D22BAD52C00D69E71 /* ReminderSwitchCell.swift in Sources */,
 				1DF1947122B336B800DFC41B /* CreateAccountVC.swift in Sources */,
 				1DF1945F22B1DA9200DFC41B /* Font.swift in Sources */,
+				1D80CE5B22BB519E00D69E71 /* String.swift in Sources */,
+				1D80CE5122BAD54C00D69E71 /* RepeatCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -550,7 +598,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.benpatterson.Trak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = "";
 			};
 			name = Debug;
@@ -571,7 +619,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.benpatterson.Trak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = "";
 			};
 			name = Release;

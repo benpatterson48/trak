@@ -13,13 +13,13 @@ class AddExpenseStackView: UIView {
 	let totalField = UnderlineTextField(placeholder: "Payment Total")
 	let dateField = UnderlineTextFieldWithIcon(placeholder: "Date", iconImage: "date")
 	let categoryField = UnderlineTextFieldWithIcon(placeholder: "Category", iconImage: "down")
-	
+		
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		addViews()
 	}
 	
-	fileprivate func addViews() {
+	func addViews() {
 		let fieldsStackView = UIStackView(arrangedSubviews: [nameField, totalField, dateField, categoryField])
 		fieldsStackView.translatesAutoresizingMaskIntoConstraints = false
 		fieldsStackView.axis = .vertical
@@ -30,7 +30,7 @@ class AddExpenseStackView: UIView {
 		fieldsStackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
 		fieldsStackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 		fieldsStackView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-		fieldsStackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true 
+		fieldsStackView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
 	}
 	
 	required init?(coder aDecoder: NSCoder) {

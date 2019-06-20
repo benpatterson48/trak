@@ -13,7 +13,7 @@ class UnderlineTextField: UIView {
 	let textField: UITextField = {
 		let tf = UITextField()
 		tf.borderStyle = .none
-		tf.textColor = #colorLiteral(red: 0.4509803922, green: 0.4823529412, blue: 0.537254902, alpha: 1)
+		tf.textColor = UIColor.main.darkText
 		tf.font  = UIFont.mainFont(ofSize: 18)
 		tf.translatesAutoresizingMaskIntoConstraints = false
 		return tf
@@ -69,7 +69,7 @@ class UnderlineTextFieldWithIcon: UIView {
 	let textField: UITextField = {
 		let tf = UITextField()
 		tf.borderStyle = .none
-		tf.textColor = UIColor(red:0.42, green:0.45, blue:0.51, alpha:1)
+		tf.textColor = UIColor.main.darkText
 		tf.font  = UIFont.mainFont(ofSize: 18)
 		tf.translatesAutoresizingMaskIntoConstraints = false
 		return tf

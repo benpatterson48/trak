@@ -21,3 +21,16 @@ class Underline: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 }
+
+class ThinUnderline: UIView {
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		backgroundColor = #colorLiteral(red: 0.7490196078, green: 0.7725490196, blue: 0.8235294118, alpha: 1)
+		translatesAutoresizingMaskIntoConstraints = false
+		heightAnchor.constraint(equalToConstant: 1).isActive = true
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+}
