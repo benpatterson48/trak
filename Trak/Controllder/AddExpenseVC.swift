@@ -133,7 +133,6 @@ class AddExpenseVC: UIViewController {
 	
 	fileprivate func setupAddPaymentButton() {
 		addPaymentButton.setTitle("Add Payment", for: .normal)
-		addPaymentButton.alpha = 0.5
 	}
 	
 	fileprivate func setupHeader() {
