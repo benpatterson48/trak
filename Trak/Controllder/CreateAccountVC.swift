@@ -75,7 +75,6 @@ class CreateAccountVC: UIViewController {
 		guard let user = Auth.auth().currentUser else { return }
 		db.collection("users").document(user.uid).setData([
 			"email": userEmail,
-			"password": userPassword
 		]) { err in
 			if let err = err {
 				print("❌❌❌ Error writing document: \(err)")

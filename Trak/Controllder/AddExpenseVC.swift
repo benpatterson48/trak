@@ -15,6 +15,9 @@ class AddExpenseVC: UIViewController {
 	var db = Firestore.firestore()
 	var categoriesArray = [String]()
 	var paymentDate: Date?
+	var paymentMonth: String?
+	var paymentYear: String?
+	
 	let fields = AddExpenseStackView()
 	let addPaymentButton = MainBlueButton()
 	let datePicker = ExpenseDatePicker()
@@ -30,42 +33,17 @@ class AddExpenseVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		addViews()
+		setupHeader()
+		setupFields()
+		setupButtonTargets()
+		setupCategoryPicker()
 		setupAddPaymentButton()
 		view.backgroundColor = .white
-		fields.totalField.textField.keyboardType = .decimalPad
-		fields.dateField.textField.inputView = datePicker
-		fields.categoryField.textField.inputView = categoryPicker
-		datePicker.addTarget(self, action: #selector(AddExpenseVC.dateChanged(datePicker:)), for: .valueChanged)
-		header.rightBarButtonItem.isUserInteractionEnabled = false
-		header.leftBarButtonItem.addTarget(self, action: #selector(backButtonWasPressed), for: .touchUpInside)
-		addCategoryButton.label.addTarget(self, action: #selector(addNewCategoryButtonWasPressed), for: .touchUpInside)
-		addCategoryButton.icon.addTarget(self, action: #selector(addNewCategoryButtonWasPressed), for: .touchUpInside)
-		
-		categoryPicker.delegate = self
-		categoryPicker.dataSource = self
-		categoryPicker.backgroundColor = .white
 		let tap = UITapGestureRecognizer(target: self, action: #selector(viewTappedToCloseOut))
 		view.addGestureRecognizer(tap)
 	}
 	
-	fileprivate func getCategories() {
-		DataService.instance.getUsersCategories { (categoriesReturned) in
-			self.categoriesArray = categoriesReturned
-		}
-	}
-	
-	fileprivate func setupAddPaymentButton() {
-		addPaymentButton.setTitle("Add Payment", for: .normal)
-		addPaymentButton.alpha = 0.5
-	}
-	
-	@objc func dateChanged(datePicker: UIDatePicker) {
-		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "MM/dd/yyyy"
-		paymentDate = datePicker.date
-		fields.dateField.textField.text = dateFormatter.string(from: datePicker.date)
-	}
-	
+	//Button Target Funcs
 	@objc func viewTappedToCloseOut() {
 		view.endEditing(true)
 	}
@@ -78,7 +56,26 @@ class AddExpenseVC: UIViewController {
 	@objc func backButtonWasPressed() {
 		dismiss(animated: true, completion: nil)
 	}
+	
+	@objc func dateChanged(datePicker: UIDatePicker) {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "MMMM/dd/yyyy"
+		paymentDate = datePicker.date
+		paymentMonth = paymentDate?.month
+		paymentYear = paymentDate?.year
+		fields.dateField.textField.text = dateFormatter.string(from: datePicker.date)
+	}
+	
+	@objc func addPaymentButtonWasPressed() {
+		guard let paymentName = fields.nameField.textField.text, fields.nameField.textField.text != nil else { return }
+		guard let paymentAmount = fields.totalField.textField.text else { return }
+		guard let paymentAmountDouble = Double(paymentAmount) else { return  }
+		guard let paymentDueDate = paymentDate else { return }
+		guard let paymentCategory = fields.categoryField.textField.text, fields.categoryField.textField.text != nil else { return }
+		addPaymentToDatabase(name: paymentName, amount: paymentAmountDouble, date: paymentDueDate, category: paymentCategory)
+	}
 
+	//UI Funcs
 	fileprivate func addViews() {
 		view.addSubview(header)
 		view.addSubview(fields)
@@ -109,21 +106,59 @@ class AddExpenseVC: UIViewController {
 		addPaymentButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32).isActive = true
 		addPaymentButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
 	}
+
+	//Adding data to Firestore
+	fileprivate func addPaymentToDatabase(name: String, amount: Double, date: Date, category: String) {
+		guard let user = Auth.auth().currentUser else {return}
+		guard let month = paymentMonth else {return}
+		guard let year = paymentYear else {return}
+		let expense = [
+			name : ["name": name, "amount": amount, "date": date, "category": category]
+		]
+		db.collection("users").document(user.uid).collection(year).document(month).setData(expense, merge: true) { err in
+			if let err = err {
+				print("❌❌❌ Error writing document: \(err)")
+			} else {
+				print("✅✅✅ Document successfully written!")
+			}
+		}
+	}
 	
-//	fileprivate func addUserToDatabase(name: String, amount: Double, date: Date, category: String) {
-//		guard let user = Auth.auth().currentUser else { return }
-//		db.collection("users").document(user.uid).setData([
-//
-//		], merge: true) { err in
-//			if let err = err {
-//				print("❌❌❌ Error writing document: \(err)")
-//			} else {
-//				print("✅✅✅ Document successfully written!")
-//			}
-//		}
-//	}
-
-
+	//Helper Funcs
+	fileprivate func getCategories() {
+		DataService.instance.getUsersCategories { (categoriesReturned) in
+			self.categoriesArray = categoriesReturned
+		}
+	}
+	
+	fileprivate func setupAddPaymentButton() {
+		addPaymentButton.setTitle("Add Payment", for: .normal)
+		addPaymentButton.alpha = 0.5
+	}
+	
+	fileprivate func setupHeader() {
+		header.rightBarButtonItem.isUserInteractionEnabled = false
+		header.leftBarButtonItem.addTarget(self, action: #selector(backButtonWasPressed), for: .touchUpInside)
+	}
+	
+	fileprivate func setupCategoryPicker() {
+		categoryPicker.delegate = self
+		categoryPicker.dataSource = self
+		categoryPicker.backgroundColor = .white
+	}
+	
+	fileprivate func setupButtonTargets() {
+		addPaymentButton.addTarget(self, action: #selector(addPaymentButtonWasPressed), for: .touchUpInside)
+		datePicker.addTarget(self, action: #selector(AddExpenseVC.dateChanged(datePicker:)), for: .valueChanged)
+		addCategoryButton.label.addTarget(self, action: #selector(addNewCategoryButtonWasPressed), for: .touchUpInside)
+		addCategoryButton.icon.addTarget(self, action: #selector(addNewCategoryButtonWasPressed), for: .touchUpInside)
+	}
+	
+	fileprivate func setupFields() {
+		fields.totalField.textField.keyboardType = .decimalPad
+		fields.dateField.textField.inputView = datePicker
+		fields.categoryField.textField.inputView = categoryPicker
+	}
 }
 
 extension AddExpenseVC: UIPickerViewDelegate, UIPickerViewDataSource {

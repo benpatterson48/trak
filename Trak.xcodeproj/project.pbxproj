@@ -14,6 +14,7 @@
 		1D136D1822B7D4F30030C48D /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D136D1722B7D4F30030C48D /* Header.swift */; };
 		1D136D1A22B887CC0030C48D /* AddExpenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D136D1922B887CC0030C48D /* AddExpenseVC.swift */; };
 		1D136D1D22B8937A0030C48D /* AddExpenseStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D136D1C22B8937A0030C48D /* AddExpenseStackView.swift */; };
+		1D5243E922BCA03200DD8F92 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5243E822BCA03200DD8F92 /* Date.swift */; };
 		1D6B9B1122B9E90900E07920 /* ImageAndTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B9B1022B9E90900E07920 /* ImageAndTextButton.swift */; };
 		1D6B9B1322B9EE9200E07920 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B9B1222B9EE9200E07920 /* Labels.swift */; };
 		1D6B9B1722BA01F800E07920 /* ReminderTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B9B1622BA01F800E07920 /* ReminderTableView.swift */; };
@@ -57,6 +58,7 @@
 		1D136D1722B7D4F30030C48D /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		1D136D1922B887CC0030C48D /* AddExpenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseVC.swift; sourceTree = "<group>"; };
 		1D136D1C22B8937A0030C48D /* AddExpenseStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseStackView.swift; sourceTree = "<group>"; };
+		1D5243E822BCA03200DD8F92 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		1D6B9B1022B9E90900E07920 /* ImageAndTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAndTextButton.swift; sourceTree = "<group>"; };
 		1D6B9B1222B9EE9200E07920 /* Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
 		1D6B9B1622BA01F800E07920 /* ReminderTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderTableView.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				1DF1946022B1E06E00DFC41B /* Color.swift */,
 				1D136D1222B560450030C48D /* Button.swift */,
 				1D80CE5A22BB519E00D69E71 /* String.swift */,
+				1D5243E822BCA03200DD8F92 /* Date.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DF1946D22B2156A00DFC41B /* Underline.swift in Sources */,
+				1D5243E922BCA03200DD8F92 /* Date.swift in Sources */,
 				1DF1943322B1C1F200DFC41B /* AppDelegate.swift in Sources */,
 				1DF1947922B378BE00DFC41B /* UnderlineTextField.swift in Sources */,
 				1D6B9B1122B9E90900E07920 /* ImageAndTextButton.swift in Sources */,
