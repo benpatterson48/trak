@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class AddExpenseVC: UIViewController {
+class AddExpenseVC: UIViewController, UITextFieldDelegate {
 	
 	var db = Firestore.firestore()
 	var categoriesArray = [String]()
@@ -24,6 +24,7 @@ class AddExpenseVC: UIViewController {
 	let categoryPicker = UIPickerView()
 	let addCategoryButton = ImageAndTextButton(labelText: "Create New Category", iconImage: "circle-add")
 	let header = HeaderWithTextTitle(leftIcon: UIImage(named: "back")!, rightIcon: UIImage(named: "space")!, title: "Add New Payment")
+	let alert = UIAlertController(title: "Form Not Complete", message: "Please complete every field to submit", preferredStyle: .alert)
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
@@ -48,6 +49,10 @@ class AddExpenseVC: UIViewController {
 		view.endEditing(true)
 	}
 	
+	@objc func textFieldDidChange(_ textField: UITextField) {
+		fields.totalField.textField.text = fields.totalField.textField.text?.currency
+	}
+	
 	@objc func addNewCategoryButtonWasPressed() {
 		let category = AddNewCategoryVC()
 		present(category, animated: true, completion: nil)
@@ -59,7 +64,7 @@ class AddExpenseVC: UIViewController {
 	
 	@objc func dateChanged(datePicker: UIDatePicker) {
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateFormat = "MMMM/dd/yyyy"
+		dateFormatter.dateFormat = "MMMM dd, yyyy"
 		paymentDate = datePicker.date
 		paymentMonth = paymentDate?.month
 		paymentYear = paymentDate?.year
@@ -67,12 +72,13 @@ class AddExpenseVC: UIViewController {
 	}
 	
 	@objc func addPaymentButtonWasPressed() {
-		guard let paymentName = fields.nameField.textField.text, fields.nameField.textField.text != nil else { return }
-		guard let paymentAmount = fields.totalField.textField.text else { return }
-		guard let paymentAmountDouble = Double(paymentAmount) else { return  }
-		guard let paymentDueDate = paymentDate else { return }
-		guard let paymentCategory = fields.categoryField.textField.text, fields.categoryField.textField.text != nil else { return }
+		guard let paymentName = fields.nameField.textField.text, fields.nameField.textField.text != nil else { print("name");showIncompleteFormAlert(); return }
+		guard let paymentAmount = fields.totalField.textField.text?.removeCurrency else { print("payamount");showIncompleteFormAlert(); return }
+		guard let paymentAmountDouble = Double(paymentAmount) else { print("aqmtdoubt");showIncompleteFormAlert(); return }
+		guard let paymentDueDate = paymentDate else { print("duedate");showIncompleteFormAlert(); return }
+		guard let paymentCategory = fields.categoryField.textField.text, fields.categoryField.textField.text != nil else {  print("category");showIncompleteFormAlert(); return }
 		addPaymentToDatabase(name: paymentName, amount: paymentAmountDouble, date: paymentDueDate, category: paymentCategory)
+		dismiss(animated: true, completion: nil)
 	}
 
 	//UI Funcs
@@ -151,12 +157,19 @@ class AddExpenseVC: UIViewController {
 		datePicker.addTarget(self, action: #selector(AddExpenseVC.dateChanged(datePicker:)), for: .valueChanged)
 		addCategoryButton.label.addTarget(self, action: #selector(addNewCategoryButtonWasPressed), for: .touchUpInside)
 		addCategoryButton.icon.addTarget(self, action: #selector(addNewCategoryButtonWasPressed), for: .touchUpInside)
+		alert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: nil))
+		fields.totalField.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidEnd)
 	}
 	
 	fileprivate func setupFields() {
 		fields.totalField.textField.keyboardType = .decimalPad
 		fields.dateField.textField.inputView = datePicker
 		fields.categoryField.textField.inputView = categoryPicker
+		fields.totalField.textField.clearsOnBeginEditing = true
+	}
+	
+	fileprivate func showIncompleteFormAlert() {
+		present(alert, animated: true, completion: nil)
 	}
 }
 
