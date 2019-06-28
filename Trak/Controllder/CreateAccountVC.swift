@@ -24,7 +24,13 @@ class CreateAccountVC: UIViewController {
 		addViews()
 		stackView.button.addTarget(self, action: #selector(createAccountButtonWasPressed), for: .touchUpInside)
 		signUpTextButton.button.addTarget(self, action: #selector(signupButtonWasPressed), for: .touchUpInside)
+		let tap = UITapGestureRecognizer(target: self, action: #selector(viewTappedToCloseOut))
+		view.addGestureRecognizer(tap)
     }
+	
+	@objc func viewTappedToCloseOut() {
+		view.endEditing(true)
+	}
 
 	fileprivate func addViews() {
 		view.addSubview(logo)
@@ -56,12 +62,11 @@ class CreateAccountVC: UIViewController {
 		guard let password = stackView.password.textField.text, stackView.password.textField.text != nil else { return }
 		Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
 			if error == nil {
-				print("✅✅✅ Account Created")
 				self.addUserToDatabase(userEmail: email, userPassword: password)
-				// segue to mainVC
+				let expsenses = ExpensesVC()
+				self.present(expsenses, animated: true, completion: nil)
 			} else {
 				self.stackView.button.stopLoading(title: "Create Account")
-				print("❌❌❌ We had an error")
 			}
 		}
 	}
@@ -75,6 +80,7 @@ class CreateAccountVC: UIViewController {
 		guard let user = Auth.auth().currentUser else { return }
 		db.collection("users").document(user.uid).setData([
 			"email": userEmail,
+			"categories": ["General"],
 		]) { err in
 			if let err = err {
 				print("❌❌❌ Error writing document: \(err)")

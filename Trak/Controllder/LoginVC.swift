@@ -22,6 +22,9 @@ class LoginVC: UIViewController {
 		view.backgroundColor = .white
 		addViews()
 		alert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: nil))
+		stackView.button.addTarget(self, action: #selector(loginButtonWasPressed), for: .touchUpInside)
+		let tap = UITapGestureRecognizer(target: self, action: #selector(viewTappedToCloseOut))
+		view.addGestureRecognizer(tap)
 	}
 	
 	fileprivate func addViews() {
@@ -32,6 +35,10 @@ class LoginVC: UIViewController {
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		signUpTextButton.translatesAutoresizingMaskIntoConstraints = false 
 		addConstraints()
+	}
+	
+	@objc func viewTappedToCloseOut() {
+		view.endEditing(true)
 	}
 	
 	fileprivate func addConstraints() {

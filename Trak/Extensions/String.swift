@@ -14,7 +14,7 @@ extension String  {
 		let stringWithoutComma = stringWithoutSymbol.replacingOccurrences(of: ",", with: "")
 		
 		let styler = NumberFormatter()
-		styler.minimumFractionDigits = 0
+		styler.minimumFractionDigits = 2
 		styler.maximumFractionDigits = 2
 		styler.currencySymbol = "$"
 		styler.numberStyle = .currency
@@ -30,7 +30,7 @@ extension String  {
 		let stringWithoutSymbol = self.replacingOccurrences(of: "$", with: "")
 		let stringWithoutComma = stringWithoutSymbol.replacingOccurrences(of: ",", with: "")
 		let styler = NumberFormatter()
-		styler.minimumFractionDigits = 0
+		styler.minimumFractionDigits = 2
 		styler.maximumFractionDigits = 2
 		styler.currencySymbol = .none
 		styler.numberStyle = .none

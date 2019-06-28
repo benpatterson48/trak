@@ -25,7 +25,13 @@ class AddNewCategoryVC: UIViewController {
 		addViews()
 		header.leftBarButtonItem.addTarget(self, action: #selector(backButtonWasPressed), for: .touchUpInside)
 		createCategoryButton.addTarget(self, action: #selector(createCategoryButtonWasPressed), for: .touchUpInside)
-    }
+		let tap = UITapGestureRecognizer(target: self, action: #selector(viewTappedToCloseOut))
+		view.addGestureRecognizer(tap)
+	}
+	
+	@objc func viewTappedToCloseOut() {
+		view.endEditing(true)
+	}
 	
 	@objc func backButtonWasPressed() {
 		dismiss(animated: true, completion: nil)

@@ -119,7 +119,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 		guard let month = paymentMonth else {return}
 		guard let year = paymentYear else {return}
 		let expense = [
-			name : ["name": name, "amount": amount, "date": date, "category": category]
+			name : ["name": name, "amount": amount, "date": date, "category": category, "isPaid": false]
 		]
 		db.collection("users").document(user.uid).collection(year).document(month).setData(expense, merge: true) { err in
 			if let err = err {
@@ -132,7 +132,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 	
 	//Helper Funcs
 	fileprivate func getCategories() {
-		DataService.instance.getUsersCategories { (categoriesReturned) in
+		DataService.instance.getUserCategories { (categoriesReturned) in
 			self.categoriesArray = categoriesReturned
 		}
 	}
@@ -162,6 +162,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 	}
 	
 	fileprivate func setupFields() {
+		fields.categoryField.textField.inputView = categoryPicker
 		fields.totalField.textField.keyboardType = .decimalPad
 		fields.dateField.textField.inputView = datePicker
 		fields.categoryField.textField.inputView = categoryPicker
@@ -187,6 +188,10 @@ extension AddExpenseVC: UIPickerViewDelegate, UIPickerViewDataSource {
 	}
 	
 	func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-		fields.categoryField.textField.text = categoriesArray[row]
+		if categoriesArray.count > 0 {
+			fields.categoryField.textField.text = categoriesArray[row]
+		} else {
+			return
+		}
 	}
 }

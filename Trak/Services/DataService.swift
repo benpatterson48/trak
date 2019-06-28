@@ -13,13 +13,14 @@ class DataService {
 	var db = Firestore.firestore()
 	static let instance = DataService()
 	
-	func getUsersCategories(handler: @escaping (_ categoriesArray: [String]) -> ()) {
+	func getUserCategories(handler: @escaping (_ categoriesArray: [String]) -> ()) {
 		var categoriesArray = [String]()
 		guard let user = Auth.auth().currentUser else { return }
 		let docRef = db.collection("users").document(user.uid)
-		docRef.getDocument(source: .cache) { (document, error) in
+		docRef.getDocument() { (document, error) in
 			if let document = document {
-				categoriesArray = document.get("categories") as! [String]
+				let property = document.get("categories")
+				categoriesArray = property as? [String] ?? []
 				handler(categoriesArray)
 			} else {
 				print("Document does not exist in cache")

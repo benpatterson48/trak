@@ -47,7 +47,7 @@ class HeaderWithLogo: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		addViews()
-		heightAnchor.constraint(equalToConstant: 100).isActive = true
+		heightAnchor.constraint(equalToConstant: 116).isActive = true
 	}
 	
 	public convenience init(leftIcon: UIImage, rightIcon: UIImage) {
@@ -65,11 +65,12 @@ class HeaderWithLogo: UIView {
 		bottomView.topAnchor.constraint(equalTo: row.bottomAnchor, constant: 16).isActive = true
 		bottomView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
 		bottomView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+		bottomView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 		
 		logo.heightAnchor.constraint(equalToConstant: 20).isActive = true
 		logo.centerXAnchor.constraint(equalTo: row.centerXAnchor).isActive = true
 		row.heightAnchor.constraint(equalToConstant: 20).isActive = true
-		row.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16).isActive = true
+		row.bottomAnchor.constraint(equalTo: bottomView.topAnchor, constant: -16).isActive = true
 		row.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24).isActive = true
 		row.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24).isActive = true
 	}
@@ -118,6 +119,7 @@ class HeaderWithTextTitle: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		addViews()
+		backgroundColor = .white
 		heightAnchor.constraint(equalToConstant: 100).isActive = true
 	}
 	
