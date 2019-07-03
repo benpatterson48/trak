@@ -40,13 +40,7 @@ class ExpensesVC: UIViewController, UIScrollViewDelegate {
 			self.categoriesArray.append(contentsOf: returnedCategories)
 		}
 	}
-	
-//	override func viewDidAppear(_ animated: Bool) {
-//		super.viewDidAppear(true)
-//		let indexPath = IndexPath(item: 0, section: 0)
-//		categoryCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-//	}
-	
+
     override func viewDidLoad() {
         super.viewDidLoad()
 		addButtonTargets()
@@ -59,7 +53,8 @@ class ExpensesVC: UIViewController, UIScrollViewDelegate {
 		categoryCollectionView.dataSource = self
 		
 		scrollView.isScrollEnabled = true
-//		scrollView.alwaysBounceVertical = true
+		scrollView.bounces = false
+		scrollView.showsVerticalScrollIndicator = false 
 		scrollView.delegate = self
 	}
 
@@ -233,6 +228,7 @@ extension ExpensesVC: UICollectionViewDelegate, UICollectionViewDataSource, UICo
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		guard let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "category", for: indexPath) as? CategoryCell else { return UICollectionViewCell() }
+		categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .top)
 		cell.categoryTitle.text = categoriesArray[indexPath.row]
 		return cell
 	}

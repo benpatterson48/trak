@@ -32,13 +32,16 @@ class CategoryCell: UICollectionViewCell {
 		backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
 		setupViews()
 		translatesAutoresizingMaskIntoConstraints = false 
-		heightAnchor.constraint(equalToConstant: 50).isActive = true
+		heightAnchor.constraint(equalToConstant: 58).isActive = true
 	}
 	
 	override var isSelected: Bool {
 		didSet {
-			self.pillBG.backgroundColor = self.isSelected ? UIColor.main.lightBlueBackground : .clear
-			self.categoryTitle.textColor = self.isSelected ? UIColor.main.darkText : #colorLiteral(red: 0.1843137255, green: 0.2196078431, blue: 0.3019607843, alpha: 0.8)
+			if self.isSelected == true {
+				self.pillBG.backgroundColor = UIColor.main.lightBlueBackground
+			} else {
+				self.pillBG.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
+			}
 		}
 	}
 	
@@ -49,7 +52,7 @@ class CategoryCell: UICollectionViewCell {
 		pillBG.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -9).isActive = true
 		pillBG.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
 		pillBG.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-		pillBG.heightAnchor.constraint(equalToConstant: 32).isActive = true
+		pillBG.heightAnchor.constraint(equalToConstant: 40).isActive = true
 		
 		categoryTitle.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true
 		categoryTitle.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12).isActive = true 
