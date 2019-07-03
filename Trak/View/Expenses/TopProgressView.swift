@@ -42,6 +42,7 @@ class MonthSwipeStack: UIView {
 		super.init(frame: frame)
 		backgroundColor = .white
 		addViews()
+		backgroundColor = .white 
 		monthTitleLabelButton.setTitle(grabCurrentMonth(), for: .normal)
 	}
 	
@@ -132,6 +133,7 @@ class TotalStackView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		createStackView()
+		backgroundColor = .white
 	}
 	
 	private func createStackView() {
@@ -177,6 +179,7 @@ class keyStackView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		createStackView()
+		backgroundColor = .white
 	}
 	
 	public convenience init(title: String, dotAmountNumber: String) {
@@ -228,6 +231,7 @@ class totalKeyView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		createStackViews()
+		backgroundColor = .white
 	}
 	
 	private func createStackViews() {
