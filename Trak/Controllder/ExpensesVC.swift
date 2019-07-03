@@ -60,6 +60,12 @@ class ExpensesVC: UIViewController, UIScrollViewDelegate {
 
 	fileprivate func addButtonTargets() {
 		emptyState.button.addTarget(self, action: #selector(addNewPaymentButtonWasPressed), for: .touchUpInside)
+		header.rightBarButtonItem.addTarget(self, action: #selector(addNewExpenseButtonWasPressed), for: .touchUpInside)
+	}
+	
+	@objc func addNewExpenseButtonWasPressed() {
+		let newExpense = AddExpenseVC()
+		present(newExpense, animated: true, completion: nil)
 	}
 	
 	@objc func addNewPaymentButtonWasPressed() {
@@ -167,12 +173,12 @@ class ExpensesVC: UIViewController, UIScrollViewDelegate {
 		bottomBG.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
 		bottomBG.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
 
-		categoryCollectionView.topAnchor.constraint(equalTo: bottomBG.topAnchor, constant: 16).isActive = true
+		categoryCollectionView.topAnchor.constraint(equalTo: bottomBG.topAnchor, constant: 24).isActive = true
 		categoryCollectionView.leadingAnchor.constraint(equalTo: bottomBG.leadingAnchor, constant: 16).isActive = true
-		categoryCollectionView.trailingAnchor.constraint(equalTo: bottomBG.trailingAnchor, constant: -16).isActive = true
+		categoryCollectionView.trailingAnchor.constraint(equalTo: bottomBG.trailingAnchor).isActive = true
 		categoryCollectionView.heightAnchor.constraint(equalToConstant: 60).isActive = true
 
-		expensesTableView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 16).isActive = true
+		expensesTableView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 8).isActive = true
 		expensesTableView.leadingAnchor.constraint(equalTo: bottomBG.leadingAnchor).isActive = true
 		expensesTableView.trailingAnchor.constraint(equalTo: bottomBG.trailingAnchor).isActive = true
 		expensesTableView.bottomAnchor.constraint(equalTo: bottomBG.bottomAnchor, constant: -16).isActive = true
@@ -223,6 +229,7 @@ class ExpensesVC: UIViewController, UIScrollViewDelegate {
 
 extension ExpensesVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		print("This is the number of categoires: \(categoriesArray.count)")
 		return categoriesArray.count
 	}
 	
@@ -255,7 +262,7 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		guard let header = expensesTableView.dequeueReusableHeaderFooterView(withIdentifier: tableSectionHeader.reuseIdentifier ?? "header") as? ExpensesHeader else { return nil }
-		header.label.text = sectionNames[section]
+		header.label.attributedText = sectionNames[section].increaseLetterSpacing()
 		header.contentView.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
 		return header
 	}

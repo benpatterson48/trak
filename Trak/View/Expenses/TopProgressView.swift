@@ -185,7 +185,7 @@ class keyStackView: UIView {
 	public convenience init(title: String, dotAmountNumber: String) {
 		self.init()
 		dotAmount.text = dotAmountNumber
-		keyTitle.text = title
+		keyTitle.attributedText = title.increaseLetterSpacing()
 	}
 	
 	private func createStackView() {
