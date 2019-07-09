@@ -42,7 +42,8 @@ class MonthSwipeStack: UIView {
 		super.init(frame: frame)
 		backgroundColor = .white
 		addViews()
-		backgroundColor = .white 
+		backgroundColor = .white
+		heightAnchor.constraint(equalToConstant: 40).isActive = true
 		monthTitleLabelButton.setTitle(grabCurrentMonth(), for: .normal)
 	}
 	
@@ -53,7 +54,7 @@ class MonthSwipeStack: UIView {
 		monthTitleStack.spacing = 32
 		
 		addSubview(monthTitleStack)
-		monthTitleStack.topAnchor.constraint(equalTo: topAnchor, constant: 30).isActive = true
+		monthTitleStack.topAnchor.constraint(equalTo: topAnchor).isActive = true
 		monthTitleStack.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 		monthTitleStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
 		monthTitleStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50).isActive = true

@@ -56,16 +56,11 @@ class ExpenseCell: UITableViewCell {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: .default, reuseIdentifier: "expense")
 		addViews()
+		selectionStyle = .none
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
-	}
-	
-	override func layoutSubviews() {
-		super.layoutSubviews()
-		let padding = UIEdgeInsets(top: 0, left: 0, bottom: 2, right: 0)
-		bounds = bounds.inset(by: padding)
 	}
 	
 	private func addViews() {
@@ -74,12 +69,14 @@ class ExpenseCell: UITableViewCell {
 		leftStack.axis = .vertical
 		leftStack.distribution = .fillEqually
 		leftStack.alignment = .leading
+		leftStack.spacing = 5
 		
 		let rightStack = UIStackView(arrangedSubviews: [dueAmountLabel, categoryLabel])
 		rightStack.translatesAutoresizingMaskIntoConstraints = false
 		rightStack.axis = .vertical
 		rightStack.distribution = .fillEqually
 		rightStack.alignment = .trailing
+		rightStack.spacing = 5
 		
 		addSubview(icon)
 		addSubview(leftStack)
@@ -97,11 +94,4 @@ class ExpenseCell: UITableViewCell {
 		rightStack.topAnchor.constraint(equalTo: topAnchor, constant: 18).isActive = true
 		rightStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -18).isActive = true
 	}
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

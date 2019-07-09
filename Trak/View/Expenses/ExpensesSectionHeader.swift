@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ExpensesHeader: UITableViewHeaderFooterView {
+class ExpensesSectionHeader: UITableViewHeaderFooterView {
 	
 	static let myReuseIdentifier = "header"
 	let label: UILabel = {
