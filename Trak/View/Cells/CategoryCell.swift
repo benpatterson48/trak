@@ -32,7 +32,7 @@ class CategoryCell: UICollectionViewCell {
 		backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
 		setupViews()
 		translatesAutoresizingMaskIntoConstraints = false 
-		heightAnchor.constraint(equalToConstant: 60).isActive = true
+		heightAnchor.constraint(equalToConstant: 84).isActive = true
 	}
 	
 	override var isSelected: Bool {
@@ -50,8 +50,8 @@ class CategoryCell: UICollectionViewCell {
 	private func setupViews() {
 		addSubview(pillBG)
 		addSubview(categoryTitle)
-		pillBG.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
-		pillBG.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
+		pillBG.topAnchor.constraint(equalTo: topAnchor, constant: 24).isActive = true
+		pillBG.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -24).isActive = true
 		pillBG.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
 		pillBG.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
 		pillBG.heightAnchor.constraint(equalToConstant: 36).isActive = true

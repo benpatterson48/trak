@@ -10,9 +10,9 @@ import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 
+var categoriesArray = ["All Categories"]
+
 class ExpensesVC: UIViewController {
-	
-	var categoriesArray = ["All Categories"]
 	
 	let cell = CategoryCell()
 	let emptyState = EmptyState()
@@ -26,9 +26,6 @@ class ExpensesVC: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
 		checkExpensesArray()
-		DataService.instance.getUserCategories { (returnedCategories) in
-			self.categoriesArray.append(contentsOf: returnedCategories)
-		}
 	}
 
     override func viewDidLoad() {
@@ -37,9 +34,6 @@ class ExpensesVC: UIViewController {
 		view.backgroundColor = .white
 		expensesTableView.delegate = self
 		expensesTableView.dataSource = self
-		expenseHeader.categoryCollectionView.delegate = self
-		expenseHeader.categoryCollectionView.dataSource = self
-		expenseHeader.categoryCollectionView.register(CategoryCell.self, forCellWithReuseIdentifier: "category")
 	}
 
 	fileprivate func addButtonTargets() {
@@ -69,26 +63,6 @@ class ExpensesVC: UIViewController {
 			}
 		}
 	}
-	
-//	override func viewDidLayoutSubviews() {
-//		super.viewDidLayoutSubviews()
-//		setCirclePath()
-//	}
-//	
-//	fileprivate func setCirclePath() {
-//		let circularView = expenseHeader.circularView
-//		let point = CGPoint(x: expenseHeader.circleViewBG.bounds.midX, y: expenseHeader.circleViewBG.bounds.midY)
-//		let circularPath = UIBezierPath(arcCenter: .zero, radius: 94, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
-//
-//		circularView.trackLayer.position = point
-//		circularView.shapeLayer.position = point
-//		circularView.trackLayer.path = circularPath.cgPath
-//		circularView.shapeLayer.path = circularPath.cgPath
-//		circularView.shapeLayer.strokeEnd = -CGFloat.pi / 2
-//
-//		expenseHeader.circleViewBG.layer.addSublayer(circularView.trackLayer)
-//		expenseHeader.circleViewBG.layer.addSublayer(circularView.shapeLayer)
-//	}
 	
 	fileprivate func addViews() {
 		view.addSubview(header)
@@ -143,18 +117,20 @@ class ExpensesVC: UIViewController {
 	
 }
 
-extension ExpensesVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return categoriesArray.count
-	}
-
-	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		guard let cell = expenseHeader.categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "category", for: indexPath) as? CategoryCell else { return UICollectionViewCell() }
-		expenseHeader.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .top)
-		cell.categoryTitle.text = categoriesArray[indexPath.row]
-		return cell
-	}
-}
+//extension ExpensesVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+//	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//		print("This is the number of items in section")
+//		return categoriesArray.count
+//	}
+//
+//	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//		print("cell for item at")
+//		guard let cell = expenseHeader.categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "category", for: indexPath) as? CategoryCell else { return UICollectionViewCell() }
+//		expenseHeader.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .top)
+//		cell.categoryTitle.text = categoriesArray[indexPath.row]
+//		return cell
+//	}
+//}
 
 extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 	func numberOfSections(in tableView: UITableView) -> Int {
@@ -188,7 +164,6 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		if section == 0 {
 			guard let header = expensesTableView.dequeueReusableHeaderFooterView(withIdentifier: "tableHeader") as? ExpensesTableHeaderView else { return nil }
-			header.contentView.backgroundColor = .white 
 			return header
 		} else {
 			guard let header = expensesTableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ExpensesSectionHeader else { return nil }
