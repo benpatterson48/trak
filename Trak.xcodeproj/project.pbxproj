@@ -25,8 +25,10 @@
 		1D80CE5522BB1F9500D69E71 /* ExpenseDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80CE5422BB1F9500D69E71 /* ExpenseDatePicker.swift */; };
 		1D80CE5922BB369A00D69E71 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80CE5822BB369A00D69E71 /* DataService.swift */; };
 		1D80CE5B22BB519E00D69E71 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80CE5A22BB519E00D69E71 /* String.swift */; };
+		1D9A4E3222D6E1DF000DF8F6 /* MonthDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A4E3122D6E1DF000DF8F6 /* MonthDatePicker.swift */; };
 		1DBC81FC22C5974100C91D6C /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBC81FB22C5974100C91D6C /* Category.swift */; };
 		1DD1264322D43FFE0072A250 /* ExpensesTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1264222D43FFE0072A250 /* ExpensesTableHeaderView.swift */; };
+		1DD605DF22DCCFB20035B068 /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD605DE22DCCFB20035B068 /* Expense.swift */; };
 		1DE988C022C4918600C1ED48 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE988BF22C4918600C1ED48 /* CategoryCell.swift */; };
 		1DF1943322B1C1F200DFC41B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1943222B1C1F200DFC41B /* AppDelegate.swift */; };
 		1DF1943A22B1C1F400DFC41B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1943922B1C1F400DFC41B /* Assets.xcassets */; };
@@ -72,8 +74,10 @@
 		1D80CE5422BB1F9500D69E71 /* ExpenseDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDatePicker.swift; sourceTree = "<group>"; };
 		1D80CE5822BB369A00D69E71 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		1D80CE5A22BB519E00D69E71 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		1D9A4E3122D6E1DF000DF8F6 /* MonthDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthDatePicker.swift; sourceTree = "<group>"; };
 		1DBC81FB22C5974100C91D6C /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		1DD1264222D43FFE0072A250 /* ExpensesTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesTableHeaderView.swift; sourceTree = "<group>"; };
+		1DD605DE22DCCFB20035B068 /* Expense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
 		1DE988BF22C4918600C1ED48 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		1DF1942F22B1C1F200DFC41B /* Trak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trak.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF1943222B1C1F200DFC41B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +126,7 @@
 				1D4E08F322CB25E200845802 /* ExpensesSectionHeader.swift */,
 				1DD1264222D43FFE0072A250 /* ExpensesTableHeaderView.swift */,
 				1D4DCED322D6857D00A491D7 /* CategoryDataSource.swift */,
+				1D9A4E3122D6E1DF000DF8F6 /* MonthDatePicker.swift */,
 			);
 			path = Expenses;
 			sourceTree = "<group>";
@@ -209,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				1DBC81FB22C5974100C91D6C /* Category.swift */,
+				1DD605DE22DCCFB20035B068 /* Expense.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -445,12 +451,14 @@
 				1D80CE5922BB369A00D69E71 /* DataService.swift in Sources */,
 				1D136D1122B4206D0030C48D /* ExpensesVC.swift in Sources */,
 				1D80CE5522BB1F9500D69E71 /* ExpenseDatePicker.swift in Sources */,
+				1DD605DF22DCCFB20035B068 /* Expense.swift in Sources */,
 				1D136D1822B7D4F30030C48D /* Header.swift in Sources */,
 				1DD1264322D43FFE0072A250 /* ExpensesTableHeaderView.swift in Sources */,
 				1D6B9B1322B9EE9200E07920 /* Labels.swift in Sources */,
 				1DF1946322B2003B00DFC41B /* LogoImageView.swift in Sources */,
 				1DE988C022C4918600C1ED48 /* CategoryCell.swift in Sources */,
 				1DF1946722B2069A00DFC41B /* GetStartedStackView.swift in Sources */,
+				1D9A4E3222D6E1DF000DF8F6 /* MonthDatePicker.swift in Sources */,
 				1D4DCED422D6857D00A491D7 /* CategoryDataSource.swift in Sources */,
 				1D136D1322B560450030C48D /* Button.swift in Sources */,
 				1D28677722C310CA0004612F /* TopProgressView.swift in Sources */,

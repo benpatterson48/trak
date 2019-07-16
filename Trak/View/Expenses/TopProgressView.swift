@@ -89,14 +89,12 @@ class CircleProgressView: CALayer {
 		shapeLayer.lineWidth = 20
 		shapeLayer.transform = CATransform3DMakeRotation(-CGFloat.pi / 2, 0, 0, 1)
 		
-		animateCircle()
 	}
 	
 	func animateCircle() {
 		let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
 		
-		basicAnimation.toValue = 1
-		basicAnimation.duration = 1.5
+		basicAnimation.duration = 2
 		basicAnimation.fillMode = CAMediaTimingFillMode.forwards
 		basicAnimation.isRemovedOnCompletion = false
 		
@@ -123,7 +121,6 @@ class TotalStackView: UIView {
 	
 	let currentTotalAmountLabel: UILabel = {
 		let current = UILabel()
-		current.text = "$1,980.71"
 		current.textAlignment = .center
 		current.textColor = UIColor.main.darkText
 		current.font = UIFont.mainFont(ofSize: 30)
@@ -157,7 +154,7 @@ class TotalStackView: UIView {
 	
 }
 
-class keyStackView: UIView {
+class KeyStackView: UIView {
 	
 	let keyTitle: UILabel = {
 		let title = UILabel()
@@ -183,9 +180,8 @@ class keyStackView: UIView {
 		backgroundColor = .white
 	}
 	
-	public convenience init(title: String, dotAmountNumber: String) {
+	public convenience init(title: String) {
 		self.init()
-		dotAmount.text = dotAmountNumber
 		keyTitle.attributedText = title.increaseLetterSpacing()
 	}
 	
@@ -208,7 +204,7 @@ class keyStackView: UIView {
 	}
 }
 
-class totalKeyView: UIView {
+class TotalKeyView: UIView {
 	
 	let paidImage: UIImageView = {
 		let dot = UIImageView()
@@ -226,8 +222,8 @@ class totalKeyView: UIView {
 		return dot
 	}()
 	
-	let paidStack = keyStackView(title: "PAID", dotAmountNumber: "$1,469.98")
-	let unpaidStack = keyStackView(title: "UNPAID", dotAmountNumber: "$510.73")
+	let paidStack = KeyStackView(title: "PAID")
+	let unpaidStack = KeyStackView(title: "UNPAID")
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)

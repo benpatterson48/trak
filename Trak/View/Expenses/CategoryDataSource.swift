@@ -18,12 +18,10 @@ class CategoryDataSource: NSObject, UICollectionViewDelegate, UICollectionViewDa
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		print("This is the number of items in section: \(categoriesArray.count)")
 		return categoriesArray.count
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		print("cell for item at")
 		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "category", for: indexPath) as? CategoryCell else { return UICollectionViewCell() }
 		collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .top)
 		cell.categoryTitle.text = categoriesArray[indexPath.row]

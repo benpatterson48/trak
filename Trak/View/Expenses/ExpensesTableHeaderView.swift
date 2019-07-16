@@ -11,10 +11,16 @@ import UIKit
 class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 	
 	var dataSource = CategoryDataSource()
+	var unpaidExpenses = [Expense]()
+	var paidExpenses = [Expense]()
+	var unpaidTotal = Double()
+	var paidTotal = Double()
+	var expenseTotal = Double()
+	var percentage = CGFloat()
 	
 	let bg = UIView()
 	let circleViewBG = UIView()
-	let keyView = totalKeyView()
+	let keyView = TotalKeyView()
 	let topView = MonthSwipeStack()
 	let totalStack = TotalStackView()
 	let circularView = CircleProgressView()
@@ -38,6 +44,7 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 	
 	override public init(reuseIdentifier: String?) {
 		super.init(reuseIdentifier: reuseIdentifier)
+		calculatingExpenses()
 		addViews()
 		bg.backgroundColor = .white
 		circleViewBG.backgroundColor = .white
@@ -57,10 +64,26 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 		circularView.shapeLayer.position = point
 		circularView.trackLayer.path = circularPath.cgPath
 		circularView.shapeLayer.path = circularPath.cgPath
-		circularView.shapeLayer.strokeEnd = -CGFloat.pi / 2
 		
 		circleViewBG.layer.addSublayer(circularView.trackLayer)
 		circleViewBG.layer.addSublayer(circularView.shapeLayer)
+	}
+	
+	func calculatingExpenses() {
+		DataService.instance.grabbingExpenses { (unpaid, paid) in
+			self.unpaidExpenses = unpaid
+			self.paidExpenses = paid
+			self.unpaidTotal = DataService.instance.calculatingExpenses(forExpensesArrayOf: self.unpaidExpenses)
+			self.paidTotal = DataService.instance.calculatingExpenses(forExpensesArrayOf: self.paidExpenses)
+			self.expenseTotal = DataService.instance.calculatingTotalExpenses(withUnpaidTotal: self.unpaidTotal, paidTotal: self.paidTotal)
+			self.totalStack.currentTotalAmountLabel.text = "$\(self.expenseTotal)".currency
+			self.keyView.paidStack.dotAmount.text = "$\(self.paidTotal)".currency
+			self.keyView.unpaidStack.dotAmount.text = "$\(self.unpaidTotal)".currency
+			
+			self.percentage = CGFloat(self.paidTotal) / CGFloat(self.expenseTotal)
+			self.circularView.shapeLayer.strokeEnd = self.percentage
+			self.circularView.animateCircle()
+		}
 	}
 	
 	fileprivate func addViews() {

@@ -16,8 +16,9 @@ class ExpensesVC: UIViewController {
 	
 	let cell = CategoryCell()
 	let emptyState = EmptyState()
-	let keyStack = totalKeyView()
+	let keyStack = TotalKeyView()
 	let db = Firestore.firestore()
+	let totalStack = TotalStackView()
 	let sectionNames: Array = ["", "UNPAID", "PAID"]
 	let tableSectionHeader = ExpensesSectionHeader(reuseIdentifier: "header")
 	let expenseHeader = ExpensesTableHeaderView(reuseIdentifier: "tableHeader")
@@ -26,10 +27,14 @@ class ExpensesVC: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
 		checkExpensesArray()
+//		DataService.instance.grabbingExpenses { (unpaid, paid) in
+//			self.unpaidExpenses = unpaid
+//			self.paidExpenses = paid
+//		}
 	}
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		addButtonTargets()
 		view.backgroundColor = .white
 		expensesTableView.delegate = self
@@ -117,21 +122,6 @@ class ExpensesVC: UIViewController {
 	
 }
 
-//extension ExpensesVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-//	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//		print("This is the number of items in section")
-//		return categoriesArray.count
-//	}
-//
-//	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//		print("cell for item at")
-//		guard let cell = expenseHeader.categoryCollectionView.dequeueReusableCell(withReuseIdentifier: "category", for: indexPath) as? CategoryCell else { return UICollectionViewCell() }
-//		expenseHeader.categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .top)
-//		cell.categoryTitle.text = categoriesArray[indexPath.row]
-//		return cell
-//	}
-//}
-
 extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return 3
@@ -182,18 +172,28 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 	}
 
 	func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-		let title = "Mark as Paid"
-		let action = UIContextualAction(style: .normal, title: title) { (action, view, handler) in
+		let action = UIContextualAction(style: .normal, title: "Mark as Paid") { (action, view, handler) in
 			handler(true)
-			print("This will be marking as paid/ unpaid")
+			// Paid/ Unpaid -- mark as paid/ unpaid depending on what it is now
 		}
 		action.backgroundColor = #colorLiteral(red: 0.1843137255, green: 0.3529411765, blue: 1, alpha: 1)
 		let configuration = UISwipeActionsConfiguration(actions: [action])
 		return configuration
 	}
 	
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		print("We hit a cell")
+	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+		let action = UIContextualAction(style: .normal, title: "Edit") { (action, view, handler) in
+			handler(true)
+			// Edit -- bring up the addexpense VC to edit the action
+		}
+		let action2 = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
+			handler(true)
+			// Delete -- delete from the DB and reload the table
+		}
+		action.backgroundColor = #colorLiteral(red: 0.1843137255, green: 0.2196078431, blue: 0.3019607843, alpha: 1)
+		action2.backgroundColor = .red
+		let configuration = UISwipeActionsConfiguration(actions: [action2, action])
+		return configuration
 	}
 
 	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
