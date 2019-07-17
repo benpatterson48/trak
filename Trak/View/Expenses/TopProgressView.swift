@@ -122,6 +122,7 @@ class TotalStackView: UIView {
 	let currentTotalAmountLabel: UILabel = {
 		let current = UILabel()
 		current.textAlignment = .center
+		current.adjustsFontSizeToFitWidth = true
 		current.textColor = UIColor.main.darkText
 		current.font = UIFont.mainFont(ofSize: 30)
 		current.translatesAutoresizingMaskIntoConstraints = false

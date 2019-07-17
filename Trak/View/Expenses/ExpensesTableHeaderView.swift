@@ -109,7 +109,7 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 		bg.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
 		bg.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
 		
-		topView.topAnchor.constraint(equalTo: bg.topAnchor).isActive = true
+		topView.topAnchor.constraint(equalTo: bg.topAnchor, constant: 16).isActive = true
 		topView.leadingAnchor.constraint(equalTo: bg.leadingAnchor).isActive = true
 		topView.trailingAnchor.constraint(equalTo: bg.trailingAnchor).isActive = true
 		topView.bottomAnchor.constraint(equalTo: circleViewBG.topAnchor, constant: -16).isActive = true

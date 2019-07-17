@@ -14,6 +14,9 @@ var categoriesArray = ["All Categories"]
 
 class ExpensesVC: UIViewController {
 	
+	var unpaidExpenses = [Expense]()
+	var paidExpenses = [Expense]()
+	
 	let cell = CategoryCell()
 	let emptyState = EmptyState()
 	let keyStack = TotalKeyView()
@@ -27,10 +30,11 @@ class ExpensesVC: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
 		checkExpensesArray()
-//		DataService.instance.grabbingExpenses { (unpaid, paid) in
-//			self.unpaidExpenses = unpaid
-//			self.paidExpenses = paid
-//		}
+		DataService.instance.grabbingExpenses { (unpaid, paid) in
+			self.unpaidExpenses = unpaid
+			self.paidExpenses = paid
+			self.expensesTableView.reloadData()
+		}
 	}
 
 	override func viewDidLoad() {
@@ -81,9 +85,9 @@ class ExpensesVC: UIViewController {
 		header.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 		header.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		header.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-		header.bottomAnchor.constraint(equalTo: expensesTableView.topAnchor, constant: -16).isActive = true
+		header.bottomAnchor.constraint(equalTo: expensesTableView.topAnchor, constant: 0).isActive = true
 
-		expensesTableView.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 16).isActive = true
+		expensesTableView.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 0).isActive = true
 		expensesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		expensesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
 		expensesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -131,22 +135,20 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 		if section == 0 {
 			return 0
 		} else if section == 1 {
-			return 2
+			return self.unpaidExpenses.count
 		} else {
-			return 5
+			return self.paidExpenses.count
 		}
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = expensesTableView.dequeueReusableCell(withIdentifier: "expense", for: indexPath) as? ExpenseCell else { return UITableViewCell() }
-		cell.expenseTitle.text = "Car Payment"
-		cell.dueDateLabel.text = "Due: 6/28/2019"
-		cell.dueAmountLabel.text = "$250.25"
-		cell.categoryLabel.text = "Transportation"
 		if indexPath.section == 1 {
 			cell.icon.image = UIImage(named: "unpaid-icon")
+			cell.expense = unpaidExpenses[indexPath.item]
 		} else if indexPath.section == 2 {
 			cell.icon.image = UIImage(named: "paid-icon")
+			cell.expense = paidExpenses[indexPath.item]
 		}
 		return cell
 	}

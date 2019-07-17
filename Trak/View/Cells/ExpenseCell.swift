@@ -10,6 +10,24 @@ import UIKit
 
 class ExpenseCell: UITableViewCell {
 	
+	var expense: Expense? {
+		didSet {
+			guard let title = expense?.name else {return}
+			expenseTitle.text = title
+			
+			let dateFormatter = DateFormatter()
+			dateFormatter.dateFormat = "MM/dd/yyyy"
+			guard let dueDate = expense?.date else {return}
+			dueDateLabel.text = "Due Date: \(dateFormatter.string(from: dueDate))"
+			
+			guard let dueAmount = expense?.amount else {return}
+			dueAmountLabel.text = "\(dueAmount)".currency
+			
+			guard let category = expense?.category else {return}
+			categoryLabel.text = category
+		}
+	}
+	
 	let icon: UIImageView = {
 		let icon = UIImageView()
 		icon.contentMode = .scaleAspectFit
