@@ -8,15 +8,18 @@
 
 import UIKit
 
+let layout = UICollectionViewFlowLayout()
+
 class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 	
-	var dataSource = CategoryDataSource()
+	var dataSource = DataSource()
 	var unpaidExpenses = [Expense]()
 	var paidExpenses = [Expense]()
 	var unpaidTotal = Double()
 	var paidTotal = Double()
 	var expenseTotal = Double()
 	var percentage = CGFloat()
+	var categoriesArray = [String]()
 	
 	let bg = UIView()
 	let circleViewBG = UIView()
@@ -24,8 +27,6 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 	let topView = MonthSwipeStack()
 	let totalStack = TotalStackView()
 	let circularView = CircleProgressView()
-	
-	var categoriesArray = [String]()
 	
 	let categoryCollectionView: UICollectionView = {
 		let layout = UICollectionViewFlowLayout()
@@ -51,7 +52,7 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 		categoryCollectionView.delegate = dataSource
 		categoryCollectionView.dataSource = dataSource
 	}
-	
+
 	override func layoutSubviews() {
 		setCirclePath()
 	}
@@ -71,19 +72,24 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 	
 	func calculatingExpenses() {
 		DataService.instance.grabbingExpenses { (unpaid, paid) in
-			self.unpaidExpenses = unpaid
-			self.paidExpenses = paid
-			self.unpaidTotal = DataService.instance.calculatingExpenses(forExpensesArrayOf: self.unpaidExpenses)
-			self.paidTotal = DataService.instance.calculatingExpenses(forExpensesArrayOf: self.paidExpenses)
-			self.expenseTotal = DataService.instance.calculatingTotalExpenses(withUnpaidTotal: self.unpaidTotal, paidTotal: self.paidTotal)
-			self.totalStack.currentTotalAmountLabel.text = "$\(self.expenseTotal)".currency
-			self.keyView.paidStack.dotAmount.text = "$\(self.paidTotal)".currency
-			self.keyView.unpaidStack.dotAmount.text = "$\(self.unpaidTotal)".currency
-			
-			self.percentage = CGFloat(self.paidTotal) / CGFloat(self.expenseTotal)
-			self.circularView.shapeLayer.strokeEnd = self.percentage
-			self.circularView.animateCircle()
+			self.calculate(unpaid: unpaid, paid: paid)
 		}
+	}
+	
+	func calculate(unpaid: [Expense], paid: [Expense]) {
+		print("Were in there")
+		self.unpaidExpenses = unpaid
+		self.paidExpenses = paid
+		self.unpaidTotal = DataService.instance.calculatingExpenses(forExpensesArrayOf: self.unpaidExpenses)
+		self.paidTotal = DataService.instance.calculatingExpenses(forExpensesArrayOf: self.paidExpenses)
+		self.expenseTotal = DataService.instance.calculatingTotalExpenses(withUnpaidTotal: self.unpaidTotal, paidTotal: self.paidTotal)
+		self.totalStack.currentTotalAmountLabel.text = "$\(self.expenseTotal)".currency
+		self.keyView.paidStack.dotAmount.text = "$\(self.paidTotal)".currency
+		self.keyView.unpaidStack.dotAmount.text = "$\(self.unpaidTotal)".currency
+		
+		self.percentage = CGFloat(self.paidTotal) / CGFloat(self.expenseTotal)
+		self.circularView.shapeLayer.strokeEnd = self.percentage
+		self.circularView.animateCircle()
 	}
 	
 	fileprivate func addViews() {
@@ -126,7 +132,7 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 		keyView.centerXAnchor.constraint(equalTo: bg.centerXAnchor).isActive = true
 		keyView.heightAnchor.constraint(equalToConstant: 40).isActive = true
 		keyView.bottomAnchor.constraint(equalTo: categoryCollectionView.topAnchor, constant: -32).isActive = true
-		
+
 		categoryCollectionView.topAnchor.constraint(equalTo: keyView.bottomAnchor, constant: 32).isActive = true
 		categoryCollectionView.leadingAnchor.constraint(equalTo: bg.leadingAnchor).isActive = true
 		categoryCollectionView.trailingAnchor.constraint(equalTo: bg.trailingAnchor).isActive = true

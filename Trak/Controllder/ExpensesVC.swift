@@ -11,11 +11,19 @@ import FirebaseFirestore
 import FirebaseAuth
 
 var categoriesArray = ["All Categories"]
+protocol ChangedCategory {
+	func categoryChanged(category: String) -> String
+}
 
 class ExpensesVC: UIViewController {
 	
+	var category = String()
+	var dataSource = DataSource()
+	var specificCategory: Bool = false
 	var unpaidExpenses = [Expense]()
 	var paidExpenses = [Expense]()
+	var specificCategoryUnpaidExpenses = [Expense]()
+	var specificCategoryPaidExpenses = [Expense]()
 	
 	let cell = CategoryCell()
 	let emptyState = EmptyState()
@@ -30,11 +38,7 @@ class ExpensesVC: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
 		checkExpensesArray()
-		DataService.instance.grabbingExpenses { (unpaid, paid) in
-			self.unpaidExpenses = unpaid
-			self.paidExpenses = paid
-			self.expensesTableView.reloadData()
-		}
+		grabExpenses()
 	}
 
 	override func viewDidLoad() {
@@ -43,6 +47,47 @@ class ExpensesVC: UIViewController {
 		view.backgroundColor = .white
 		expensesTableView.delegate = self
 		expensesTableView.dataSource = self
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshList(notification:)), name:NSNotification.Name(rawValue: "refreshTable"), object: nil)
+	}
+	
+	@objc func refreshList(notification: NSNotification){
+		self.specificCategory = true
+		self.specificCategoryUnpaidExpenses.removeAll()
+		self.specificCategoryPaidExpenses.removeAll()
+		if let dict = notification.userInfo as NSDictionary? {
+			if let title = dict["name"] as? String {
+				self.unpaidExpenses = dataSource.unpaidExpenses
+				self.paidExpenses = dataSource.paidExpenses
+				if title == "All Categories" {
+					self.specificCategoryUnpaidExpenses = self.unpaidExpenses
+					self.specificCategoryPaidExpenses = self.paidExpenses
+				} else {
+					for expense in self.unpaidExpenses {
+						if expense.category == title {
+							self.specificCategoryUnpaidExpenses.append(expense)
+						}
+					}
+					for expense in self.paidExpenses {
+						if expense.category == title {
+							self.specificCategoryPaidExpenses.append(expense)
+						}
+					}
+				}
+				DispatchQueue.main.async {
+//					self.expenseHeader.calculate(unpaid: self.specificCategoryUnpaidExpenses, paid: self.specificCategoryPaidExpenses)
+					self.expensesTableView.reloadData()
+				}
+			}
+		}
+	}
+
+
+	func grabExpenses() {
+		DataService.instance.grabbingExpenses { (unpaid, paid) in
+			self.unpaidExpenses = unpaid
+			self.paidExpenses = paid
+			self.expensesTableView.reloadData()
+		}
 	}
 
 	fileprivate func addButtonTargets() {
@@ -118,6 +163,7 @@ class ExpensesVC: UIViewController {
 		tv.alwaysBounceVertical = true
 		tv.isUserInteractionEnabled = true
 		tv.register(ExpenseCell.self, forCellReuseIdentifier: "expense")
+		tv.register(EmptyExpenseCell.self, forCellReuseIdentifier: "empty")
 		tv.register(ExpensesSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
 		tv.register(ExpensesTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "tableHeader")
 		tv.translatesAutoresizingMaskIntoConstraints = false
@@ -132,33 +178,71 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		if section == 0 {
-			return 0
-		} else if section == 1 {
-			return self.unpaidExpenses.count
+		if specificCategory {
+			if section == 0 {
+				return 0
+			} else if section == 1 {
+				if self.specificCategoryUnpaidExpenses.count == 0 {
+					return 1
+				} else {
+					return self.specificCategoryUnpaidExpenses.count
+				}
+			} else {
+				if self.specificCategoryPaidExpenses.count == 0 {
+					return 1
+				} else {
+					return self.specificCategoryPaidExpenses.count
+				}
+			}
 		} else {
-			return self.paidExpenses.count
+			if section == 0 {
+				return 0
+			} else if section == 1 {
+				return self.unpaidExpenses.count
+			} else {
+				return self.paidExpenses.count
+			}
 		}
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = expensesTableView.dequeueReusableCell(withIdentifier: "expense", for: indexPath) as? ExpenseCell else { return UITableViewCell() }
-		if indexPath.section == 1 {
-			cell.icon.image = UIImage(named: "unpaid-icon")
-			cell.expense = unpaidExpenses[indexPath.item]
-		} else if indexPath.section == 2 {
-			cell.icon.image = UIImage(named: "paid-icon")
-			cell.expense = paidExpenses[indexPath.item]
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: "expense", for: indexPath) as? ExpenseCell else { return UITableViewCell() }
+		if specificCategory {
+			if indexPath.section == 1 {
+				if self.specificCategoryUnpaidExpenses.count == 0 {
+					guard let empty = tableView.dequeueReusableCell(withIdentifier: "empty") as? EmptyExpenseCell else {return UITableViewCell()}
+					return empty
+				} else {
+					cell.icon.image = UIImage(named: "unpaid-icon")
+					cell.expense = specificCategoryUnpaidExpenses[indexPath.item]
+				}
+			} else if indexPath.section == 2 {
+				if self.specificCategoryPaidExpenses.count == 0 {
+					guard let empty = tableView.dequeueReusableCell(withIdentifier: "empty") as? EmptyExpenseCell else {return UITableViewCell()}
+					return empty
+				} else {
+					cell.icon.image = UIImage(named: "paid-icon")
+					cell.expense = specificCategoryPaidExpenses[indexPath.item]
+				}
+			}
+		} else {
+			if indexPath.section == 1 {
+				cell.icon.image = UIImage(named: "unpaid-icon")
+				cell.expense = unpaidExpenses[indexPath.item]
+			} else if indexPath.section == 2 {
+				cell.icon.image = UIImage(named: "paid-icon")
+				cell.expense = paidExpenses[indexPath.item]
+			}
 		}
 		return cell
 	}
 	
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		if section == 0 {
-			guard let header = expensesTableView.dequeueReusableHeaderFooterView(withIdentifier: "tableHeader") as? ExpensesTableHeaderView else { return nil }
+			guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "tableHeader") as? ExpensesTableHeaderView else {return nil}
 			return header
 		} else {
-			guard let header = expensesTableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ExpensesSectionHeader else { return nil }
+			guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ExpensesSectionHeader else {return nil}
 			header.label.attributedText = sectionNames[section].increaseLetterSpacing()
 			header.contentView.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
 			return header
@@ -172,7 +256,7 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 			return 50
 		}
 	}
-
+	
 	func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 		let action = UIContextualAction(style: .normal, title: "Mark as Paid") { (action, view, handler) in
 			handler(true)
@@ -197,7 +281,7 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 		let configuration = UISwipeActionsConfiguration(actions: [action2, action])
 		return configuration
 	}
-
+	
 	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
 		return true
 	}

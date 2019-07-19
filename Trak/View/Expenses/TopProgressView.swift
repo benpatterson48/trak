@@ -94,7 +94,7 @@ class CircleProgressView: CALayer {
 	func animateCircle() {
 		let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
 		
-		basicAnimation.duration = 2
+		basicAnimation.duration = 1
 		basicAnimation.fillMode = CAMediaTimingFillMode.forwards
 		basicAnimation.isRemovedOnCompletion = false
 		
