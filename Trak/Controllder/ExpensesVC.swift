@@ -74,7 +74,6 @@ class ExpensesVC: UIViewController {
 					}
 				}
 				DispatchQueue.main.async {
-//					self.expenseHeader.calculate(unpaid: self.specificCategoryUnpaidExpenses, paid: self.specificCategoryPaidExpenses)
 					self.expensesTableView.reloadData()
 				}
 			}
@@ -240,6 +239,7 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		if section == 0 {
 			guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "tableHeader") as? ExpensesTableHeaderView else {return nil}
+			header.calculate(unpaid: self.specificCategoryUnpaidExpenses, paid: self.specificCategoryPaidExpenses)
 			return header
 		} else {
 			guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ExpensesSectionHeader else {return nil}

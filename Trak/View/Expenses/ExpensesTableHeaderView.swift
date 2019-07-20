@@ -77,7 +77,6 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 	}
 	
 	func calculate(unpaid: [Expense], paid: [Expense]) {
-		print("Were in there")
 		self.unpaidExpenses = unpaid
 		self.paidExpenses = paid
 		self.unpaidTotal = DataService.instance.calculatingExpenses(forExpensesArrayOf: self.unpaidExpenses)
@@ -89,9 +88,11 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 		
 		self.percentage = CGFloat(self.paidTotal) / CGFloat(self.expenseTotal)
 		self.circularView.shapeLayer.strokeEnd = self.percentage
-		self.circularView.animateCircle()
+		DispatchQueue.main.async {
+			self.circularView.animateCircle()
+		}
 	}
-	
+
 	fileprivate func addViews() {
 		addSubview(bg)
 		addSubview(keyView)

@@ -22,6 +22,8 @@ class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource
 	override init() {
 		super.init()
 		DataService.instance.getUserCategories { (returned) in
+			categoriesArray.removeAll()
+			categoriesArray.append("All Categories")
 			categoriesArray.append(contentsOf: returned)
 		}
 		grabExpenses()
@@ -54,7 +56,6 @@ class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource
 	//CollectionView
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let categoryName:[String: String] = ["name": categoriesArray[indexPath.item]]
-//		self.category = categoriesArray[indexPath.item]
 		NotificationCenter.default.post(name: .init("refreshTable"), object: nil, userInfo: categoryName)
 	}
 	
