@@ -51,6 +51,7 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 		circleViewBG.backgroundColor = .white
 		categoryCollectionView.delegate = dataSource
 		categoryCollectionView.dataSource = dataSource
+		categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: [])
 	}
 
 	override func layoutSubviews() {
