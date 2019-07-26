@@ -341,6 +341,11 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-		return true
+		let cell = tableView.cellForRow(at: indexPath) as? ExpenseCell
+		if cell?.expense?.isPaid == false {
+			return true
+		} else {
+			return false
+		}
 	}
 }
