@@ -17,6 +17,8 @@ protocol ChangedCategory {
 
 class ExpensesVC: UIViewController {
 	
+	var categorySelected = String()
+	var user: User?
 	var category = String()
 	var dataSource = DataSource()
 	var specificCategory: Bool = false
@@ -30,21 +32,26 @@ class ExpensesVC: UIViewController {
 	let keyStack = TotalKeyView()
 	let db = Firestore.firestore()
 	let totalStack = TotalStackView()
+	let monthInfo = MonthSwipeStack()
 	let sectionNames: Array = ["", "UNPAID", "PAID"]
 	let tableSectionHeader = ExpensesSectionHeader(reuseIdentifier: "header")
 	let expenseHeader = ExpensesTableHeaderView(reuseIdentifier: "tableHeader")
 	let header = HeaderWithLogo(leftIcon: UIImage(named: "menu")!, rightIcon: UIImage(named: "add")!)
+	
+	let selectedMonth = MonthSwipeStack().monthTitleLabelButton.titleLabel?.text
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
 		checkExpensesArray()
 		grabExpenses()
+		expenseHeader.categoryCollectionView.reloadData()
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		addButtonTargets()
 		view.backgroundColor = .white
+		user = Auth.auth().currentUser
 		expensesTableView.delegate = self
 		expensesTableView.dataSource = self
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshList(notification:)), name:NSNotification.Name(rawValue: "refreshTable"), object: nil)
@@ -56,8 +63,7 @@ class ExpensesVC: UIViewController {
 		self.specificCategoryPaidExpenses.removeAll()
 		if let dict = notification.userInfo as NSDictionary? {
 			if let title = dict["name"] as? String {
-				self.unpaidExpenses = dataSource.unpaidExpenses
-				self.paidExpenses = dataSource.paidExpenses
+				self.categorySelected = title
 				if title == "All Categories" {
 					self.specificCategoryUnpaidExpenses = self.unpaidExpenses
 					self.specificCategoryPaidExpenses = self.paidExpenses
@@ -107,8 +113,7 @@ class ExpensesVC: UIViewController {
 	fileprivate func checkExpensesArray() {
 		let current = Date()
 		let year = current.year
-		guard let user = Auth.auth().currentUser else { return }
-		db.collection("users").document(user.uid).collection(year).getDocuments { (documents, error) in
+		db.collection("users").document(user?.uid ?? "").collection(year).getDocuments { (documents, error) in
 			if let documents = documents, documents.isEmpty == false {
 				self.addViews()
 			} else {
@@ -158,7 +163,7 @@ class ExpensesVC: UIViewController {
 	let expensesTableView: UITableView = {
 		let tv = UITableView(frame: .zero, style: .plain)
 		tv.separatorColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
-		tv.backgroundColor = .white
+		tv.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
 		tv.alwaysBounceVertical = true
 		tv.isUserInteractionEnabled = true
 		tv.register(ExpenseCell.self, forCellReuseIdentifier: "expense")
@@ -172,6 +177,7 @@ class ExpensesVC: UIViewController {
 }
 
 extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
+	
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return 3
 	}
@@ -181,17 +187,9 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 			if section == 0 {
 				return 0
 			} else if section == 1 {
-				if self.specificCategoryUnpaidExpenses.count == 0 {
-					return 1
-				} else {
-					return self.specificCategoryUnpaidExpenses.count
-				}
+				return self.specificCategoryUnpaidExpenses.count
 			} else {
-				if self.specificCategoryPaidExpenses.count == 0 {
-					return 1
-				} else {
-					return self.specificCategoryPaidExpenses.count
-				}
+				return self.specificCategoryPaidExpenses.count
 			}
 		} else {
 			if section == 0 {
@@ -208,21 +206,11 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: "expense", for: indexPath) as? ExpenseCell else { return UITableViewCell() }
 		if specificCategory {
 			if indexPath.section == 1 {
-				if self.specificCategoryUnpaidExpenses.count == 0 {
-					guard let empty = tableView.dequeueReusableCell(withIdentifier: "empty") as? EmptyExpenseCell else {return UITableViewCell()}
-					return empty
-				} else {
-					cell.icon.image = UIImage(named: "unpaid-icon")
-					cell.expense = specificCategoryUnpaidExpenses[indexPath.item]
-				}
+				cell.icon.image = UIImage(named: "unpaid-icon")
+				cell.expense = specificCategoryUnpaidExpenses[indexPath.item]
 			} else if indexPath.section == 2 {
-				if self.specificCategoryPaidExpenses.count == 0 {
-					guard let empty = tableView.dequeueReusableCell(withIdentifier: "empty") as? EmptyExpenseCell else {return UITableViewCell()}
-					return empty
-				} else {
-					cell.icon.image = UIImage(named: "paid-icon")
-					cell.expense = specificCategoryPaidExpenses[indexPath.item]
-				}
+				cell.icon.image = UIImage(named: "paid-icon")
+				cell.expense = specificCategoryPaidExpenses[indexPath.item]
 			}
 		} else {
 			if indexPath.section == 1 {
@@ -237,9 +225,14 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		
 		if section == 0 {
 			guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "tableHeader") as? ExpensesTableHeaderView else {return nil}
-			header.calculate(unpaid: self.specificCategoryUnpaidExpenses, paid: self.specificCategoryPaidExpenses)
+			if specificCategory {
+				header.calculate(unpaid: self.specificCategoryUnpaidExpenses, paid: self.specificCategoryPaidExpenses)
+			} else {
+				header.calculate(unpaid: self.unpaidExpenses, paid: self.paidExpenses)
+			}
 			return header
 		} else {
 			guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ExpensesSectionHeader else {return nil}
@@ -258,24 +251,89 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+		let current = Date()
+		let user = Auth.auth().currentUser
+		let month = current.month
+		let year = current.year
+		let cell = tableView.cellForRow(at: indexPath) as? ExpenseCell
+		
 		let action = UIContextualAction(style: .normal, title: "Mark as Paid") { (action, view, handler) in
 			handler(true)
-			// Paid/ Unpaid -- mark as paid/ unpaid depending on what it is now
+			guard let name = cell?.expense?.name else {return}
+			guard let expenseSelected = cell?.expense else {return}
+			if self.specificCategory == false {
+				self.unpaidExpenses.remove(at: indexPath.row)
+				self.paidExpenses.insert(expenseSelected, at: 0)
+			} else {
+				self.unpaidExpenses.remove(at: indexPath.row)
+				self.paidExpenses.insert(expenseSelected, at: 0)
+				self.specificCategoryUnpaidExpenses.remove(at: indexPath.row)
+				self.specificCategoryPaidExpenses.insert(expenseSelected, at: 0)
+			}
+			tableView.performBatchUpdates({
+				cell?.icon.image = UIImage(named: "paid-icon")
+				self.moveUnpaidToPaid(userID: user?.uid ?? "", year: year, month: month, name: name)
+				tableView.moveRow(at: .init(row: indexPath.row, section: 1), to: .init(row: 0, section: 2))
+			}, completion: { (success) in
+				if success {
+					print("we got success")
+					DispatchQueue.main.async {
+						self.expensesTableView.reloadData()
+					}
+				}
+				else {
+					print("error)")
+				}
+			})
 		}
 		action.backgroundColor = #colorLiteral(red: 0.1843137255, green: 0.3529411765, blue: 1, alpha: 1)
 		let configuration = UISwipeActionsConfiguration(actions: [action])
 		return configuration
 	}
 	
+	func moveUnpaidToPaid(userID: String, year: String, month: String, name: String) {
+		self.db.collection("users").document(userID).collection(year).document(month).updateData([
+			"\(name).isPaid": true,
+		]) { err in
+			if let err = err {
+				print("Error updating document: \(err)")
+			} else {
+				print("Document successfully updated")
+			}
+		}
+	}
+	
 	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+		let expenseCell = tableView.cellForRow(at: indexPath) as? ExpenseCell
+		guard let expense = expenseCell?.expense else { return nil }
+		let expenseName = expenseCell?.expenseTitle.text
+		let current = Date()
+		let year = current.year
+		let month = current.month
+		
+		guard let user = Auth.auth().currentUser else { return nil }
+		
 		let action = UIContextualAction(style: .normal, title: "Edit") { (action, view, handler) in
 			handler(true)
-			// Edit -- bring up the addexpense VC to edit the action
+			// Edit
+			let edit = EditExpenseVC()
+			edit.initData(expense: expense)
+			self.present(edit, animated: true, completion: nil)
 		}
+		
 		let action2 = UIContextualAction(style: .destructive, title: "Delete") { (action, view, handler) in
 			handler(true)
-			// Delete -- delete from the DB and reload the table
+			self.db.collection("users").document(user.uid).collection(year).document(month).updateData([
+				expenseName ?? "" : FieldValue.delete(),
+			]) { err in
+				if let err = err {
+					print("Error updating document: \(err)")
+				} else {
+					print("Document successfully updated")
+				}
+			}
 		}
+		
 		action.backgroundColor = #colorLiteral(red: 0.1843137255, green: 0.2196078431, blue: 0.3019607843, alpha: 1)
 		action2.backgroundColor = .red
 		let configuration = UISwipeActionsConfiguration(actions: [action2, action])

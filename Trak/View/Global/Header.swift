@@ -47,7 +47,7 @@ class HeaderWithLogo: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		addViews()
-		heightAnchor.constraint(equalToConstant: 116).isActive = true
+		heightAnchor.constraint(equalToConstant: 110).isActive = true
 	}
 	
 	public convenience init(leftIcon: UIImage, rightIcon: UIImage) {

@@ -73,5 +73,5 @@ class DataService {
 	func calculatingTotalExpenses(withUnpaidTotal: Double, paidTotal: Double) -> Double {
 		return withUnpaidTotal + paidTotal
 	}
-	
+
 }

@@ -47,7 +47,6 @@ class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "category", for: indexPath) as? CategoryCell else { return UICollectionViewCell() }
-//		collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: [])
 		cell.categoryTitle.text = categoriesArray[indexPath.row]
 		return cell
 	}
