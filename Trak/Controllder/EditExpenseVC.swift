@@ -93,6 +93,8 @@ class EditExpenseVC: UIViewController, UITextFieldDelegate {
 		guard let paymentDueDate = paymentDate else { print("duedate");showIncompleteFormAlert(); return }
 		guard let paymentCategory = fields.categoryField.textField.text, fields.categoryField.textField.text != nil else {  print("category");showIncompleteFormAlert(); return }
 		editExpenseWithNewInformation(newName: paymentName, newAmount: paymentAmountDouble, newDate: paymentDueDate, newCategory: paymentCategory)
+		let expenseTableVC = ExpensesVC()
+		expenseTableVC.expensesTableView.reloadData()
 		dismiss(animated: true, completion: nil)
 	}
 	
