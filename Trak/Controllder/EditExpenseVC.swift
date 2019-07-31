@@ -18,6 +18,7 @@ class EditExpenseVC: UIViewController, UITextFieldDelegate {
 	var paymentMonth: String?
 	var paymentYear: String?
 	var editExpense: Expense?
+	var timestamp: Timestamp?
 	
 	let fields = AddExpenseStackView()
 	let addPaymentButton = MainBlueButton()
@@ -40,10 +41,11 @@ class EditExpenseVC: UIViewController, UITextFieldDelegate {
 		
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "MM/ dd / yyyy"
-		paymentDate = expense.date
+		self.timestamp = expense.timestamp
+		paymentDate = timestamp?.dateValue()
 		paymentMonth = paymentDate?.month
 		paymentYear = paymentDate?.year
-		fields.dateField.textField.text = dateFormatter.string(from: expense.date)
+		fields.dateField.textField.text = dateFormatter.string(from: paymentDate ?? Date())
 	}
 	
 	override func viewDidLoad() {
@@ -83,6 +85,7 @@ class EditExpenseVC: UIViewController, UITextFieldDelegate {
 		paymentDate = datePicker.date
 		paymentMonth = paymentDate?.month
 		paymentYear = paymentDate?.year
+		self.timestamp = Timestamp(date: paymentDate ?? Date())
 		fields.dateField.textField.text = dateFormatter.string(from: datePicker.date)
 	}
 	
@@ -90,9 +93,9 @@ class EditExpenseVC: UIViewController, UITextFieldDelegate {
 		guard let paymentName = fields.nameField.textField.text, fields.nameField.textField.text != nil else { print("name");showIncompleteFormAlert(); return }
 		guard let paymentAmount = fields.totalField.textField.text?.removeCurrency else { print("payamount");showIncompleteFormAlert(); return }
 		guard let paymentAmountDouble = Double(paymentAmount) else { print("aqmtdoubt");showIncompleteFormAlert(); return }
-		guard let paymentDueDate = paymentDate else { print("duedate");showIncompleteFormAlert(); return }
+		guard let paymentDueDate = self.timestamp else { print("duedate");showIncompleteFormAlert(); return }
 		guard let paymentCategory = fields.categoryField.textField.text, fields.categoryField.textField.text != nil else {  print("category");showIncompleteFormAlert(); return }
-		editExpenseWithNewInformation(newName: paymentName, newAmount: paymentAmountDouble, newDate: paymentDueDate, newCategory: paymentCategory)
+		editExpenseWithNewInformation(newName: paymentName, timestamp: paymentDueDate, newAmount: paymentAmountDouble, newDate: paymentDueDate, newCategory: paymentCategory)
 		let expenseTableVC = ExpensesVC()
 		expenseTableVC.expensesTableView.reloadData()
 		dismiss(animated: true, completion: nil)
@@ -133,7 +136,7 @@ class EditExpenseVC: UIViewController, UITextFieldDelegate {
 	//Adding data to Firestore
 	
 	// Change to Edit the Existing Payment
-	fileprivate func editExpenseWithNewInformation(newName: String, newAmount: Double, newDate: Date, newCategory: String) {
+	fileprivate func editExpenseWithNewInformation(newName: String, timestamp: Timestamp, newAmount: Double, newDate: Timestamp, newCategory: String) {
 		guard let user = Auth.auth().currentUser else {print("This is the user"); return}
 		guard let month = paymentMonth else {print("This is the month"); return}
 		guard let year = paymentYear else {print("This is the year"); return}
@@ -144,6 +147,7 @@ class EditExpenseVC: UIViewController, UITextFieldDelegate {
 			"\(name).category": newCategory,
 			"\(name).date": newDate,
 			"\(name).name": newName,
+			"\(name).timestamp": timestamp
 		]) { err in
 			if let err = err {
 				print("Error updating document: \(err)")

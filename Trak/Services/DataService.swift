@@ -47,7 +47,8 @@ class DataService {
 							let amount = name["amount"] as? Double ?? 0
 							let date = name["date"] as? Date ?? Date()
 							let isPaid = name["isPaid"] as? Bool ?? false
-							let expense = Expense(amount: amount, category: category, date: date, isPaid: isPaid, name: title)
+							let timestamp = name["timestamp"] as? Timestamp ?? Timestamp.init(date: Date())
+							let expense = Expense(amount: amount, timestamp: timestamp, category: category, date: date, isPaid: isPaid, name: title)
 							if expense.isPaid == false {
 								unpaidExpenses.append(expense)
 							} else if expense.isPaid == true {

@@ -17,7 +17,8 @@ class ExpenseCell: UITableViewCell {
 			
 			let dateFormatter = DateFormatter()
 			dateFormatter.dateFormat = "MM/dd/yyyy"
-			guard let dueDate = expense?.date else {return}
+			guard let timeStamp = expense?.timestamp else {return}
+			let dueDate = timeStamp.dateValue()
 			dueDateLabel.text = "Due Date: \(dateFormatter.string(from: dueDate))"
 			
 			guard let dueAmount = expense?.amount else {return}

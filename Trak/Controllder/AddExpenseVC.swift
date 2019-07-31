@@ -17,6 +17,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 	var paymentDate: Date?
 	var paymentMonth: String?
 	var paymentYear: String?
+	var timeStamp: Timestamp?
 	
 	let fields = AddExpenseStackView()
 	let addPaymentButton = MainBlueButton()
@@ -68,6 +69,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 		paymentDate = datePicker.date
 		paymentMonth = paymentDate?.month
 		paymentYear = paymentDate?.year
+		self.timeStamp = Timestamp(date: paymentDate ?? Date())
 		fields.dateField.textField.text = dateFormatter.string(from: datePicker.date)
 	}
 	
@@ -75,9 +77,9 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 		guard let paymentName = fields.nameField.textField.text, fields.nameField.textField.text != nil else { print("name");showIncompleteFormAlert(); return }
 		guard let paymentAmount = fields.totalField.textField.text?.removeCurrency else { print("payamount");showIncompleteFormAlert(); return }
 		guard let paymentAmountDouble = Double(paymentAmount) else { print("aqmtdoubt");showIncompleteFormAlert(); return }
-		guard let paymentDueDate = paymentDate else { print("duedate");showIncompleteFormAlert(); return }
+		guard let paymentDueDate = self.timeStamp else { print("duedate");showIncompleteFormAlert(); return }
 		guard let paymentCategory = fields.categoryField.textField.text, fields.categoryField.textField.text != nil else {  print("category");showIncompleteFormAlert(); return }
-		addPaymentToDatabase(name: paymentName, amount: paymentAmountDouble, date: paymentDueDate, category: paymentCategory)
+		addPaymentToDatabase(name: paymentName, amount: paymentAmountDouble, timestamp: paymentDueDate, date: paymentDueDate, category: paymentCategory)
 		dismiss(animated: true, completion: nil)
 	}
 
@@ -114,12 +116,12 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 	}
 
 	//Adding data to Firestore
-	fileprivate func addPaymentToDatabase(name: String, amount: Double, date: Date, category: String) {
+	fileprivate func addPaymentToDatabase(name: String, amount: Double, timestamp: Timestamp, date: Timestamp, category: String) {
 		guard let user = Auth.auth().currentUser else {return}
 		guard let month = paymentMonth else {return}
 		guard let year = paymentYear else {return}
 		let expense = [
-			name : ["name": name, "amount": amount, "date": date, "category": category, "isPaid": false]
+			name : ["name": name, "amount": amount, "timestamp": timestamp, "date": date, "category": category, "isPaid": false]
 		]
 		db.collection("users").document(user.uid).collection(year).document(month).setData(expense, merge: true) { err in
 			if let err = err {

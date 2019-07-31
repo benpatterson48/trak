@@ -7,16 +7,19 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct Expense {
 	var amount: Double
+	var timestamp: Timestamp
 	var category: String
 	var date: Date
 	var isPaid: Bool
 	var name: String
 	
-	init(amount: Double, category: String, date: Date, isPaid: Bool, name: String) {
+	init(amount: Double, timestamp: Timestamp, category: String, date: Date, isPaid: Bool, name: String) {
 		self.amount = amount
+		self.timestamp = timestamp
 		self.category = category
 		self.date = date
 		self.isPaid = isPaid

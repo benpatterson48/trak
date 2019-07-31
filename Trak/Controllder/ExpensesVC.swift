@@ -287,8 +287,13 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 			})
 		}
 		action.backgroundColor = #colorLiteral(red: 0.1843137255, green: 0.3529411765, blue: 1, alpha: 1)
-		let configuration = UISwipeActionsConfiguration(actions: [action])
-		return configuration
+		if cell?.expense?.isPaid == false {
+			let configuration = UISwipeActionsConfiguration(actions: [action])
+			return configuration
+		} else {
+			let configuration = UISwipeActionsConfiguration(actions: [])
+			return configuration
+		}
 	}
 	
 	func moveUnpaidToPaid(userID: String, year: String, month: String, name: String) {
@@ -333,7 +338,6 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 				}
 			}
 		}
-		
 		action.backgroundColor = #colorLiteral(red: 0.1843137255, green: 0.2196078431, blue: 0.3019607843, alpha: 1)
 		action2.backgroundColor = .red
 		let configuration = UISwipeActionsConfiguration(actions: [action2, action])
@@ -341,11 +345,6 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-		let cell = tableView.cellForRow(at: indexPath) as? ExpenseCell
-		if cell?.expense?.isPaid == false {
-			return true
-		} else {
-			return false
-		}
+		return true
 	}
 }
