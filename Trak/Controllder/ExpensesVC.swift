@@ -46,7 +46,7 @@ class ExpensesVC: UIViewController, TLMonthYearPickerDelegate, UITextFieldDelega
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
-		checkExpensesArray()
+		checkForMonthExisting()
 		grabExpenses()
 		expenseHeader.categoryCollectionView.reloadData()
 	}
@@ -113,6 +113,18 @@ class ExpensesVC: UIViewController, TLMonthYearPickerDelegate, UITextFieldDelega
 	@objc func addNewPaymentButtonWasPressed() {
 		let add = AddExpenseVC()
 		present(add, animated: true, completion: nil)
+	}
+	
+	fileprivate func checkForMonthExisting() {
+		let date = Date()
+		let year = date.year
+		db.collection("users").document(user?.uid ?? "").getDocument { (snapshot, error) in
+			if let snapshot = snapshot, (snapshot.get(year) != nil) {
+				self.checkExpensesArray()
+			} else {
+				self.addEmptyStateViews()
+			}
+		}
 	}
 	
 	fileprivate func checkExpensesArray() {
