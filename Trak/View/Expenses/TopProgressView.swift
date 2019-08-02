@@ -10,10 +10,14 @@ import UIKit
 
 class MonthSwipeStack: UIView {
 	
-	let monthTitleLabelButton: UIButton = {
-		let title = UIButton()
-		title.setTitleColor(UIColor.main.lightText, for: .normal)
-		title.titleLabel?.font = UIFont.mainFont(ofSize: 18)
+	let monthTitleLabelButton: UITextField = {
+		let title = UITextField()
+		let date = Date()
+		title.textAlignment = .center
+		title.borderStyle = .none
+		title.text = "\(date.month)"
+		title.textColor = UIColor.main.lightText
+		title.font = UIFont.mainFont(ofSize: 18)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
 	}()
@@ -44,7 +48,7 @@ class MonthSwipeStack: UIView {
 		addViews()
 		backgroundColor = .white
 		heightAnchor.constraint(equalToConstant: 40).isActive = true
-		monthTitleLabelButton.setTitle(grabCurrentMonth(), for: .normal)
+		monthTitleLabelButton.text = grabCurrentMonth()
 	}
 	
 	func addViews() {

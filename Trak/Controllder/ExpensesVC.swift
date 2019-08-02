@@ -9,14 +9,15 @@
 import UIKit
 import FirebaseFirestore
 import FirebaseAuth
+import TLMonthYearPicker
 
 var categoriesArray = ["All Categories"]
 protocol ChangedCategory {
 	func categoryChanged(category: String) -> String
 }
 
-class ExpensesVC: UIViewController {
-	
+class ExpensesVC: UIViewController, TLMonthYearPickerDelegate, UITextFieldDelegate {
+
 	var categorySelected = String()
 	var user: User?
 	var category = String()
@@ -33,12 +34,15 @@ class ExpensesVC: UIViewController {
 	let db = Firestore.firestore()
 	let totalStack = TotalStackView()
 	let monthInfo = MonthSwipeStack()
+	
+	let datePicker = ExpenseDatePicker()
+	let monthYearPicker = TLMonthYearPickerView()
 	let sectionNames: Array = ["", "UNPAID", "PAID"]
 	let tableSectionHeader = ExpensesSectionHeader(reuseIdentifier: "header")
 	let expenseHeader = ExpensesTableHeaderView(reuseIdentifier: "tableHeader")
 	let header = HeaderWithLogo(leftIcon: UIImage(named: "menu")!, rightIcon: UIImage(named: "add")!)
 	
-	let selectedMonth = MonthSwipeStack().monthTitleLabelButton.titleLabel?.text
+	let selectedMonth = MonthSwipeStack().monthTitleLabelButton.text
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
@@ -54,6 +58,7 @@ class ExpensesVC: UIViewController {
 		user = Auth.auth().currentUser
 		expensesTableView.delegate = self
 		expensesTableView.dataSource = self
+		monthInfo.monthTitleLabelButton.inputView = datePicker
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshList(notification:)), name:NSNotification.Name(rawValue: "refreshTable"), object: nil)
 	}
 	
@@ -174,6 +179,10 @@ class ExpensesVC: UIViewController {
 		return tv
 	}()
 	
+	func monthYearPickerView(picker: TLMonthYearPickerView, didSelectDate date: Date) {
+		// handle month and year selected here
+	}
+
 }
 
 extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
@@ -320,7 +329,6 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 		
 		let action = UIContextualAction(style: .normal, title: "Edit") { (action, view, handler) in
 			handler(true)
-			// Edit
 			let edit = EditExpenseVC()
 			edit.initData(expense: expense)
 			self.present(edit, animated: true, completion: nil)
@@ -335,6 +343,20 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 					print("Error updating document: \(err)")
 				} else {
 					print("Document successfully updated")
+					if self.specificCategory == false {
+						if expense.isPaid == true {
+							self.paidExpenses.remove(at: indexPath.row)
+						} else {
+							self.unpaidExpenses.remove(at: indexPath.row)
+						}
+					} else {
+						if expense.isPaid == true {
+							self.specificCategoryPaidExpenses.remove(at: indexPath.row)
+						} else {
+							self.specificCategoryUnpaidExpenses.remove(at: indexPath.row)
+						}
+					}
+					tableView.reloadData()
 				}
 			}
 		}

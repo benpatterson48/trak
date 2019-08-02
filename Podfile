@@ -15,5 +15,6 @@ target 'Trak' do
   pod 'DAKeychain'
   pod 'Fabric'
   pod 'Crashlytics'
+  pod 'TLMonthYearPicker', '2.0.0'
   
 end
