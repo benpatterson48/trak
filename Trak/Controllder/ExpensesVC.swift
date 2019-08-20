@@ -134,6 +134,7 @@ class ExpensesVC: UIViewController, TLMonthYearPickerDelegate, UITextFieldDelega
 		let year = current.year
 		db.collection("users").document(user?.uid ?? "").collection(year).getDocuments { (documents, error) in
 			if let documents = documents, documents.isEmpty == false {
+				self.checkForEmptyArray()
 				self.addViews()
 			} else {
 				self.addEmptyStateViews()
@@ -295,13 +296,13 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 			}
 			tableView.performBatchUpdates({
 				cell?.icon.image = UIImage(named: "paid-icon")
-				self.moveUnpaidToPaid(userID: user?.uid ?? "", year: year, month: month, name: name)
 				expenseSelected.isPaid = true
+				self.moveUnpaidToPaid(userID: user?.uid ?? "", year: year, month: month, name: name)
 				tableView.moveRow(at: .init(row: indexPath.row, section: 1), to: .init(row: 0, section: 2))
 			}, completion: { (success) in
 				if success {
 					DispatchQueue.main.async {
-						self.expensesTableView.reloadData()
+						self.grabExpenses()
 					}
 				}
 				else {
@@ -356,6 +357,7 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 				if let err = err {
 					print("Error updating document: \(err)")
 				} else {
+					print("Our expense was labeled as paid: \(expense.isPaid)")
 					if self.specificCategory == false {
 						if expense.isPaid == true {
 							self.paidExpenses.remove(at: indexPath.row)
