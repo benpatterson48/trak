@@ -118,10 +118,12 @@ class ExpensesVC: UIViewController, TLMonthYearPickerDelegate, UITextFieldDelega
 	fileprivate func checkForMonthExisting() {
 		let date = Date()
 		let year = date.year
-		db.collection("users").document(user?.uid ?? "").getDocument { (snapshot, error) in
-			if let snapshot = snapshot, (snapshot.get(year) != nil) {
-				self.checkExpensesArray()
-			} else {
+		db.collection("users").document(user?.uid ?? "").collection(year).getDocuments { (snapshot, error) in
+			if let error = error {
+				print(error)
+			} else if let snapshot = snapshot, snapshot.isEmpty == false {
+				self.addViews()
+			} else if snapshot?.isEmpty == true {
 				self.addEmptyStateViews()
 			}
 		}
@@ -281,7 +283,7 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 		let action = UIContextualAction(style: .normal, title: "Mark as Paid") { (action, view, handler) in
 			handler(true)
 			guard let name = cell?.expense?.name else {return}
-			guard let expenseSelected = cell?.expense else {return}
+			guard var expenseSelected = cell?.expense else {return}
 			if self.specificCategory == false {
 				self.unpaidExpenses.remove(at: indexPath.row)
 				self.paidExpenses.insert(expenseSelected, at: 0)
@@ -294,10 +296,10 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 			tableView.performBatchUpdates({
 				cell?.icon.image = UIImage(named: "paid-icon")
 				self.moveUnpaidToPaid(userID: user?.uid ?? "", year: year, month: month, name: name)
+				expenseSelected.isPaid = true
 				tableView.moveRow(at: .init(row: indexPath.row, section: 1), to: .init(row: 0, section: 2))
 			}, completion: { (success) in
 				if success {
-					print("we got success")
 					DispatchQueue.main.async {
 						self.expensesTableView.reloadData()
 					}
@@ -354,18 +356,21 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 				if let err = err {
 					print("Error updating document: \(err)")
 				} else {
-					print("Document successfully updated")
 					if self.specificCategory == false {
 						if expense.isPaid == true {
 							self.paidExpenses.remove(at: indexPath.row)
+							self.checkForEmptyArray()
 						} else {
 							self.unpaidExpenses.remove(at: indexPath.row)
+							self.checkForEmptyArray()
 						}
 					} else {
 						if expense.isPaid == true {
 							self.specificCategoryPaidExpenses.remove(at: indexPath.row)
+							self.checkForEmptyArray()
 						} else {
 							self.specificCategoryUnpaidExpenses.remove(at: indexPath.row)
+							self.checkForEmptyArray()
 						}
 					}
 					tableView.reloadData()
@@ -376,6 +381,20 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 		action2.backgroundColor = .red
 		let configuration = UISwipeActionsConfiguration(actions: [action2, action])
 		return configuration
+	}
+	
+	func checkForEmptyArray() {
+		if self.specificCategoryPaidExpenses.isEmpty == true && self.specificCategoryUnpaidExpenses.isEmpty == true && self.unpaidExpenses.isEmpty == true && self.paidExpenses.isEmpty == true {
+			let date = Date()
+			let year = date.year
+			let month = date.month
+			self.db.collection("users").document(self.user?.uid ?? "").collection(year).document(month).delete()
+			self.header.removeFromSuperview()
+			self.expensesTableView.removeFromSuperview()
+			self.addEmptyStateViews()
+		} else {
+			return
+		}
 	}
 	
 	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
