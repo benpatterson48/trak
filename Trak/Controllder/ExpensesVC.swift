@@ -61,7 +61,7 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	}
 	
 	@objc func monthUpdatedReloadTable(notification: NSNotification) {
-		print("were getting ready to reload")
+		checkingExpensesForNewMonth()
 		grabExpenses()
 	}
 	
@@ -134,20 +134,48 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	fileprivate func checkExpensesArray() {
 		let current = Date()
 		let year = current.year
-		db.collection("users").document(user?.uid ?? "").collection(year).getDocuments { (documents, error) in
-			if let documents = documents, documents.isEmpty == false {
+		let docRef = db.collection("users").document(user?.uid ?? "").collection(year).document(selectedMonth)
+		docRef.getDocument() { (document, error) in
+			if let document = document, document.exists == true {
 				self.checkForEmptyArray()
 				self.addViews()
+				self.grabExpenses()
 			} else {
 				self.addEmptyStateViews()
 			}
 		}
 	}
 	
+	func checkingExpensesForNewMonth() {
+		let current = Date()
+		let year = current.year
+		let docRef = db.collection("users").document(user?.uid ?? "").collection(year).document(selectedMonth)
+		docRef.getDocument() { (document, error) in
+			if let document = document, document.exists == true {
+				self.checkForEmptyArray()
+				self.addViews()
+				self.grabExpenses()
+				DispatchQueue.main.async {
+					self.monthInfo.monthTextField.text = selectedMonth.uppercased()
+				}
+			} else {
+				self.header.removeFromSuperview()
+				self.expensesTableView.removeFromSuperview()
+				self.addEmptyStateViews()
+				DispatchQueue.main.async {
+					self.monthInfo.monthTextField.text = selectedMonth.uppercased()
+				}
+			}
+		}
+	}
+
+	
 	fileprivate func addViews() {
 		view.addSubview(header)
+		view.addSubview(monthInfo)
 		view.addSubview(expensesTableView)
 		header.translatesAutoresizingMaskIntoConstraints = false
+		monthInfo.translatesAutoresizingMaskIntoConstraints = false
 		expensesTableView.translatesAutoresizingMaskIntoConstraints = false
 		addConstraints()
 	}
@@ -156,9 +184,14 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		header.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 		header.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		header.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-		header.bottomAnchor.constraint(equalTo: expensesTableView.topAnchor, constant: 0).isActive = true
-
-		expensesTableView.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 0).isActive = true
+		header.bottomAnchor.constraint(equalTo: monthInfo.topAnchor, constant: -16).isActive = true
+		
+		monthInfo.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 16).isActive = true
+		monthInfo.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+		monthInfo.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+		monthInfo.bottomAnchor.constraint(equalTo: expensesTableView.topAnchor, constant: 0).isActive = true 
+		
+		expensesTableView.topAnchor.constraint(equalTo: monthInfo.bottomAnchor, constant: 0).isActive = true
 		expensesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		expensesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
 		expensesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -167,6 +200,8 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	fileprivate func addEmptyStateViews() {
 		view.addSubview(header)
 		header.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(monthInfo)
+		monthInfo.translatesAutoresizingMaskIntoConstraints = false
 		view.addSubview(emptyState)
 		emptyState.translatesAutoresizingMaskIntoConstraints = false
 		addEmptyStateConstraints()
@@ -176,6 +211,12 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		header.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 		header.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		header.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+		header.bottomAnchor.constraint(equalTo: monthInfo.topAnchor, constant: -16).isActive = true
+		
+		monthInfo.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 16).isActive = true
+		monthInfo.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+		monthInfo.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+		
 		emptyState.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 		emptyState.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
 		emptyState.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32).isActive = true
@@ -185,9 +226,10 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	let expensesTableView: UITableView = {
 		let tv = UITableView(frame: .zero, style: .plain)
 		tv.separatorColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
-		tv.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
+		tv.backgroundColor = .white
 		tv.alwaysBounceVertical = true
 		tv.isUserInteractionEnabled = true
+		tv.showsVerticalScrollIndicator = false
 		tv.register(ExpenseCell.self, forCellReuseIdentifier: "expense")
 		tv.register(EmptyExpenseCell.self, forCellReuseIdentifier: "empty")
 		tv.register(ExpensesSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")

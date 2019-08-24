@@ -24,7 +24,6 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 	let bg = UIView()
 	let circleViewBG = UIView()
 	let keyView = TotalKeyView()
-	let topView = MonthSwipeStack()
 	let totalStack = TotalStackView()
 	let circularView = CircleProgressView()
 	
@@ -61,7 +60,7 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 	
 	fileprivate func setCirclePath() {
 		let point = CGPoint(x: circleViewBG.bounds.midX, y: circleViewBG.bounds.midY)
-		let circularPath = UIBezierPath(arcCenter: .zero, radius: 94, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
+		let circularPath = UIBezierPath(arcCenter: .zero, radius: 110, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: true)
 		
 		circularView.trackLayer.position = point
 		circularView.shapeLayer.position = point
@@ -98,14 +97,12 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 	fileprivate func addViews() {
 		addSubview(bg)
 		addSubview(keyView)
-		addSubview(topView)
 		addSubview(circleViewBG)
 		addSubview(categoryCollectionView)
 		circleViewBG.addSubview(totalStack)
 		
 		bg.translatesAutoresizingMaskIntoConstraints = false
 		keyView.translatesAutoresizingMaskIntoConstraints = false
-		topView.translatesAutoresizingMaskIntoConstraints = false
 		totalStack.translatesAutoresizingMaskIntoConstraints = false
 		circleViewBG.translatesAutoresizingMaskIntoConstraints = false
 		
@@ -118,20 +115,15 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 		bg.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
 		bg.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
 		
-		topView.topAnchor.constraint(equalTo: bg.topAnchor, constant: 16).isActive = true
-		topView.leadingAnchor.constraint(equalTo: bg.leadingAnchor).isActive = true
-		topView.trailingAnchor.constraint(equalTo: bg.trailingAnchor).isActive = true
-		topView.bottomAnchor.constraint(equalTo: circleViewBG.topAnchor, constant: -16).isActive = true
-		
-		circleViewBG.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 16).isActive = true
+		circleViewBG.topAnchor.constraint(equalTo: bg.topAnchor, constant: 0).isActive = true
 		circleViewBG.leadingAnchor.constraint(equalTo: bg.leadingAnchor).isActive = true
 		circleViewBG.trailingAnchor.constraint(equalTo: bg.trailingAnchor).isActive = true
-		circleViewBG.bottomAnchor.constraint(equalTo: keyView.topAnchor, constant: -32).isActive = true
+		circleViewBG.bottomAnchor.constraint(equalTo: keyView.topAnchor, constant: -16).isActive = true
 		
 		totalStack.centerXAnchor.constraint(equalTo: circleViewBG.centerXAnchor).isActive = true
 		totalStack.centerYAnchor.constraint(equalTo: circleViewBG.centerYAnchor).isActive = true
 		
-		keyView.topAnchor.constraint(equalTo: circleViewBG.bottomAnchor, constant: 32).isActive = true
+		keyView.topAnchor.constraint(equalTo: circleViewBG.bottomAnchor, constant: 16).isActive = true
 		keyView.centerXAnchor.constraint(equalTo: bg.centerXAnchor).isActive = true
 		keyView.heightAnchor.constraint(equalToConstant: 40).isActive = true
 		keyView.bottomAnchor.constraint(equalTo: categoryCollectionView.topAnchor, constant: -32).isActive = true

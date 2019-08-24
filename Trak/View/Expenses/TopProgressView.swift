@@ -41,9 +41,9 @@ class MonthSwipeStack: UIView {
 				selectedMonth = monthArray[index]
 			} else {
 				selectedMonth = monthArray[index - 1]
-				DispatchQueue.main.async {
-					self.monthTextField.text = selectedMonth.uppercased()
-				}
+//				DispatchQueue.main.async {
+//					self.monthTextField.text = selectedMonth.uppercased()
+//				}
 				let month:[String: String] = ["newMonth": selectedMonth]
 				NotificationCenter.default.post(name: .init("monthUpdated"), object: nil, userInfo: month)
 			}
@@ -67,9 +67,9 @@ class MonthSwipeStack: UIView {
 				selectedMonth = monthArray[index]
 			} else {
 				selectedMonth = monthArray[index + 1]
-				DispatchQueue.main.async {
-					self.monthTextField.text = selectedMonth.uppercased()
-				}
+//				DispatchQueue.main.async {
+//					self.monthTextField.text = selectedMonth.uppercased()
+//				}
 				let month:[String: String] = ["newMonth": selectedMonth]
 				NotificationCenter.default.post(name: .init("monthUpdated"), object: nil, userInfo: month)
 			}
@@ -78,7 +78,6 @@ class MonthSwipeStack: UIView {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		print("We've called our topview init")
 		backgroundColor = .white
 		addViews()
 		backgroundColor = .white
@@ -98,13 +97,7 @@ class MonthSwipeStack: UIView {
 		monthTitleStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
 		monthTitleStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50).isActive = true
 	}
-	
-	fileprivate func grabCurrentMonth() -> String {
-		let date = Date()
-		let month = date.month.uppercased()
-		return month
-	}
-	
+
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
@@ -119,13 +112,13 @@ class CircleProgressView: CALayer {
 		super.init()
 		trackLayer.strokeColor = UIColor.main.yellow.cgColor
 		trackLayer.fillColor = UIColor.clear.cgColor
-		trackLayer.lineWidth = 20
+		trackLayer.lineWidth = 22
 		trackLayer.transform = CATransform3DMakeRotation(-CGFloat.pi / 2, 0, 0, 1)
 		
 		shapeLayer.strokeColor = UIColor.main.teal.cgColor
 		shapeLayer.lineCap = CAShapeLayerLineCap.round
 		shapeLayer.fillColor = UIColor.clear.cgColor
-		shapeLayer.lineWidth = 20
+		shapeLayer.lineWidth = 22
 		shapeLayer.transform = CATransform3DMakeRotation(-CGFloat.pi / 2, 0, 0, 1)
 		
 	}
@@ -133,7 +126,6 @@ class CircleProgressView: CALayer {
 	func animateCircle() {
 		let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
 		
-//		basicAnimation.toValue = 1
 		basicAnimation.duration = 1
 		basicAnimation.fillMode = CAMediaTimingFillMode.forwards
 		basicAnimation.fromValue = 0
@@ -154,18 +146,19 @@ class TotalStackView: UIView {
 		let total = UILabel()
 		total.text = "TOTAL"
 		total.textAlignment = .center
+		total.adjustsFontSizeToFitWidth = true
 		total.textColor = UIColor.main.lightText
-		total.font = UIFont.mainFont(ofSize: 14)
+		total.font = UIFont.mainFont(ofSize: 16)
 		total.translatesAutoresizingMaskIntoConstraints = false
 		return total
 	}()
 	
 	let currentTotalAmountLabel: UILabel = {
 		let current = UILabel()
+		current.textColor = #colorLiteral(red: 0.1843137255, green: 0.2196078431, blue: 0.3019607843, alpha: 0.8)
 		current.textAlignment = .center
 		current.adjustsFontSizeToFitWidth = true
-		current.textColor = UIColor.main.darkText
-		current.font = UIFont.mainFont(ofSize: 30)
+		current.font = UIFont.systemFont(ofSize: 34, weight: .medium)
 		current.translatesAutoresizingMaskIntoConstraints = false
 		return current
 	}()

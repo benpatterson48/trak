@@ -83,7 +83,6 @@ class DataService {
 		var unpaidExpenses = [Expense]()
 		var paidExpenses = [Expense]()
 		guard let user = Auth.auth().currentUser else {return}
-		print("This is our selected month: \(month)")
 		let docRef = db.collection("users").document(user.uid).collection("2019").document(month)
 		docRef.getDocument { (querySnapshot, err) in
 			if let err = err {
