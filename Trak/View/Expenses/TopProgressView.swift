@@ -8,14 +8,16 @@
 
 import UIKit
 
+let picker = MonthPickerView()
+
 class MonthSwipeStack: UIView {
 	
-	let monthTitleLabelButton: UITextField = {
-		let title = UITextField()
-		let date = Date()
+	let monthTextField: UILabel = {
+		let title = UILabel()
+//		title.borderStyle = .none
 		title.textAlignment = .center
-		title.borderStyle = .none
-		title.text = "\(date.month)"
+//		title.inputView = picker
+//		title.inputAccessoryView = barAccessory
 		title.textColor = UIColor.main.lightText
 		title.font = UIFont.mainFont(ofSize: 18)
 		title.translatesAutoresizingMaskIntoConstraints = false
@@ -29,8 +31,24 @@ class MonthSwipeStack: UIView {
 		arrow.widthAnchor.constraint(equalToConstant: 40).isActive = true
 		arrow.heightAnchor.constraint(equalToConstant: 40).isActive = true
 		arrow.setBackgroundImage(UIImage(named: "left-arrow"), for: .normal)
+		arrow.addTarget(self, action: #selector(leftArrowPressed), for: .touchUpInside)
 		return arrow
 	}()
+	
+	@objc func leftArrowPressed() {
+		if let index = monthArray.firstIndex(of: selectedMonth) {
+			if index == 0 {
+				selectedMonth = monthArray[index]
+			} else {
+				selectedMonth = monthArray[index - 1]
+				DispatchQueue.main.async {
+					self.monthTextField.text = selectedMonth.uppercased()
+				}
+				let month:[String: String] = ["newMonth": selectedMonth]
+				NotificationCenter.default.post(name: .init("monthUpdated"), object: nil, userInfo: month)
+			}
+		}
+	}
 	
 	let rightArrow: UIButton = {
 		let arrow = UIButton()
@@ -39,20 +57,37 @@ class MonthSwipeStack: UIView {
 		arrow.widthAnchor.constraint(equalToConstant: 40).isActive = true
 		arrow.heightAnchor.constraint(equalToConstant: 40).isActive = true
 		arrow.setBackgroundImage(UIImage(named: "right-arrow"), for: .normal)
+		arrow.addTarget(self, action: #selector(rightArrowPressed), for: .touchUpInside)
 		return arrow
 	}()
 	
+	@objc func rightArrowPressed() {
+		if let index = monthArray.firstIndex(of: selectedMonth) {
+			if index == 11 {
+				selectedMonth = monthArray[index]
+			} else {
+				selectedMonth = monthArray[index + 1]
+				DispatchQueue.main.async {
+					self.monthTextField.text = selectedMonth.uppercased()
+				}
+				let month:[String: String] = ["newMonth": selectedMonth]
+				NotificationCenter.default.post(name: .init("monthUpdated"), object: nil, userInfo: month)
+			}
+		}
+	}
+	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
+		print("We've called our topview init")
 		backgroundColor = .white
 		addViews()
 		backgroundColor = .white
 		heightAnchor.constraint(equalToConstant: 40).isActive = true
-		monthTitleLabelButton.text = grabCurrentMonth()
+		monthTextField.text = selectedMonth.uppercased()
 	}
 	
 	func addViews() {
-		let monthTitleStack = UIStackView(arrangedSubviews: [leftArrow, monthTitleLabelButton, rightArrow])
+		let monthTitleStack = UIStackView(arrangedSubviews: [leftArrow, monthTextField, rightArrow])
 		monthTitleStack.translatesAutoresizingMaskIntoConstraints = false
 		monthTitleStack.distribution = .fillProportionally
 		monthTitleStack.spacing = 32

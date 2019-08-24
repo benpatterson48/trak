@@ -107,7 +107,6 @@ PODS:
   - nanopb/encode (0.3.901)
   - Protobuf (3.9.0)
   - SVProgressHUD (2.2.5)
-  - TLMonthYearPicker (2.0.0)
 
 DEPENDENCIES:
   - Crashlytics
@@ -117,7 +116,6 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Firestore
   - SVProgressHUD
-  - TLMonthYearPicker (= 2.0.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -141,7 +139,6 @@ SPEC REPOS:
     - nanopb
     - Protobuf
     - SVProgressHUD
-    - TLMonthYearPicker
 
 SPEC CHECKSUMS:
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
@@ -164,8 +161,7 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  TLMonthYearPicker: 0fd626210d73a9d9c5ab7854a58d21336f6c6f98
 
-PODFILE CHECKSUM: 56325af519721162517bb7077008ec4545aef16e
+PODFILE CHECKSUM: 2674e26e0617bae8ac7f6b28618cecca8dfa2c59
 
 COCOAPODS: 1.5.2

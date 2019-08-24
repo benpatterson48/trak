@@ -26,6 +26,7 @@
 		1D80CE5522BB1F9500D69E71 /* ExpenseDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80CE5422BB1F9500D69E71 /* ExpenseDatePicker.swift */; };
 		1D80CE5922BB369A00D69E71 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80CE5822BB369A00D69E71 /* DataService.swift */; };
 		1D80CE5B22BB519E00D69E71 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80CE5A22BB519E00D69E71 /* String.swift */; };
+		1D8286E6230E4E4F0087B892 /* MonthPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8286E5230E4E4F0087B892 /* MonthPickerView.swift */; };
 		1D9A4E3222D6E1DF000DF8F6 /* MonthDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A4E3122D6E1DF000DF8F6 /* MonthDatePicker.swift */; };
 		1D9A7EE122E6C38C00488961 /* EditExpenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D9A7EE022E6C38C00488961 /* EditExpenseVC.swift */; };
 		1DBC81FC22C5974100C91D6C /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DBC81FB22C5974100C91D6C /* Category.swift */; };
@@ -74,9 +75,10 @@
 		1D6B9B1022B9E90900E07920 /* ImageAndTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAndTextButton.swift; sourceTree = "<group>"; };
 		1D6B9B1222B9EE9200E07920 /* Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
 		1D80CE5222BAE76700D69E71 /* AddNewCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCategoryVC.swift; sourceTree = "<group>"; };
-		1D80CE5422BB1F9500D69E71 /* ExpenseDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseDatePicker.swift; sourceTree = "<group>"; };
+		1D80CE5422BB1F9500D69E71 /* ExpenseDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExpenseDatePicker.swift; path = ../AddExpense/ExpenseDatePicker.swift; sourceTree = "<group>"; };
 		1D80CE5822BB369A00D69E71 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		1D80CE5A22BB519E00D69E71 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		1D8286E5230E4E4F0087B892 /* MonthPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthPickerView.swift; sourceTree = "<group>"; };
 		1D9A4E3122D6E1DF000DF8F6 /* MonthDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthDatePicker.swift; sourceTree = "<group>"; };
 		1D9A7EE022E6C38C00488961 /* EditExpenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpenseVC.swift; sourceTree = "<group>"; };
 		1DBC81FB22C5974100C91D6C /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -127,10 +129,12 @@
 			children = (
 				1D136D1522B56BD40030C48D /* EmptyState.swift */,
 				1D4DCED322D6857D00A491D7 /* DataSource.swift */,
+				1D80CE5422BB1F9500D69E71 /* ExpenseDatePicker.swift */,
 				1D28677622C310CA0004612F /* TopProgressView.swift */,
 				1D9A4E3122D6E1DF000DF8F6 /* MonthDatePicker.swift */,
 				1D4E08F322CB25E200845802 /* ExpensesSectionHeader.swift */,
 				1DD1264222D43FFE0072A250 /* ExpensesTableHeaderView.swift */,
+				1D8286E5230E4E4F0087B892 /* MonthPickerView.swift */,
 			);
 			path = Expenses;
 			sourceTree = "<group>";
@@ -139,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				1D136D1C22B8937A0030C48D /* AddExpenseStackView.swift */,
-				1D80CE5422BB1F9500D69E71 /* ExpenseDatePicker.swift */,
 			);
 			path = AddExpense;
 			sourceTree = "<group>";
@@ -395,7 +398,6 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/TLMonthYearPicker/TLMonthYearPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -409,7 +411,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TLMonthYearPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -476,6 +477,7 @@
 				1D4E08F222CB08F800845802 /* ExpenseCell.swift in Sources */,
 				1D4E08F422CB25E200845802 /* ExpensesSectionHeader.swift in Sources */,
 				1D136D1622B56BD40030C48D /* EmptyState.swift in Sources */,
+				1D8286E6230E4E4F0087B892 /* MonthPickerView.swift in Sources */,
 				1D136D0F22B40E8B0030C48D /* LoginVC.swift in Sources */,
 				1DF1947522B3469000DFC41B /* OnboardingStackView.swift in Sources */,
 				1D136D1A22B887CC0030C48D /* AddExpenseVC.swift in Sources */,

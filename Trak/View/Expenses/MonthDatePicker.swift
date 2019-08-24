@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TLMonthYearPicker
 
 class MonthDatePicker: UIDatePicker {
 	override init(frame: CGRect) {

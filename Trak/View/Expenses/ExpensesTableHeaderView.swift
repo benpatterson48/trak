@@ -45,12 +45,13 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 	
 	override public init(reuseIdentifier: String?) {
 		super.init(reuseIdentifier: reuseIdentifier)
-		calculatingExpenses()
-		addViews()
-		bg.backgroundColor = .white
-		circleViewBG.backgroundColor = .white
 		categoryCollectionView.delegate = dataSource
 		categoryCollectionView.dataSource = dataSource
+		calculatingExpenses()
+		bg.backgroundColor = .white
+		circleViewBG.backgroundColor = .white
+		addViews()
+		
 		categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: [])
 	}
 
@@ -72,7 +73,7 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 	}
 	
 	func calculatingExpenses() {
-		DataService.instance.grabbingExpenses { (unpaid, paid) in
+		DataService.instance.grabbingExpenses(month: selectedMonth) { (unpaid, paid) in
 			self.calculate(unpaid: unpaid, paid: paid)
 		}
 	}

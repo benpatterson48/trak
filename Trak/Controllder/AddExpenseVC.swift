@@ -164,7 +164,6 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 	}
 	
 	fileprivate func setupFields() {
-		fields.categoryField.textField.inputView = categoryPicker
 		fields.totalField.textField.keyboardType = .decimalPad
 		fields.dateField.textField.inputView = datePicker
 		fields.categoryField.textField.inputView = categoryPicker

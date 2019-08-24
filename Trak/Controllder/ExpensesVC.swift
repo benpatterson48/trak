@@ -9,15 +9,14 @@
 import UIKit
 import FirebaseFirestore
 import FirebaseAuth
-import TLMonthYearPicker
 
 var categoriesArray = ["All Categories"]
 protocol ChangedCategory {
 	func categoryChanged(category: String) -> String
 }
 
-class ExpensesVC: UIViewController, TLMonthYearPickerDelegate, UITextFieldDelegate {
-
+class ExpensesVC: UIViewController, UITextFieldDelegate {
+	
 	var categorySelected = String()
 	var user: User?
 	var category = String()
@@ -28,38 +27,42 @@ class ExpensesVC: UIViewController, TLMonthYearPickerDelegate, UITextFieldDelega
 	var specificCategoryUnpaidExpenses = [Expense]()
 	var specificCategoryPaidExpenses = [Expense]()
 	
+	let date = Date()
 	let cell = CategoryCell()
 	let emptyState = EmptyState()
 	let keyStack = TotalKeyView()
 	let db = Firestore.firestore()
 	let totalStack = TotalStackView()
 	let monthInfo = MonthSwipeStack()
-	
-	let datePicker = ExpenseDatePicker()
-	let monthYearPicker = TLMonthYearPickerView()
 	let sectionNames: Array = ["", "UNPAID", "PAID"]
+	
 	let tableSectionHeader = ExpensesSectionHeader(reuseIdentifier: "header")
 	let expenseHeader = ExpensesTableHeaderView(reuseIdentifier: "tableHeader")
 	let header = HeaderWithLogo(leftIcon: UIImage(named: "menu")!, rightIcon: UIImage(named: "add")!)
 	
-	let selectedMonth = MonthSwipeStack().monthTitleLabelButton.text
-
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
 		checkForMonthExisting()
 		grabExpenses()
 		expenseHeader.categoryCollectionView.reloadData()
 	}
-
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		addButtonTargets()
 		view.backgroundColor = .white
 		user = Auth.auth().currentUser
+		
 		expensesTableView.delegate = self
 		expensesTableView.dataSource = self
-		monthInfo.monthTitleLabelButton.inputView = datePicker
+				
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshList(notification:)), name:NSNotification.Name(rawValue: "refreshTable"), object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(monthUpdatedReloadTable(notification:)), name:NSNotification.Name(rawValue: "monthUpdated"), object: nil)
+	}
+	
+	@objc func monthUpdatedReloadTable(notification: NSNotification) {
+		print("were getting ready to reload")
+		grabExpenses()
 	}
 	
 	@objc func refreshList(notification: NSNotification){
@@ -90,10 +93,9 @@ class ExpensesVC: UIViewController, TLMonthYearPickerDelegate, UITextFieldDelega
 			}
 		}
 	}
-
-
+	
 	func grabExpenses() {
-		DataService.instance.grabbingExpenses { (unpaid, paid) in
+		DataService.instance.grabbingExpenses(month: selectedMonth) { (unpaid, paid) in
 			self.unpaidExpenses = unpaid
 			self.paidExpenses = paid
 			self.expensesTableView.reloadData()
@@ -193,10 +195,6 @@ class ExpensesVC: UIViewController, TLMonthYearPickerDelegate, UITextFieldDelega
 		tv.translatesAutoresizingMaskIntoConstraints = false
 		return tv
 	}()
-	
-	func monthYearPickerView(picker: TLMonthYearPickerView, didSelectDate date: Date) {
-		// handle month and year selected here
-	}
 
 }
 
@@ -247,9 +245,8 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 		}
 		return cell
 	}
-	
+
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		
 		if section == 0 {
 			guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "tableHeader") as? ExpensesTableHeaderView else {return nil}
 			if specificCategory {
@@ -357,7 +354,6 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 				if let err = err {
 					print("Error updating document: \(err)")
 				} else {
-					print("Our expense was labeled as paid: \(expense.isPaid)")
 					if self.specificCategory == false {
 						if expense.isPaid == true {
 							self.paidExpenses.remove(at: indexPath.row)

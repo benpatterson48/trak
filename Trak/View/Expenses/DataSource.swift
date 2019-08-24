@@ -8,8 +8,11 @@
 
 import UIKit
 
+var selectedMonth = String()
+
 class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource {
 
+	var date = Date()
 	var category = String()
 	var specificCategory: Bool = false
 	var unpaidExpenses = [Expense]()
@@ -20,16 +23,21 @@ class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource
 
 	override init() {
 		super.init()
-		DataService.instance.getUserCategories { (returned) in
-			categoriesArray.removeAll()
-			categoriesArray.append("All Categories")
-			categoriesArray.append(contentsOf: returned)
+		DispatchQueue.main.async {
+			DataService.instance.getUserCategories { (returned) in
+				categoriesArray.removeAll()
+				categoriesArray.append("All Categories")
+				categoriesArray.append(contentsOf: returned)
+			}
+		}
+		if selectedMonth == "" {
+			selectedMonth = date.month
 		}
 		grabExpenses()
 	}
 	
 	func grabExpenses() {
-		DataService.instance.grabbingExpenses { (unpaid, paid) in
+		DataService.instance.grabbingExpenses(month: selectedMonth) { (unpaid, paid) in
 			self.unpaidExpenses = unpaid
 			self.paidExpenses = paid
 		}
