@@ -45,7 +45,9 @@ class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource
 	
 	//CollectionView
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		let indexSelected = IndexPath(item: indexPath.item, section: 0)
 		let categoryName:[String: String] = ["name": categoriesArray[indexPath.item]]
+		collectionView.selectItem(at: indexSelected, animated: true, scrollPosition: .centeredHorizontally)
 		NotificationCenter.default.post(name: .init("refreshTable"), object: nil, userInfo: categoryName)
 	}
 	

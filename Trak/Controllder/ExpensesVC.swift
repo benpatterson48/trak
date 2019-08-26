@@ -52,7 +52,7 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		addButtonTargets()
 		view.backgroundColor = .white
 		user = Auth.auth().currentUser
-		
+			
 		expensesTableView.delegate = self
 		expensesTableView.dataSource = self
 				
@@ -98,7 +98,9 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		DataService.instance.grabbingExpenses(month: selectedMonth) { (unpaid, paid) in
 			self.unpaidExpenses = unpaid
 			self.paidExpenses = paid
-			self.expensesTableView.reloadData()
+			DispatchQueue.main.async {
+				self.expensesTableView.reloadData()
+			}
 		}
 	}
 
@@ -225,8 +227,9 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	
 	let expensesTableView: UITableView = {
 		let tv = UITableView(frame: .zero, style: .plain)
+		tv.bounces = false
 		tv.separatorColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
-		tv.backgroundColor = .white
+		tv.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
 		tv.alwaysBounceVertical = true
 		tv.isUserInteractionEnabled = true
 		tv.showsVerticalScrollIndicator = false

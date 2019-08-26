@@ -11,6 +11,7 @@ import UIKit
 class ExpensesSectionHeader: UITableViewHeaderFooterView {
 	
 	static let myReuseIdentifier = "header"
+	
 	let label: UILabel = {
 		let label = UILabel()
 		label.textColor = #colorLiteral(red: 0.1843137255, green: 0.2196078431, blue: 0.3019607843, alpha: 0.8)
