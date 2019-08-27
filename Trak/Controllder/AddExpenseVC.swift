@@ -13,7 +13,7 @@ import FirebaseAuth
 class AddExpenseVC: UIViewController, UITextFieldDelegate {
 	
 	var db = Firestore.firestore()
-	var categoriesArray = [String]()
+	var categoriesArray: [String] = [""]
 	var paymentDate: Date?
 	var paymentMonth: String?
 	var paymentYear: String?
@@ -78,7 +78,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 		guard let paymentAmount = fields.totalField.textField.text?.removeCurrency else { print("payamount");showIncompleteFormAlert(); return }
 		guard let paymentAmountDouble = Double(paymentAmount) else { print("aqmtdoubt");showIncompleteFormAlert(); return }
 		guard let paymentDueDate = self.timeStamp else { print("duedate");showIncompleteFormAlert(); return }
-		guard let paymentCategory = fields.categoryField.textField.text, fields.categoryField.textField.text != nil else {  print("category");showIncompleteFormAlert(); return }
+		guard let paymentCategory = fields.categoryField.textField.text, fields.categoryField.textField.text != "", fields.categoryField.textField.text != nil else {  print("category");showIncompleteFormAlert(); return }
 		addPaymentToDatabase(name: paymentName, amount: paymentAmountDouble, timestamp: paymentDueDate, date: paymentDueDate, category: paymentCategory)
 		dismiss(animated: true, completion: nil)
 	}
@@ -135,7 +135,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 	//Helper Funcs
 	fileprivate func getCategories() {
 		DataService.instance.getUserCategories { (categoriesReturned) in
-			self.categoriesArray = categoriesReturned
+			self.categoriesArray.append(contentsOf: categoriesReturned)
 		}
 	}
 	
