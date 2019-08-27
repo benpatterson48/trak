@@ -107,16 +107,22 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	fileprivate func addButtonTargets() {
 		emptyState.button.addTarget(self, action: #selector(addNewPaymentButtonWasPressed), for: .touchUpInside)
 		header.rightBarButtonItem.addTarget(self, action: #selector(addNewExpenseButtonWasPressed), for: .touchUpInside)
+		header.leftBarButtonItem.addTarget(self, action: #selector(accountSettingsButtonWasPressed), for: .touchUpInside)
 	}
 	
 	@objc func addNewExpenseButtonWasPressed() {
+		let add = AddExpenseVC()
+		presentFromRight(add)
+	}
+	
+	@objc func addNewPaymentButtonWasPressed() {
 		let newExpense = AddExpenseVC()
 		present(newExpense, animated: true, completion: nil)
 	}
 	
-	@objc func addNewPaymentButtonWasPressed() {
-		let add = AddExpenseVC()
-		present(add, animated: true, completion: nil)
+	@objc func accountSettingsButtonWasPressed() {
+		let setting = AccountSettingsVC()
+		presentFromLeft(viewControllerToPresent: setting)
 	}
 	
 	fileprivate func checkForMonthExisting() {

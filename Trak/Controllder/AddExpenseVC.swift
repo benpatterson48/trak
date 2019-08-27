@@ -60,7 +60,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 	}
 	
 	@objc func backButtonWasPressed() {
-		dismiss(animated: true, completion: nil)
+		dismissFromLeft()
 	}
 	
 	@objc func dateChanged(datePicker: UIDatePicker) {
