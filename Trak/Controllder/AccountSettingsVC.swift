@@ -7,25 +7,26 @@
 //
 
 import UIKit
+import StoreKit
 
 class AccountSettingsVC: UIViewController {
-	
+		
 	var settingsArray: [GenericCellInput] = [
 		GenericCellInput(icon: "email", title: 		"Update your Email    "),
 		GenericCellInput(icon: "password", title: 	"Change your Password "),
-		GenericCellInput(icon: "faceid", title: 	"Face/ Touch ID       "),
+		GenericCellInput(icon: "faceid", title: 	"Face/ Touch ID          "),
 		GenericCellInput(icon: "year", title: 		"Change the Year      "),
-		GenericCellInput(icon: "bug", title: 		"Report a Bug         "),
 		GenericCellInput(icon: "review", title: 	"Leave a Review       "),
+		GenericCellInput(icon: "bug", title: 		"Report a Bug         "),
 		GenericCellInput(icon: "blog", title: 		"Check out our Blog   "),
 	]
-
+	
 	var sectionTitle: [String] = [
-		"ACCOUNT",
-		"DATE CHANGE",
-		"HELP US OUT",
-		"SUPPORT",
-		"RESOURCES"
+		"",
+		"",
+		"",
+		"",
+		""
 	]
 	
 	var pageTitle: UILabel = {
@@ -76,6 +77,18 @@ class AccountSettingsVC: UIViewController {
 		dismissFromRight()
 	}
 	
+	func reviewButtonWasPressed() {
+		SKStoreReviewController.requestReview()
+	}
+	
+	func moreResourcesBlogButtonWasPressed() {
+		if let url = URL(string: "google.com") {
+			UIApplication.shared.open(url, options: [:])
+		} else {
+			// show error
+		}
+	}
+	
 	fileprivate func addViews() {
 		view.addSubview(pageTitle)
 		pageTitle.translatesAutoresizingMaskIntoConstraints = false
@@ -113,6 +126,19 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 		return header
 	}
 	
+	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "sectionTitle") as? SettingsTableSectionHeader else {return nil}
+		footer.contentView.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
+		footer.label.numberOfLines = 0
+		footer.label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+		footer.label.text = "Seriously, if you found something not working right, please let us know."
+		if section == 3 {
+			return footer
+		} else {
+			return nil
+		}
+	}
+	
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return 5
 	}
@@ -124,8 +150,6 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 			return 1
 		} else if section == 2 {
 			return 1
-		} else if section == 3 {
-			return 1
 		} else {
 			return 1
 		}
@@ -133,9 +157,15 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: "settings", for: indexPath) as? SettingsCell else {return UITableViewCell()}
+		guard let switchCell = tableView.dequeueReusableCell(withIdentifier: "settingsSwitch", for: indexPath) as? SettingsCellWithUISwitch else {return UITableViewCell()}
 		if indexPath.section == 0 {
-			cell.setting = settingsArray[indexPath.row]
-			return cell
+			if indexPath.row == 2 {
+				switchCell.setting = settingsArray[2]
+				return switchCell
+			} else {
+				cell.setting = settingsArray[indexPath.row]
+				return cell
+			}
 		} else if indexPath.section == 1 {
 			cell.setting = settingsArray[3]
 			return cell
@@ -151,5 +181,30 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 		}
 	}
 	
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		if indexPath.section == 0 {
+			if indexPath.row == 0 {
+				let edit = SettingsChangeVC(withPlaceholder: "Enter email", usingTitle: "Email")
+				presentFromRight(edit)
+			} else if indexPath.row == 1  {
+				let edit = SettingsChangeVC(withPlaceholder: "Enter password", usingTitle: "Password")
+				presentFromRight(edit)
+			} else {
+				//handle FaceID
+			}
+		} else if indexPath.section == 1 {
+			let edit = SettingsChangeVC(withPlaceholder: "Enter Desired Year", usingTitle: "Year")
+			presentFromRight(edit)
+		} else if indexPath.section == 2 {
+			self.reviewButtonWasPressed()
+		} else if indexPath.section == 3 {
+			let edit = SettingsChangeVC(withPlaceholder: "Please explain the issue", usingTitle: "Bug Report")
+			presentFromRight(edit)
+		} else if indexPath.section == 4 {
+			self.moreResourcesBlogButtonWasPressed()
+		}
+	}
+
 	
 }
+

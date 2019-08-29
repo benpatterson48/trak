@@ -58,6 +58,5 @@ extension MonthPickerView: UIPickerViewDelegate, UIPickerViewDataSource {
 		let monthTitle = month.monthTextField
 		monthTitle.text = "New Month"
 		selectedMonth = monthArray[row]
-		print("This is the new month text: \(selectedMonth)")
 	}
 }

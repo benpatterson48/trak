@@ -72,7 +72,7 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 	}
 	
 	func calculatingExpenses() {
-		DataService.instance.grabbingExpenses(month: selectedMonth) { (unpaid, paid) in
+		DataService.instance.grabbingExpenses(month: selectedMonth, year: selectedYear) { (unpaid, paid) in
 			self.calculate(unpaid: unpaid, paid: paid)
 		}
 	}

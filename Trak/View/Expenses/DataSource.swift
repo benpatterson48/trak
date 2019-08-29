@@ -9,6 +9,7 @@
 import UIKit
 
 var selectedMonth = String()
+var selectedYear = String()
 
 class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource {
 
@@ -33,11 +34,14 @@ class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource
 		if selectedMonth == "" {
 			selectedMonth = date.month
 		}
+		if selectedYear == "" {
+			selectedYear = date.year
+		}
 		grabExpenses()
 	}
 	
 	func grabExpenses() {
-		DataService.instance.grabbingExpenses(month: selectedMonth) { (unpaid, paid) in
+		DataService.instance.grabbingExpenses(month: selectedMonth, year: selectedYear) { (unpaid, paid) in
 			self.unpaidExpenses = unpaid
 			self.paidExpenses = paid
 		}

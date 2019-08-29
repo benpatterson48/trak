@@ -47,10 +47,11 @@ class SettingsCell: UITableViewCell {
 	}()
 	
 	lazy var cellStack: UIStackView = {
-		let stack = UIStackView(arrangedSubviews: [self.cellIcon, self.cellTitle, self.cellArrow])
+		let stack = UIStackView(arrangedSubviews: [self.cellIcon, self.cellTitle])
 		stack.axis = .horizontal
 		stack.distribution = .fillProportionally
 		stack.alignment = .fill
+		stack.spacing = 10
 		stack.translatesAutoresizingMaskIntoConstraints = false
 		return stack
 	}()
@@ -58,6 +59,7 @@ class SettingsCell: UITableViewCell {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupConstraints()
+		selectionStyle = .none
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -66,10 +68,13 @@ class SettingsCell: UITableViewCell {
 	
 	func setupConstraints() {
 		addSubview(cellStack)
+		addSubview(cellArrow)
 		cellStack.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
-		cellStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
-		cellStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
+		cellStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24).isActive = true
 		cellStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
+		
+		cellArrow.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
+		cellArrow.centerYAnchor.constraint(equalTo: cellStack.centerYAnchor).isActive = true
 	}
 	
 }
@@ -109,10 +114,11 @@ class SettingsCellWithUISwitch: UITableViewCell {
 	}()
 	
 	lazy var cellStack: UIStackView = {
-		let stack = UIStackView(arrangedSubviews: [self.cellIcon, self.cellTitle, self.cellSwitch])
+		let stack = UIStackView(arrangedSubviews: [self.cellIcon, self.cellTitle])
 		stack.axis = .horizontal
 		stack.distribution = .fillProportionally
 		stack.alignment = .fill
+		stack.spacing = 10
 		stack.translatesAutoresizingMaskIntoConstraints = false
 		return stack
 	}()
@@ -124,11 +130,14 @@ class SettingsCellWithUISwitch: UITableViewCell {
 	
 	func setupConstraints() {
 		addSubview(cellStack)
+		addSubview(cellSwitch)
 		cellStack.translatesAutoresizingMaskIntoConstraints = false
 		cellStack.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
-		cellStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8).isActive = true
-		cellStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 24).isActive = true
+		cellStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24).isActive = true
 		cellStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
+		
+		cellSwitch.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
+		cellSwitch.centerYAnchor.constraint(equalTo: cellStack.centerYAnchor).isActive = true
 	}
 	
 	required init?(coder aDecoder: NSCoder) {

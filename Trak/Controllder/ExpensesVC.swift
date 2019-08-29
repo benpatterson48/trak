@@ -11,9 +11,6 @@ import FirebaseFirestore
 import FirebaseAuth
 
 var categoriesArray = ["All Categories"]
-protocol ChangedCategory {
-	func categoryChanged(category: String) -> String
-}
 
 class ExpensesVC: UIViewController, UITextFieldDelegate {
 	
@@ -95,7 +92,7 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	}
 	
 	func grabExpenses() {
-		DataService.instance.grabbingExpenses(month: selectedMonth) { (unpaid, paid) in
+		DataService.instance.grabbingExpenses(month: selectedMonth, year: selectedYear) { (unpaid, paid) in
 			self.unpaidExpenses = unpaid
 			self.paidExpenses = paid
 			DispatchQueue.main.async {
@@ -140,9 +137,7 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	}
 	
 	fileprivate func checkExpensesArray() {
-		let current = Date()
-		let year = current.year
-		let docRef = db.collection("users").document(user?.uid ?? "").collection(year).document(selectedMonth)
+		let docRef = db.collection("users").document(user?.uid ?? "").collection(selectedYear).document(selectedMonth)
 		docRef.getDocument() { (document, error) in
 			if let document = document, document.exists == true {
 				self.checkForEmptyArray()
@@ -155,9 +150,7 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	}
 	
 	func checkingExpensesForNewMonth() {
-		let current = Date()
-		let year = current.year
-		let docRef = db.collection("users").document(user?.uid ?? "").collection(year).document(selectedMonth)
+		let docRef = db.collection("users").document(user?.uid ?? "").collection(selectedYear).document(selectedMonth)
 		docRef.getDocument() { (document, error) in
 			if let document = document, document.exists == true {
 				self.checkForEmptyArray()

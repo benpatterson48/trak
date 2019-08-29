@@ -41,9 +41,6 @@ class MonthSwipeStack: UIView {
 				selectedMonth = monthArray[index]
 			} else {
 				selectedMonth = monthArray[index - 1]
-//				DispatchQueue.main.async {
-//					self.monthTextField.text = selectedMonth.uppercased()
-//				}
 				let month:[String: String] = ["newMonth": selectedMonth]
 				NotificationCenter.default.post(name: .init("monthUpdated"), object: nil, userInfo: month)
 			}
@@ -67,9 +64,6 @@ class MonthSwipeStack: UIView {
 				selectedMonth = monthArray[index]
 			} else {
 				selectedMonth = monthArray[index + 1]
-//				DispatchQueue.main.async {
-//					self.monthTextField.text = selectedMonth.uppercased()
-//				}
 				let month:[String: String] = ["newMonth": selectedMonth]
 				NotificationCenter.default.post(name: .init("monthUpdated"), object: nil, userInfo: month)
 			}

@@ -79,11 +79,11 @@ class DataService {
 //		}
 //	}
 	
-	func grabbingExpenses(month: String, completion: @escaping (_ unpaid: [Expense], _ paid: [Expense]) -> ()) {
+	func grabbingExpenses(month: String, year: String, completion: @escaping (_ unpaid: [Expense], _ paid: [Expense]) -> ()) {
 		var unpaidExpenses = [Expense]()
 		var paidExpenses = [Expense]()
 		guard let user = Auth.auth().currentUser else {return}
-		let docRef = db.collection("users").document(user.uid).collection("2019").document(month)
+		let docRef = db.collection("users").document(user.uid).collection(year).document(month)
 		docRef.getDocument { (querySnapshot, err) in
 			if let err = err {
 				print("This is our error \(err)")

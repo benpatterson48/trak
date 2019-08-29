@@ -32,6 +32,7 @@ class SettingsTableSectionHeader: UITableViewHeaderFooterView {
 	private func addLabelConstraints() {
 		label.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
 		label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24).isActive = true
+		label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24).isActive = true
 		label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
 	}
 	
