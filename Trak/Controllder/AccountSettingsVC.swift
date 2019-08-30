@@ -58,6 +58,7 @@ class AccountSettingsVC: UIViewController {
 		table.separatorColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
 		table.clipsToBounds = true
 		table.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
+		table.showsVerticalScrollIndicator = false
 		table.translatesAutoresizingMaskIntoConstraints = false
 		table.register(SettingsCell.self, forCellReuseIdentifier: "settings")
 		table.register(SettingsCellWithUISwitch.self, forCellReuseIdentifier: "settingsSwitch")
@@ -78,18 +79,6 @@ class AccountSettingsVC: UIViewController {
 	
 	@objc func dismissView() {
 		dismissFromRight()
-	}
-	
-	func reviewButtonWasPressed() {
-		SKStoreReviewController.requestReview()
-	}
-	
-	func moreResourcesBlogButtonWasPressed() {
-		if let url = URL(string: "google.com") {
-			UIApplication.shared.open(url, options: [:])
-		} else {
-			// show error
-		}
 	}
 	
 	fileprivate func addViews() {
@@ -143,12 +132,14 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return 6
+		return 5
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if section == 0 {
 			return 3
+		} else if section == 4 {
+			return 2
 		} else {
 			return 1
 		}
@@ -175,11 +166,8 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 		} else if indexPath.section == 3 {
 			cell.setting = settingsArray[5]
 			return cell
-		} else if indexPath.section == 4 {
-			cell.setting = settingsArray[6]
-			return cell
 		} else {
-			cell.setting = settingsArray[7]
+			cell.setting = settingsArray[indexPath.row + 6]
 			return cell
 		}
 	}
@@ -192,8 +180,6 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 			} else if indexPath.row == 1  {
 				let edit = SettingsChangeVC(withPlaceholder: "Enter password", usingTitle: "Password")
 				presentFromRight(edit)
-			} else {
-				//handle FaceID
 			}
 		} else if indexPath.section == 1 {
 			let edit = SettingsChangeVC(withPlaceholder: "Enter Desired Year", usingTitle: "Year")
@@ -204,9 +190,23 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 			let edit = SettingsChangeVC(withPlaceholder: "Please explain the issue", usingTitle: "Bug Report")
 			presentFromRight(edit)
 		} else if indexPath.section == 4 {
-			self.moreResourcesBlogButtonWasPressed()
-		} else if indexPath.section == 5 {
-			self.logoutWasSelected()
+			if indexPath.row == 0 {
+				self.moreResourcesBlogButtonWasPressed()
+			} else {
+				self.logoutWasSelected()
+			}
+		}
+	}
+	
+	func reviewButtonWasPressed() {
+		SKStoreReviewController.requestReview()
+	}
+	
+	func moreResourcesBlogButtonWasPressed() {
+		if let url = URL(string: "https://google.com") {
+			UIApplication.shared.open(url, options: [:])
+		} else {
+			// show error
 		}
 	}
 	
