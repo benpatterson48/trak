@@ -8,9 +8,13 @@
 
 import UIKit
 import Firebase
+import CoreData
+import DAKeychain
 import FirebaseAuth
 
 class LoginVC: UIViewController {
+	
+	var touchMe = BiometricIDAuth()
 	
 	let logo = LogoImageView()
 	let stackView = OnboardingStackView(mainTitleText: "Log In to Trak", buttonTitleText: "Log In")
@@ -25,6 +29,16 @@ class LoginVC: UIViewController {
 		stackView.button.addTarget(self, action: #selector(loginButtonWasPressed), for: .touchUpInside)
 		let tap = UITapGestureRecognizer(target: self, action: #selector(viewTappedToCloseOut))
 		view.addGestureRecognizer(tap)
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		let touchBool = touchMe.canEvaluatePolicy()
+		if touchBool {
+			if UserDefaults.standard.bool(forKey: "enabledFaceID") == true {
+				biometricAuthImageBtnWasPressed()
+			}
+		}
 	}
 	
 	fileprivate func addViews() {
@@ -64,6 +78,8 @@ class LoginVC: UIViewController {
 		guard let password = stackView.password.textField.text, stackView.password.textField.text != nil else { return }
 		Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
 			if error == nil {
+				DAKeychain.shared["keychainEmail"] = email
+				DAKeychain.shared["keychainPassword"] = password
 				let expenses = ExpensesVC()
 				self.present(expenses, animated: true, completion: nil)
 			} else {
@@ -72,5 +88,32 @@ class LoginVC: UIViewController {
 			}
 		}
 	}
+	
+	func biometricAuthImageBtnWasPressed() {
+		touchMe.authenticateUser() { [weak self] message in
+			if let message = message {
+				let alertView = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+				let okAction = UIAlertAction(title: "Darn!", style: .default)
+				alertView.addAction(okAction)
+			} else {
+				guard let email = DAKeychain.shared["keychainEmail"] else { return }
+				guard let password = DAKeychain.shared["keychainPassword"] else { return }
+				self?.stackView.email.textField.text = DAKeychain.shared["keychainEmail"]
+				self?.stackView.password.textField.text = DAKeychain.shared["keychainPassword"]
+				DispatchQueue.main.async {
+					Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+						if error == nil {
+							let expenses = ExpensesVC()
+							self?.present(expenses, animated: true, completion: nil)
+						} else {
+							self?.stackView.button.stopLoading(title: "Log In")
+							self?.present(self!.alert, animated: true, completion: nil)
+						}
+					}
+				}
+			}
+		}
+	}
+	
 
 }

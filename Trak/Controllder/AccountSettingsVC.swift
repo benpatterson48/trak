@@ -8,6 +8,7 @@
 
 import UIKit
 import StoreKit
+import FirebaseAuth
 
 class AccountSettingsVC: UIViewController {
 		
@@ -19,9 +20,11 @@ class AccountSettingsVC: UIViewController {
 		GenericCellInput(icon: "review", title: 	"Leave a Review       "),
 		GenericCellInput(icon: "bug", title: 		"Report a Bug         "),
 		GenericCellInput(icon: "blog", title: 		"Check out our Blog   "),
+		GenericCellInput(icon: "logout", title: 	"Logout               ")
 	]
 	
 	var sectionTitle: [String] = [
+		"",
 		"",
 		"",
 		"",
@@ -140,16 +143,12 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return 5
+		return 6
 	}
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if section == 0 {
 			return 3
-		} else if section == 1 {
-			return 1
-		} else if section == 2 {
-			return 1
 		} else {
 			return 1
 		}
@@ -161,6 +160,7 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 		if indexPath.section == 0 {
 			if indexPath.row == 2 {
 				switchCell.setting = settingsArray[2]
+				switchCell.cellSwitch.addTarget(self, action: #selector(toggledFaceIDSwitch), for: .touchUpInside)
 				return switchCell
 			} else {
 				cell.setting = settingsArray[indexPath.row]
@@ -175,8 +175,11 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 		} else if indexPath.section == 3 {
 			cell.setting = settingsArray[5]
 			return cell
-		} else {
+		} else if indexPath.section == 4 {
 			cell.setting = settingsArray[6]
+			return cell
+		} else {
+			cell.setting = settingsArray[7]
 			return cell
 		}
 	}
@@ -202,9 +205,30 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 			presentFromRight(edit)
 		} else if indexPath.section == 4 {
 			self.moreResourcesBlogButtonWasPressed()
+		} else if indexPath.section == 5 {
+			self.logoutWasSelected()
+		}
+	}
+	
+	func logoutWasSelected() {
+		do {
+			try Auth.auth().signOut()
+			let login = LoginVC()
+			present(login, animated: true, completion: nil)
+		} catch {
+			print("didn't work")
+		}
+	}
+	
+	@objc func toggledFaceIDSwitch() {
+		let cell = SettingsCellWithUISwitch()
+		print("FACEID IS ENABLED ON TOUCH: \(UserDefaults.standard.bool(forKey: "enabledFaceID"))")
+		if cell.cellSwitch.isOn == true {
+			UserDefaults.standard.set(false, forKey: "enabledFaceID")
+		} else {
+			UserDefaults.standard.set(true, forKey: "enabledFaceID")
 		}
 	}
 
-	
 }
 

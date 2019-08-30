@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D052F16231894AE0040145A /* TouchIDAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D052F15231894AE0040145A /* TouchIDAuthentication.swift */; };
 		1D136D0F22B40E8B0030C48D /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D136D0E22B40E8B0030C48D /* LoginVC.swift */; };
 		1D136D1122B4206D0030C48D /* ExpensesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D136D1022B4206D0030C48D /* ExpensesVC.swift */; };
 		1D136D1322B560450030C48D /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D136D1222B560450030C48D /* Button.swift */; };
@@ -65,6 +66,7 @@
 
 /* Begin PBXFileReference section */
 		1753A5574B0ED15D1DCB61D4 /* Pods_Trak.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trak.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D052F15231894AE0040145A /* TouchIDAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchIDAuthentication.swift; sourceTree = "<group>"; };
 		1D136D0E22B40E8B0030C48D /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		1D136D1022B4206D0030C48D /* ExpensesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesVC.swift; sourceTree = "<group>"; };
 		1D136D1222B560450030C48D /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				1D80CE5822BB369A00D69E71 /* DataService.swift */,
+				1D052F15231894AE0040145A /* TouchIDAuthentication.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -472,6 +475,7 @@
 				1D6B9B1122B9E90900E07920 /* ImageAndTextButton.swift in Sources */,
 				1DF1946122B1E06E00DFC41B /* Color.swift in Sources */,
 				1DEFB4092314E29D004B24E2 /* SettingsCell.swift in Sources */,
+				1D052F16231894AE0040145A /* TouchIDAuthentication.swift in Sources */,
 				1DF1944C22B1C46D00DFC41B /* GetStartedVC.swift in Sources */,
 				1DF1946B22B206F900DFC41B /* LabelAndButtonStackView.swift in Sources */,
 				1D80CE5322BAE76700D69E71 /* AddNewCategoryVC.swift in Sources */,

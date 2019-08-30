@@ -8,10 +8,11 @@
 
 import UIKit
 import Firebase
+import MessageUI
 import FirebaseAuth
 import FirebaseFirestore
 
-class SettingsChangeVC: UIViewController {
+class SettingsChangeVC: UIViewController, MFMailComposeViewControllerDelegate, UITextFieldDelegate {
 	
 	let success = UIAlertController(title: "✅ Success", message: "Information has been successfully udpated.", preferredStyle: .alert)
 	let fail = UIAlertController(title: "❌ Error", message: "Sorry, something went wrong, please try again later", preferredStyle: .alert)
@@ -80,17 +81,13 @@ class SettingsChangeVC: UIViewController {
 				// show incomplete error
 			}
 		} else if self.topViewTitleLabel.text == "Year" {
-			if inputTextField.text != nil && inputTextField.text != "" {
-				//update year
+			if inputTextField.text != nil && inputTextField.text != "" && inputTextField.text != " " {
+				selectedYear = self.inputTextField.text!
 			} else {
 				// show incomplete error
 			}
 		} else {
-			if inputTextField.text != nil && inputTextField.text != "" {
-				// send bug to email
-			} else {
-				// show incomplete error
-			}
+			sendMailSuggestion()
 		}
 	}
 	
@@ -107,9 +104,19 @@ class SettingsChangeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 		addViews()
+		setupAlerts()
 		setDoneOnKeyboard()
 		view.backgroundColor = #colorLiteral(red: 0.937254902, green: 0.937254902, blue: 0.9529411765, alpha: 1)
-		
+		self.inputTextField.clearsOnBeginEditing = true
+    }
+	
+	public convenience init(withPlaceholder: String, usingTitle: String) {
+		self.init()
+		topViewTitleLabel.text = usingTitle
+		inputTextField.text = withPlaceholder
+	}
+	
+	func setupAlerts() {
 		let dismiss = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
 		let continueAction = UIAlertAction(title: "Continue", style: .default) { (action) in
 			let textfield = self.reauthenticateAlert.textFields![0]
@@ -123,12 +130,6 @@ class SettingsChangeVC: UIViewController {
 			password.placeholder = "Current Password"
 			password.isSecureTextEntry = true
 		}
-    }
-	
-	public convenience init(withPlaceholder: String, usingTitle: String) {
-		self.init()
-		topViewTitleLabel.text = usingTitle
-		inputTextField.text = withPlaceholder
 	}
 	
 	func addViews() {
@@ -209,6 +210,32 @@ extension SettingsChangeVC {
 				self.present(self.fail, animated: true, completion: nil)
 			}
 		})
+	}
+	
+	func sendMailSuggestion() {
+		let user = Auth.auth().currentUser
+		if MFMailComposeViewController.canSendMail() {
+			if self.inputTextField.text != "" {
+				let mail = MFMailComposeViewController()
+				mail.mailComposeDelegate = self
+				mail.setToRecipients(["ben@outlyrs.com"])
+				mail.setMessageBody(self.inputTextField.text!, isHTML: false)
+				mail.setSubject("You received an FDL App Suggestion from \(user?.email ?? "Trak User")")
+				present(mail, animated: true)
+			} else {
+				let alert = UIAlertController(title: "❌ No Message", message: "Add a suggestion and try submitting again.", preferredStyle: .alert)
+				alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+				self.present(alert, animated: true)
+			}
+		} else {
+			let alert = UIAlertController(title: "Enable Your Mail", message: "You must enable your phone to send email before using this feature.", preferredStyle: .alert)
+			alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+			self.present(alert, animated: true)
+		}
+	}
+	
+	func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+		controller.dismiss(animated: true)
 	}
 	
 }
