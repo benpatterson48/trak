@@ -15,9 +15,33 @@ extension Date {
 		return dateFormatter.string(from: self)
 	}
 	
+	var day: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "d"
+		return dateFormatter.string(from: self)
+	}
+	
 	var year: String {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "YYYY"
+		return dateFormatter.string(from: self)
+	}
+	
+	var hour: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "hh"
+		return dateFormatter.string(from: self)
+	}
+	
+	var militaryHour: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "HH"
+		return dateFormatter.string(from: self)
+	}
+	
+	var minute: String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "mm"
 		return dateFormatter.string(from: self)
 	}
 }

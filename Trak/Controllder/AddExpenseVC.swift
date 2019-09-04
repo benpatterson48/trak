@@ -7,8 +7,11 @@
 //
 
 import UIKit
-import FirebaseFirestore
 import FirebaseAuth
+import FirebaseFirestore
+import UserNotifications
+
+var setReminder: Bool = false 
 
 class AddExpenseVC: UIViewController, UITextFieldDelegate {
 	
@@ -21,12 +24,33 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 	
 	let fields = AddExpenseStackView()
 	let addPaymentButton = MainBlueButton()
-	let datePicker = ExpenseDatePicker()
+	let expenseDatePicker = ExpenseDatePicker()
 	let categoryPicker = UIPickerView()
 	let addCategoryButton = ImageAndTextButton(labelText: "Create New Category", iconImage: "circle-add")
 	let header = HeaderWithTextTitle(leftIcon: UIImage(named: "back")!, rightIcon: UIImage(named: "space")!, title: "Add New Payment")
 	let alert = UIAlertController(title: "Form Not Complete", message: "Please complete every field to submit", preferredStyle: .alert)
-
+	
+	let topLine: UIView = {
+		let line = UIView()
+		line.backgroundColor = #colorLiteral(red: 0.7490196078, green: 0.7725490196, blue: 0.8235294118, alpha: 1)
+		line.heightAnchor.constraint(equalToConstant: 1).isActive = true
+		line.translatesAutoresizingMaskIntoConstraints = false
+		return line
+	}()
+	
+	let reminderTable: UITableView = {
+		let table  = UITableView()
+		table.bounces = false
+		table.separatorStyle = .none
+		table.backgroundColor = .white
+		table.isUserInteractionEnabled = true
+		table.showsVerticalScrollIndicator = false
+		table.translatesAutoresizingMaskIntoConstraints = false
+		table.register(ReminderCell.self, forCellReuseIdentifier: "reminder")
+		table.register(SetDateReminderCell.self, forCellReuseIdentifier: "date")
+		return table
+	}()
+	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(true)
 		getCategories()
@@ -40,12 +64,14 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 		setupButtonTargets()
 		setupCategoryPicker()
 		setupAddPaymentButton()
+		reminderTable.tableFooterView = UIView()
+		reminderTable.delegate = self
+		reminderTable.dataSource = self
 		view.backgroundColor = .white
 		let tap = UITapGestureRecognizer(target: self, action: #selector(viewTappedToCloseOut))
 		view.addGestureRecognizer(tap)
 	}
 	
-	//Button Target Funcs
 	@objc func viewTappedToCloseOut() {
 		view.endEditing(true)
 	}
@@ -80,19 +106,42 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 		guard let paymentDueDate = self.timeStamp else { print("duedate");showIncompleteFormAlert(); return }
 		guard let paymentCategory = fields.categoryField.textField.text, fields.categoryField.textField.text != "", fields.categoryField.textField.text != nil else {  print("category");showIncompleteFormAlert(); return }
 		addPaymentToDatabase(name: paymentName, amount: paymentAmountDouble, timestamp: paymentDueDate, date: paymentDueDate, category: paymentCategory)
+		if setReminder == true {
+			let date = returnSelectedDateAsDate()
+			let intMonth = grabMonthIndex(month: date.month)
+			self.schedulePushNotificationReminder(month: intMonth, day: Int(date.day) ?? 1, year: Int(date.year) ?? 2019, hour: Int(date.militaryHour) ?? 10, minute: Int(date.minute) ?? 00, expenseName: paymentName, expenseAmount: paymentAmount)
+		}
 		dismiss(animated: true, completion: nil)
+	}
+	
+	func grabMonthIndex(month: String) -> Int {
+		let index = monthArray.firstIndex(of: month)! + 1
+		return index
+	}
+	
+	@objc func returnSelectedDateAsDate() -> Date {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "E, d MMM yyyy hh:mm a"
+		let inputCell = reminderTable.cellForRow(at: IndexPath(row: 1, section: 0)) as? SetDateReminderCell
+		guard let dateSelected = inputCell?.reminderResultLabel.text else { return Date() }
+		guard let selectedDate = dateFormatter.date(from: dateSelected) else { return Date() }
+		return selectedDate
 	}
 
 	//UI Funcs
 	fileprivate func addViews() {
 		view.addSubview(header)
 		view.addSubview(fields)
+		view.addSubview(topLine)
 		view.addSubview(addCategoryButton)
 		view.addSubview(addPaymentButton)
+		view.addSubview(reminderTable)
 		header.translatesAutoresizingMaskIntoConstraints = false
 		fields.translatesAutoresizingMaskIntoConstraints = false
+		topLine.translatesAutoresizingMaskIntoConstraints = false
 		addCategoryButton.translatesAutoresizingMaskIntoConstraints = false
 		addPaymentButton.translatesAutoresizingMaskIntoConstraints = false
+		reminderTable.translatesAutoresizingMaskIntoConstraints = false
 		addConstraints()
 	}
 	
@@ -108,7 +157,18 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 		addCategoryButton.topAnchor.constraint(equalTo: fields.bottomAnchor, constant: 24).isActive = true
 		addCategoryButton.leadingAnchor.constraint(equalTo: fields.leadingAnchor).isActive = true
 		addCategoryButton.trailingAnchor.constraint(equalTo: fields.trailingAnchor).isActive = true
+		addCategoryButton.bottomAnchor.constraint(equalTo: topLine.topAnchor, constant: -32).isActive = true
 		
+		topLine.topAnchor.constraint(equalTo: addCategoryButton.bottomAnchor, constant: 32).isActive = true
+		topLine.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+		topLine.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+		topLine.bottomAnchor.constraint(equalTo: reminderTable.topAnchor, constant: -8).isActive = true
+		
+		reminderTable.topAnchor.constraint(equalTo: topLine.bottomAnchor, constant: 8).isActive = true
+		reminderTable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+		reminderTable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+		reminderTable.heightAnchor.constraint(equalToConstant: 100).isActive = true
+
 		addPaymentButton.heightAnchor.constraint(equalToConstant: 58).isActive = true
 		addPaymentButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32).isActive = true
 		addPaymentButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32).isActive = true
@@ -156,16 +216,17 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 	
 	fileprivate func setupButtonTargets() {
 		addPaymentButton.addTarget(self, action: #selector(addPaymentButtonWasPressed), for: .touchUpInside)
-		datePicker.addTarget(self, action: #selector(AddExpenseVC.dateChanged(datePicker:)), for: .valueChanged)
+		expenseDatePicker.addTarget(self, action: #selector(AddExpenseVC.dateChanged(datePicker:)), for: .valueChanged)
 		addCategoryButton.label.addTarget(self, action: #selector(addNewCategoryButtonWasPressed), for: .touchUpInside)
 		addCategoryButton.icon.addTarget(self, action: #selector(addNewCategoryButtonWasPressed), for: .touchUpInside)
 		alert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: nil))
 		fields.totalField.textField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingDidEnd)
+		reminderDatePicker.addTarget(self, action: #selector(reminderDateChanged(datePicker:)), for: .valueChanged)
 	}
 	
 	fileprivate func setupFields() {
 		fields.totalField.textField.keyboardType = .decimalPad
-		fields.dateField.textField.inputView = datePicker
+		fields.dateField.textField.inputView = expenseDatePicker
 		fields.categoryField.textField.inputView = categoryPicker
 		fields.totalField.textField.clearsOnBeginEditing = true
 	}
@@ -196,3 +257,77 @@ extension AddExpenseVC: UIPickerViewDelegate, UIPickerViewDataSource {
 		}
 	}
 }
+
+extension AddExpenseVC: UITableViewDelegate, UITableViewDataSource {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		if setReminder == true {
+			return 2
+		} else {
+			return 1
+		}
+	}
+	
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: "reminder", for: indexPath) as? ReminderCell else {return UITableViewCell()}
+		guard let dateCell = tableView.dequeueReusableCell(withIdentifier: "date", for: indexPath) as? SetDateReminderCell else {return UITableViewCell()}
+		if setReminder == true {
+			if indexPath.row == 0 {
+				cell.cellSwitch.addTarget(self, action: #selector(setReminderToggle), for: .touchUpInside)
+				return cell
+			} else {
+				return dateCell
+			}
+		} else {
+			cell.cellSwitch.addTarget(self, action: #selector(setReminderToggle), for: .touchUpInside)
+			return cell
+		}
+	}
+	
+	@objc func reminderDateChanged(datePicker: UIDatePicker) {
+		let dateFormatter = DateFormatter()
+		let cell = reminderTable.cellForRow(at: IndexPath(row: 1, section: 0)) as? SetDateReminderCell
+		dateFormatter.dateFormat = "E, d MMM yyyy hh:mm a"
+		cell?.reminderResultLabel.text = dateFormatter.string(from: datePicker.date)
+	}
+
+	@objc func setReminderToggle() {
+		let cell = ReminderCell()
+		if cell.cellSwitch.isOn == true || setReminder == true {
+			setReminder = false
+			reminderTable.separatorStyle = .none
+			reminderTable.reloadData()
+		} else {
+			setReminder = true
+			reminderTable.separatorStyle = .singleLine
+			reminderTable.separatorColor = #colorLiteral(red: 0.7490196078, green: 0.7725490196, blue: 0.8235294118, alpha: 1)
+			reminderTable.reloadData()
+		}
+	}
+	
+	func schedulePushNotificationReminder(month: Int, day: Int, year: Int, hour: Int, minute: Int, expenseName: String, expenseAmount: String) {
+		let center = UNUserNotificationCenter.current()
+		
+		let content = UNMutableNotificationContent()
+		content.title = "\(expenseName) is Due Soon!"
+		content.body = "Don't forget to pay \(expenseAmount) for \(expenseName) coming up soon."
+		content.categoryIdentifier = "alarm"
+		content.userInfo = ["customData": "fizzbuzz"]
+		content.sound = UNNotificationSound.default
+		
+		var dateComponents = DateComponents()
+		dateComponents.month = month
+		dateComponents.day = day
+		dateComponents.year = year
+		dateComponents.hour = hour
+		dateComponents.minute = minute
+		let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+		
+		//Test triggger
+//		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+		
+		let request = UNNotificationRequest(identifier: instanceIDTokenMessage, content: content, trigger: trigger)
+		center.add(request)
+	}
+
+}
+

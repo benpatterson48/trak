@@ -126,7 +126,6 @@ class SettingsCellWithUISwitch: UITableViewCell {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupConstraints()
-		print("FACEID IS ENABLED IN INIT: \(UserDefaults.standard.bool(forKey: "enabledFaceID"))")
 		cellSwitch.isOn = UserDefaults.standard.bool(forKey: "enabledFaceID")
 	}
 	

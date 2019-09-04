@@ -16,6 +16,8 @@
 		1D136D1A22B887CC0030C48D /* AddExpenseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D136D1922B887CC0030C48D /* AddExpenseVC.swift */; };
 		1D136D1D22B8937A0030C48D /* AddExpenseStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D136D1C22B8937A0030C48D /* AddExpenseStackView.swift */; };
 		1D28677722C310CA0004612F /* TopProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D28677622C310CA0004612F /* TopProgressView.swift */; };
+		1D4631B6231DA133005EA86E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D4631B5231DA133005EA86E /* GoogleService-Info.plist */; };
+		1D4631B8231E356C005EA86E /* ReminderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4631B7231E356C005EA86E /* ReminderCell.swift */; };
 		1D4DCED422D6857D00A491D7 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4DCED322D6857D00A491D7 /* DataSource.swift */; };
 		1D4E08F222CB08F800845802 /* ExpenseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4E08F122CB08F800845802 /* ExpenseCell.swift */; };
 		1D4E08F422CB25E200845802 /* ExpensesSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4E08F322CB25E200845802 /* ExpensesSectionHeader.swift */; };
@@ -44,7 +46,6 @@
 		1DF1943A22B1C1F400DFC41B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1943922B1C1F400DFC41B /* Assets.xcassets */; };
 		1DF1943D22B1C1F400DFC41B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1943B22B1C1F400DFC41B /* LaunchScreen.storyboard */; };
 		1DF1944C22B1C46D00DFC41B /* GetStartedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1944B22B1C46D00DFC41B /* GetStartedVC.swift */; };
-		1DF1945022B1C4ED00DFC41B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1944F22B1C4ED00DFC41B /* GoogleService-Info.plist */; };
 		1DF1945822B1DA5600DFC41B /* SF-Pro-Text-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1945222B1D7AD00DFC41B /* SF-Pro-Text-Thin.otf */; };
 		1DF1945922B1DA5900DFC41B /* SF-Pro-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1945622B1D7C600DFC41B /* SF-Pro-Text-Bold.otf */; };
 		1DF1945A22B1DA5C00DFC41B /* SF-Pro-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1945322B1D7C600DFC41B /* SF-Pro-Text-Light.otf */; };
@@ -75,6 +76,9 @@
 		1D136D1922B887CC0030C48D /* AddExpenseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseVC.swift; sourceTree = "<group>"; };
 		1D136D1C22B8937A0030C48D /* AddExpenseStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseStackView.swift; sourceTree = "<group>"; };
 		1D28677622C310CA0004612F /* TopProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopProgressView.swift; sourceTree = "<group>"; };
+		1D4631B4231D9E91005EA86E /* Trak.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Trak.entitlements; sourceTree = "<group>"; };
+		1D4631B5231DA133005EA86E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1D4631B7231E356C005EA86E /* ReminderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderCell.swift; sourceTree = "<group>"; };
 		1D4DCED322D6857D00A491D7 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		1D4E08F122CB08F800845802 /* ExpenseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseCell.swift; sourceTree = "<group>"; };
 		1D4E08F322CB25E200845802 /* ExpensesSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesSectionHeader.swift; sourceTree = "<group>"; };
@@ -105,7 +109,6 @@
 		1DF1943C22B1C1F400DFC41B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1DF1943E22B1C1F400DFC41B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1DF1944B22B1C46D00DFC41B /* GetStartedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedVC.swift; sourceTree = "<group>"; };
-		1DF1944F22B1C4ED00DFC41B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		1DF1945222B1D7AD00DFC41B /* SF-Pro-Text-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Thin.otf"; sourceTree = "<group>"; };
 		1DF1945322B1D7C600DFC41B /* SF-Pro-Text-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Light.otf"; sourceTree = "<group>"; };
 		1DF1945422B1D7C600DFC41B /* SF-Pro-Text-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Medium.otf"; sourceTree = "<group>"; };
@@ -169,6 +172,7 @@
 				1D4F06DD22E1A69400192C69 /* EmptyExpenseCell.swift */,
 				1DEFB4082314E29D004B24E2 /* SettingsCell.swift */,
 				1DEFB40C2314F084004B24E2 /* SettingsTableSectionHeader.swift */,
+				1D4631B7231E356C005EA86E /* ReminderCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -194,6 +198,7 @@
 		1DF1943122B1C1F200DFC41B /* Trak */ = {
 			isa = PBXGroup;
 			children = (
+				1D4631B4231D9E91005EA86E /* Trak.entitlements */,
 				1DF1944A22B1C3BF00DFC41B /* Extensions */,
 				1DF1944822B1C3B400DFC41B /* Services */,
 				1DF1944722B1C3B200DFC41B /* Utilities */,
@@ -204,7 +209,7 @@
 				1DF1943922B1C1F400DFC41B /* Assets.xcassets */,
 				1DF1943B22B1C1F400DFC41B /* LaunchScreen.storyboard */,
 				1DF1943E22B1C1F400DFC41B /* Info.plist */,
-				1DF1944F22B1C4ED00DFC41B /* GoogleService-Info.plist */,
+				1D4631B5231DA133005EA86E /* GoogleService-Info.plist */,
 			);
 			path = Trak;
 			sourceTree = "<group>";
@@ -365,6 +370,11 @@
 				TargetAttributes = {
 					1DF1942E22B1C1F200DFC41B = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -393,13 +403,13 @@
 			files = (
 				1DF1945822B1DA5600DFC41B /* SF-Pro-Text-Thin.otf in Resources */,
 				1DF1945922B1DA5900DFC41B /* SF-Pro-Text-Bold.otf in Resources */,
+				1D4631B6231DA133005EA86E /* GoogleService-Info.plist in Resources */,
 				1DF1945A22B1DA5C00DFC41B /* SF-Pro-Text-Light.otf in Resources */,
 				1DF1943D22B1C1F400DFC41B /* LaunchScreen.storyboard in Resources */,
 				1DF1943A22B1C1F400DFC41B /* Assets.xcassets in Resources */,
 				1DF1945B22B1DA5E00DFC41B /* SF-Pro-Text-Medium.otf in Resources */,
 				1DF1945D22B1DA6400DFC41B /* SF-Pro-Text-Semibold.otf in Resources */,
 				1DF1945C22B1DA6100DFC41B /* SF-Pro-Text-Regular.otf in Resources */,
-				1DF1945022B1C4ED00DFC41B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,6 +494,7 @@
 				1D136D1122B4206D0030C48D /* ExpensesVC.swift in Sources */,
 				1D80CE5522BB1F9500D69E71 /* ExpenseDatePicker.swift in Sources */,
 				1DD605DF22DCCFB20035B068 /* Expense.swift in Sources */,
+				1D4631B8231E356C005EA86E /* ReminderCell.swift in Sources */,
 				1DEFB40D2314F084004B24E2 /* SettingsTableSectionHeader.swift in Sources */,
 				1DE16F142315E9C90087249B /* SettingsChangeVC.swift in Sources */,
 				1D136D1822B7D4F30030C48D /* Header.swift in Sources */,
@@ -650,8 +661,9 @@
 			baseConfigurationReference = D82D2220994A9A5A2CC5EE6F /* Pods-Trak.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Trak/Trak.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H4AUMB8GAB;
+				DEVELOPMENT_TEAM = XR8B6CD39Y;
 				INFOPLIST_FILE = Trak/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -659,7 +671,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.benpatterson.Trak;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benpatterson.TrakAppBundle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -672,15 +684,16 @@
 			baseConfigurationReference = 5554D9DB2981E6AF945BCC7A /* Pods-Trak.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Trak/Trak.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = H4AUMB8GAB;
+				DEVELOPMENT_TEAM = XR8B6CD39Y;
 				INFOPLIST_FILE = Trak/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.benpatterson.Trak;
+				PRODUCT_BUNDLE_IDENTIFIER = com.benpatterson.TrakAppBundle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

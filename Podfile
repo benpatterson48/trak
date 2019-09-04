@@ -11,6 +11,7 @@ target 'Trak' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+  pod 'Firebase/Messaging'
   pod 'SVProgressHUD'
   pod 'DAKeychain'
   pod 'Fabric'

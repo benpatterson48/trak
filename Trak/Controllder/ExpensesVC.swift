@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import FirebaseFirestore
 import FirebaseAuth
+import FirebaseFirestore
 
 var categoriesArray = ["All Categories"]
 
@@ -106,7 +106,7 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		header.rightBarButtonItem.addTarget(self, action: #selector(addNewExpenseButtonWasPressed), for: .touchUpInside)
 		header.leftBarButtonItem.addTarget(self, action: #selector(accountSettingsButtonWasPressed), for: .touchUpInside)
 	}
-	
+		
 	@objc func addNewExpenseButtonWasPressed() {
 		let add = AddExpenseVC()
 		presentFromRight(add)
@@ -229,7 +229,6 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		tv.bounces = false
 		tv.separatorColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
 		tv.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
-		tv.alwaysBounceVertical = true
 		tv.isUserInteractionEnabled = true
 		tv.showsVerticalScrollIndicator = false
 		tv.register(ExpenseCell.self, forCellReuseIdentifier: "expense")

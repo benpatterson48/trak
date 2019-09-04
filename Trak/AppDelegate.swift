@@ -9,9 +9,12 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseMessaging
+
+var instanceIDTokenMessage = String()
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
 
 	var window: UIWindow?
 
@@ -19,6 +22,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		FirebaseApp.configure()
 		window = UIWindow()
 		window?.makeKeyAndVisible()
+		
+		UNUserNotificationCenter.current().delegate = self
+		
+		let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+		UNUserNotificationCenter.current().requestAuthorization(
+			options: authOptions,
+			completionHandler: {_, _ in })
+		
+		application.registerForRemoteNotifications()
+		
+		Messaging.messaging().delegate = self
+
+		InstanceID.instanceID().instanceID { (result, error) in
+			if let error = error {
+				print("Error fetching remote instance ID: \(error)")
+			} else if let result = result {
+				print("Remote instance ID token: \(result.token)")
+				instanceIDTokenMessage  = result.token
+			}
+		}
+		
 		if Auth.auth().currentUser != nil {
 			let expenses = ExpensesVC()
 			window?.rootViewController = expenses

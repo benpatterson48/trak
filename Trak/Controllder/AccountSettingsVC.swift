@@ -203,6 +203,7 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func moreResourcesBlogButtonWasPressed() {
+		// add in blog URL
 		if let url = URL(string: "https://google.com") {
 			UIApplication.shared.open(url, options: [:])
 		} else {
@@ -222,13 +223,12 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 	
 	@objc func toggledFaceIDSwitch() {
 		let cell = SettingsCellWithUISwitch()
-		print("FACEID IS ENABLED ON TOUCH: \(UserDefaults.standard.bool(forKey: "enabledFaceID"))")
 		if cell.cellSwitch.isOn == true {
 			UserDefaults.standard.set(false, forKey: "enabledFaceID")
 		} else {
 			UserDefaults.standard.set(true, forKey: "enabledFaceID")
 		}
 	}
-
+	
 }
 
