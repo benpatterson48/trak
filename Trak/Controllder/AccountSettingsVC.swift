@@ -17,6 +17,7 @@ class AccountSettingsVC: UIViewController {
 		GenericCellInput(icon: "password", title: 	"Change your Password "),
 		GenericCellInput(icon: "faceid", title: 	"Face/ Touch ID          "),
 		GenericCellInput(icon: "year", title: 		"Change the Year      "),
+		GenericCellInput(icon: "category", title: 	"Manage Categories    "),
 		GenericCellInput(icon: "review", title: 	"Leave a Review       "),
 		GenericCellInput(icon: "bug", title: 		"Report a Bug         "),
 		GenericCellInput(icon: "blog", title: 		"Check out our Blog   "),
@@ -102,10 +103,10 @@ class AccountSettingsVC: UIViewController {
 		forwardArrow.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
 		forwardArrow.bottomAnchor.constraint(equalTo: pageTitle.bottomAnchor).isActive = true
 		
-		tableView.topAnchor.constraint(equalTo: pageTitle.bottomAnchor, constant: 24).isActive = true
+		tableView.topAnchor.constraint(equalTo: pageTitle.bottomAnchor, constant: 12).isActive = true
 		tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
 		tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
-		tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24).isActive = true
+		tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
 	}
 }
 
@@ -138,7 +139,7 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		if section == 0 {
 			return 3
-		} else if section == 4 {
+		} else if section == 4 || section == 1 {
 			return 2
 		} else {
 			return 1
@@ -158,16 +159,16 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 				return cell
 			}
 		} else if indexPath.section == 1 {
-			cell.setting = settingsArray[3]
+			cell.setting = settingsArray[indexPath.row + 3]
 			return cell
 		} else if indexPath.section == 2 {
-			cell.setting = settingsArray[4]
-			return cell
-		} else if indexPath.section == 3 {
 			cell.setting = settingsArray[5]
 			return cell
+		} else if indexPath.section == 3 {
+			cell.setting = settingsArray[6]
+			return cell
 		} else {
-			cell.setting = settingsArray[indexPath.row + 6]
+			cell.setting = settingsArray[indexPath.row + 7]
 			return cell
 		}
 	}
@@ -182,8 +183,13 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 				presentFromRight(edit)
 			}
 		} else if indexPath.section == 1 {
-			let edit = SettingsChangeVC(withPlaceholder: "Enter Desired Year", usingTitle: "Year")
-			presentFromRight(edit)
+			if indexPath.row == 0 {
+				let edit = SettingsChangeVC(withPlaceholder: "Enter Desired Year", usingTitle: "Year")
+				presentFromRight(edit)
+			} else {
+				let manage = ManageCategoriesVC()
+				presentFromRight(manage)
+			}
 		} else if indexPath.section == 2 {
 			self.reviewButtonWasPressed()
 		} else if indexPath.section == 3 {

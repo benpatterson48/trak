@@ -26,6 +26,7 @@ class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource
 		super.init()
 		DispatchQueue.main.async {
 			DataService.instance.getUserCategories { (returned) in
+				print("regetting the categoties")
 				categoriesArray.removeAll()
 				categoriesArray.append("All Categories")
 				categoriesArray.append(contentsOf: returned)
@@ -56,6 +57,7 @@ class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		print("replaying the count")
 		return categoriesArray.count
 	}
 	

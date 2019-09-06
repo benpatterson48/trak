@@ -16,11 +16,11 @@ var setReminder: Bool = false
 class AddExpenseVC: UIViewController, UITextFieldDelegate {
 	
 	var db = Firestore.firestore()
-	var categoriesArray: [String] = [""]
 	var paymentDate: Date?
 	var paymentMonth: String?
 	var paymentYear: String?
 	var timeStamp: Timestamp?
+	var categoriesArray: [String] = [""]
 	
 	let fields = AddExpenseStackView()
 	let addPaymentButton = MainBlueButton()
