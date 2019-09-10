@@ -26,7 +26,6 @@ class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource
 		super.init()
 		DispatchQueue.main.async {
 			DataService.instance.getUserCategories { (returned) in
-				print("regetting the categoties")
 				categoriesArray.removeAll()
 				categoriesArray.append("All Categories")
 				categoriesArray.append(contentsOf: returned)
@@ -40,7 +39,6 @@ class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource
 		}
 		grabExpenses()
 	}
-	
 	func grabExpenses() {
 		DataService.instance.grabbingExpenses(month: selectedMonth, year: selectedYear) { (unpaid, paid) in
 			self.unpaidExpenses = unpaid
@@ -57,13 +55,13 @@ class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		print("replaying the count")
 		return categoriesArray.count
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "category", for: indexPath) as? CategoryCell else { return UICollectionViewCell() }
 		cell.categoryTitle.text = categoriesArray[indexPath.row]
+		print("This is the indecx: \(indexPath.item) and it is selected: \(cell.isSelected)")
 		return cell
 	}
 

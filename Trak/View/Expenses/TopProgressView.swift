@@ -14,10 +14,7 @@ class MonthSwipeStack: UIView {
 	
 	let monthTextField: UILabel = {
 		let title = UILabel()
-//		title.borderStyle = .none
 		title.textAlignment = .center
-//		title.inputView = picker
-//		title.inputAccessoryView = barAccessory
 		title.textColor = UIColor.main.lightText
 		title.font = UIFont.mainFont(ofSize: 18)
 		title.translatesAutoresizingMaskIntoConstraints = false

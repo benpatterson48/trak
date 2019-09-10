@@ -194,6 +194,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 	
 	//Helper Funcs
 	fileprivate func getCategories() {
+		self.categoriesArray.removeAll()
 		DataService.instance.getUserCategories { (categoriesReturned) in
 			self.categoriesArray.append(contentsOf: categoriesReturned)
 		}

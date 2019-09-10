@@ -52,14 +52,13 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 			
 		expensesTableView.delegate = self
 		expensesTableView.dataSource = self
-				
+		
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshList(notification:)), name:NSNotification.Name(rawValue: "refreshTable"), object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(monthUpdatedReloadTable(notification:)), name:NSNotification.Name(rawValue: "monthUpdated"), object: nil)
 	}
 	
 	@objc func monthUpdatedReloadTable(notification: NSNotification) {
 		checkingExpensesForNewMonth()
-		grabExpenses()
 	}
 	
 	@objc func refreshList(notification: NSNotification){
@@ -92,11 +91,23 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	}
 	
 	func grabExpenses() {
-		DataService.instance.grabbingExpenses(month: selectedMonth, year: selectedYear) { (unpaid, paid) in
-			self.unpaidExpenses = unpaid
-			self.paidExpenses = paid
-			DispatchQueue.main.async {
-				self.expensesTableView.reloadData()
+		let new = getIndexForCurrentCartegory()
+		if new == 0 {
+			self.specificCategory = false
+			DataService.instance.grabbingExpenses(month: selectedMonth, year: selectedYear) { (unpaid, paid) in
+				self.unpaidExpenses = unpaid
+				self.paidExpenses = paid
+				DispatchQueue.main.async {
+					self.expensesTableView.reloadData()
+				}
+			}
+		} else {
+			self.specificCategory = true
+			DataService.instance.grabbingExpenses(month: selectedMonth, year: selectedYear) { (unpaid, paid) in
+				self.unpaidExpenses = unpaid
+				self.paidExpenses = paid
+				let categoryName:[String: String] = ["name": categoriesArray[new]]
+				NotificationCenter.default.post(name: .init("refreshTable"), object: nil, userInfo: categoryName)
 			}
 		}
 	}
@@ -146,6 +157,14 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 			} else {
 				self.addEmptyStateViews()
 			}
+		}
+	}
+	
+	func getIndexForCurrentCartegory() -> Int {
+		if let index = categoriesArray.firstIndex(of: categorySelected) {
+			return index
+		} else {
+			return 0
 		}
 	}
 	
@@ -291,10 +310,13 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		if section == 0 {
+			let newIndex = getIndexForCurrentCartegory()
 			guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "tableHeader") as? ExpensesTableHeaderView else {return nil}
 			if specificCategory {
+				header.categoryCollectionView.selectItem(at: IndexPath(item: newIndex, section: 0), animated: true, scrollPosition: [])
 				header.calculate(unpaid: self.specificCategoryUnpaidExpenses, paid: self.specificCategoryPaidExpenses)
 			} else {
+				header.categoryCollectionView.selectItem(at: IndexPath(item: newIndex, section: 0), animated: true, scrollPosition: [])
 				header.calculate(unpaid: self.unpaidExpenses, paid: self.paidExpenses)
 			}
 			return header
