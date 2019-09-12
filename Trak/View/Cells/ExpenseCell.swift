@@ -106,6 +106,7 @@ class ExpenseCell: UITableViewCell {
 		icon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24).isActive = true
 
 		leftStack.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 16).isActive = true
+		leftStack.trailingAnchor.constraint(equalTo: rightStack.leadingAnchor, constant: -16).isActive = true 
 		leftStack.topAnchor.constraint(equalTo: topAnchor, constant: 18).isActive = true
 		leftStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -18).isActive = true
 		

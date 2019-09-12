@@ -44,6 +44,11 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		expenseHeader.categoryCollectionView.reloadData()
 	}
 	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(true)
+		UIApplication.shared.applicationIconBadgeNumber = 0
+	}
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		addButtonTargets()

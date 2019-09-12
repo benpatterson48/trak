@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 		application.registerForRemoteNotifications()
 		
 		Messaging.messaging().delegate = self
-
+		
 		InstanceID.instanceID().instanceID { (result, error) in
 			if let error = error {
 				print("Error fetching remote instance ID: \(error)")
@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 				instanceIDTokenMessage  = result.token
 			}
 		}
-		
+				
 		if Auth.auth().currentUser != nil {
 			let expenses = ExpensesVC()
 			window?.rootViewController = expenses

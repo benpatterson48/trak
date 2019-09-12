@@ -20,6 +20,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 	var paymentMonth: String?
 	var paymentYear: String?
 	var timeStamp: Timestamp?
+	var reminderDateString: String?
 	var categoriesArray: [String] = [""]
 	
 	let fields = AddExpenseStackView()
@@ -64,12 +65,20 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 		setupButtonTargets()
 		setupCategoryPicker()
 		setupAddPaymentButton()
-		reminderTable.tableFooterView = UIView()
+		
+		view.backgroundColor = .white
+		
 		reminderTable.delegate = self
 		reminderTable.dataSource = self
-		view.backgroundColor = .white
+		reminderTable.tableFooterView = UIView()
+		
 		let tap = UITapGestureRecognizer(target: self, action: #selector(viewTappedToCloseOut))
 		view.addGestureRecognizer(tap)
+	}
+	
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(true)
+		setReminder = false
 	}
 	
 	@objc func viewTappedToCloseOut() {
@@ -174,14 +183,14 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 		addPaymentButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32).isActive = true
 		addPaymentButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
 	}
-
+	
 	//Adding data to Firestore
 	fileprivate func addPaymentToDatabase(name: String, amount: Double, timestamp: Timestamp, date: Timestamp, category: String) {
 		guard let user = Auth.auth().currentUser else {return}
 		guard let month = paymentMonth else {return}
 		guard let year = paymentYear else {return}
 		let expense = [
-			name : ["name": name, "amount": amount, "timestamp": timestamp, "date": date, "category": category, "isPaid": false]
+			name : ["name": name, "amount": amount, "timestamp": timestamp, "date": date, "category": category, "isPaid": false, "reminderDate": reminderDateString ?? ""]
 		]
 		db.collection("users").document(user.uid).collection(year).document(month).setData(expense, merge: true) { err in
 			if let err = err {
@@ -289,6 +298,7 @@ extension AddExpenseVC: UITableViewDelegate, UITableViewDataSource {
 		let cell = reminderTable.cellForRow(at: IndexPath(row: 1, section: 0)) as? SetDateReminderCell
 		dateFormatter.dateFormat = "E, d MMM yyyy hh:mm a"
 		cell?.reminderResultLabel.text = dateFormatter.string(from: datePicker.date)
+		self.reminderDateString = dateFormatter.string(from: datePicker.date)
 	}
 
 	@objc func setReminderToggle() {
@@ -314,6 +324,7 @@ extension AddExpenseVC: UITableViewDelegate, UITableViewDataSource {
 		content.categoryIdentifier = "alarm"
 		content.userInfo = ["customData": "fizzbuzz"]
 		content.sound = UNNotificationSound.default
+		content.badge = UIApplication.shared.applicationIconBadgeNumber + 1 as NSNumber
 		
 		var dateComponents = DateComponents()
 		dateComponents.month = month
@@ -326,7 +337,9 @@ extension AddExpenseVC: UITableViewDelegate, UITableViewDataSource {
 		//Test triggger
 //		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
 		
-		let request = UNNotificationRequest(identifier: instanceIDTokenMessage, content: content, trigger: trigger)
+		let request = UNNotificationRequest(identifier: "\(expenseName)", content: content, trigger: trigger)
+		print("were about to schedule notification with identifier: \(instanceIDTokenMessage)")
+		
 		center.add(request)
 	}
 
