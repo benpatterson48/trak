@@ -60,6 +60,12 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshList(notification:)), name:NSNotification.Name(rawValue: "refreshTable"), object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(monthUpdatedReloadTable(notification:)), name:NSNotification.Name(rawValue: "monthUpdated"), object: nil)
+		let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(addNewExpenseButtonWasPressed))
+		let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(accountSettingsButtonWasPressed))
+		swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
+		swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+		view.addGestureRecognizer(swipeLeft)
+		view.addGestureRecognizer(swipeRight)
 	}
 	
 	@objc func monthUpdatedReloadTable(notification: NSNotification) {

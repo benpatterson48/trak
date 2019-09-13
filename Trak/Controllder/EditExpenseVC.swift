@@ -16,6 +16,7 @@ class EditExpenseVC: UIViewController, UITextFieldDelegate {
 	var db = Firestore.firestore()
 	var categoriesArray = [String]()
 	var paymentDate: Date?
+	var previousName: String?
 	var paymentMonth: String?
 	var paymentYear: String?
 	var editExpense: Expense?
@@ -63,10 +64,11 @@ class EditExpenseVC: UIViewController, UITextFieldDelegate {
 		fields.totalField.textField.text = "\(expense.amount)".currency
 		fields.categoryField.textField.text = expense.category
 		
+		previousName = expense.name
+		
 		reminderDateString = expense.reminderString
 		if reminderDateString != "" {
 			setReminder = true
-			current.removePendingNotificationRequests(withIdentifiers: ["\(expense.name)"])
 		} else {
 			setReminder = false 
 		}
@@ -85,6 +87,7 @@ class EditExpenseVC: UIViewController, UITextFieldDelegate {
 		addViews()
 		setupHeader()
 		setupFields()
+		setDoneOnKeyboard()
 		setupButtonTargets()
 		setupCategoryPicker()
 		setupAddPaymentButton()
@@ -116,6 +119,27 @@ class EditExpenseVC: UIViewController, UITextFieldDelegate {
 		dismiss(animated: true, completion: nil)
 	}
 	
+	func setDoneOnKeyboard() {
+		let name = fields.nameField.textField
+		let date = fields.dateField.textField
+		let amount = fields.totalField.textField
+		let category = fields.categoryField.textField
+		
+		let keyboardToolbar = UIToolbar()
+		keyboardToolbar.sizeToFit()
+		let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+		let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
+		keyboardToolbar.items = [flexBarButton, doneBarButton]
+		name.inputAccessoryView = keyboardToolbar
+		date.inputAccessoryView = keyboardToolbar
+		amount.inputAccessoryView = keyboardToolbar
+		category.inputAccessoryView = keyboardToolbar
+	}
+	
+	@objc func dismissKeyboard() {
+		view.endEditing(true)
+	}
+	
 	@objc func dateChanged(datePicker: UIDatePicker) {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateFormat = "MMMM dd, yyyy"
@@ -134,6 +158,7 @@ class EditExpenseVC: UIViewController, UITextFieldDelegate {
 		guard let paymentCategory = fields.categoryField.textField.text, fields.categoryField.textField.text != nil else {  print("category");showIncompleteFormAlert(); return }
 		editExpenseWithNewInformation(newName: paymentName, timestamp: paymentDueDate, newAmount: paymentAmountDouble, newDate: paymentDueDate, newCategory: paymentCategory)
 		if setReminder == true {
+			current.removePendingNotificationRequests(withIdentifiers: [previousName ?? paymentName])
 			let date = returnSelectedDateAsDate()
 			let intMonth = grabMonthIndex(month: date.month)
 			self.schedulePushNotificationReminder(month: intMonth, day: Int(date.day) ?? 1, year: Int(date.year) ?? 2019, hour: Int(date.militaryHour) ?? 10, minute: Int(date.minute) ?? 00, expenseName: paymentName, expenseAmount: paymentAmount)

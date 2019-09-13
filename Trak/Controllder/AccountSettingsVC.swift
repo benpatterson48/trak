@@ -20,7 +20,7 @@ class AccountSettingsVC: UIViewController {
 		GenericCellInput(icon: "category", title: 	"Manage Categories    "),
 		GenericCellInput(icon: "review", title: 	"Leave a Review       "),
 		GenericCellInput(icon: "bug", title: 		"Report a Bug         "),
-		GenericCellInput(icon: "blog", title: 		"Check out our Blog   "),
+		GenericCellInput(icon: "blog", title: 		"Check out our Website"),
 		GenericCellInput(icon: "logout", title: 	"Logout               ")
 	]
 	
@@ -76,6 +76,10 @@ class AccountSettingsVC: UIViewController {
 		tableView.tableFooterView = UIView()
 		
 		view.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
+		
+		let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(dismissView))
+		swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
+		view.addGestureRecognizer(swipeLeft)
 	}
 	
 	@objc func dismissView() {
@@ -177,24 +181,24 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 		if indexPath.section == 0 {
 			if indexPath.row == 0 {
 				let edit = SettingsChangeVC(withPlaceholder: "Enter email", usingTitle: "Email")
-				presentFromRight(edit)
+				fadeFromRight(edit)
 			} else if indexPath.row == 1  {
 				let edit = SettingsChangeVC(withPlaceholder: "Enter password", usingTitle: "Password")
-				presentFromRight(edit)
+				fadeFromRight(edit)
 			}
 		} else if indexPath.section == 1 {
 			if indexPath.row == 0 {
 				let edit = SettingsChangeVC(withPlaceholder: "Enter Desired Year", usingTitle: "Year")
-				presentFromRight(edit)
+				fadeFromRight(edit)
 			} else {
 				let manage = ManageCategoriesVC()
-				presentFromRight(manage)
+				fadeFromRight(manage)
 			}
 		} else if indexPath.section == 2 {
 			self.reviewButtonWasPressed()
 		} else if indexPath.section == 3 {
 			let edit = SettingsChangeVC(withPlaceholder: "Please explain the issue", usingTitle: "Bug Report")
-			presentFromRight(edit)
+			fadeFromRight(edit)
 		} else if indexPath.section == 4 {
 			if indexPath.row == 0 {
 				self.moreResourcesBlogButtonWasPressed()
@@ -209,8 +213,7 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func moreResourcesBlogButtonWasPressed() {
-		// add in blog URL
-		if let url = URL(string: "https://google.com") {
+		if let url = URL(string: "https://gettrakapp.com") {
 			UIApplication.shared.open(url, options: [:])
 		} else {
 			// show error

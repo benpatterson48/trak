@@ -59,9 +59,12 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 	
     override func viewDidLoad() {
         super.viewDidLoad()
+		setReminder = false 
+		
 		addViews()
 		setupHeader()
 		setupFields()
+		setDoneOnKeyboard()
 		setupButtonTargets()
 		setupCategoryPicker()
 		setupAddPaymentButton()
@@ -73,7 +76,11 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 		reminderTable.tableFooterView = UIView()
 		
 		let tap = UITapGestureRecognizer(target: self, action: #selector(viewTappedToCloseOut))
+		let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(backButtonWasPressed))
+		swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+		
 		view.addGestureRecognizer(tap)
+		view.addGestureRecognizer(swipeRight)
 	}
 	
 	override func viewDidDisappear(_ animated: Bool) {
@@ -96,6 +103,27 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 	
 	@objc func backButtonWasPressed() {
 		dismissFromLeft()
+	}
+	
+	func setDoneOnKeyboard() {
+		let name = fields.nameField.textField
+		let date = fields.dateField.textField
+		let amount = fields.totalField.textField
+		let category = fields.categoryField.textField
+		
+		let keyboardToolbar = UIToolbar()
+		keyboardToolbar.sizeToFit()
+		let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+		let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
+		keyboardToolbar.items = [flexBarButton, doneBarButton]
+		name.inputAccessoryView = keyboardToolbar
+		date.inputAccessoryView = keyboardToolbar
+		amount.inputAccessoryView = keyboardToolbar
+		category.inputAccessoryView = keyboardToolbar
+	}
+	
+	@objc func dismissKeyboard() {
+		view.endEditing(true)
 	}
 	
 	@objc func dateChanged(datePicker: UIDatePicker) {
