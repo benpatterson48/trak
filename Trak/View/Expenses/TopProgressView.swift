@@ -85,8 +85,14 @@ class MonthSwipeStack: UIView {
 		addSubview(monthTitleStack)
 		monthTitleStack.topAnchor.constraint(equalTo: topAnchor).isActive = true
 		monthTitleStack.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-		monthTitleStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
-		monthTitleStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50).isActive = true
+		
+		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
+			monthTitleStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true
+			monthTitleStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12).isActive = true
+		} else {
+			monthTitleStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50).isActive = true
+			monthTitleStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50).isActive = true
+		}
 	}
 
 	required init?(coder aDecoder: NSCoder) {

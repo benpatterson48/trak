@@ -59,7 +59,6 @@ class SetDateReminderCell: UITableViewCell {
 		title.textColor = #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
 		title.text = "Set Reminder"
 		title.textAlignment = .left
-		title.font = UIFont.systemFont(ofSize: 18, weight: .regular)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
 	}()
@@ -80,8 +79,15 @@ class SetDateReminderCell: UITableViewCell {
 		backgroundColor = .white
 		reminderDatePicker.backgroundColor = .white
 		reminderDatePicker.minimumDate = grabCurrentDate()
-		
 		reminderResultLabel.placeholder = grabCurrentDateString()
+		
+		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
+			reminderTitleLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+			reminderResultLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+		} else {
+			reminderTitleLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+			reminderResultLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+		}
 	}
 	
 	func grabCurrentDateString() -> String {

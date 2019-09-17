@@ -31,7 +31,6 @@ class SettingsCell: UITableViewCell {
 		let title = UILabel()
 		title.textColor = #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
 		title.textAlignment = .left
-		title.font = UIFont.systemFont(ofSize: 16, weight: .regular)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
 	}()
@@ -40,8 +39,6 @@ class SettingsCell: UITableViewCell {
 		let arrow = UIImageView()
 		arrow.contentMode = .scaleAspectFit
 		arrow.image = UIImage(named: "arrow")
-		arrow.heightAnchor.constraint(equalToConstant: 30).isActive = true
-		arrow.widthAnchor.constraint(equalToConstant: 30).isActive = true
 		arrow.translatesAutoresizingMaskIntoConstraints = false
 		return arrow
 	}()
@@ -60,6 +57,16 @@ class SettingsCell: UITableViewCell {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupConstraints()
 		selectionStyle = .none
+		
+		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
+			cellTitle.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+			cellArrow.heightAnchor.constraint(equalToConstant: 20).isActive = true
+			cellArrow.widthAnchor.constraint(equalToConstant: 20).isActive = true
+		} else {
+			cellTitle.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+			cellArrow.heightAnchor.constraint(equalToConstant: 30).isActive = true
+			cellArrow.widthAnchor.constraint(equalToConstant: 30).isActive = true
+		}
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -69,9 +76,14 @@ class SettingsCell: UITableViewCell {
 	func setupConstraints() {
 		addSubview(cellStack)
 		addSubview(cellArrow)
-		cellStack.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
 		cellStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24).isActive = true
-		cellStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
+		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
+			cellStack.topAnchor.constraint(equalTo: topAnchor, constant: 6).isActive = true
+			cellStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6).isActive = true
+		} else {
+			cellStack.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
+			cellStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
+		}
 		
 		cellArrow.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
 		cellArrow.centerYAnchor.constraint(equalTo: cellStack.centerYAnchor).isActive = true
@@ -127,15 +139,26 @@ class SettingsCellWithUISwitch: UITableViewCell {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupConstraints()
 		cellSwitch.isOn = UserDefaults.standard.bool(forKey: "enabledFaceID")
+		
+		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
+			cellTitle.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+		} else {
+			cellTitle.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+		}
 	}
 	
 	func setupConstraints() {
 		addSubview(cellStack)
 		addSubview(cellSwitch)
 		cellStack.translatesAutoresizingMaskIntoConstraints = false
-		cellStack.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
 		cellStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24).isActive = true
-		cellStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
+		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
+			cellStack.topAnchor.constraint(equalTo: topAnchor, constant: 6).isActive = true
+			cellStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6).isActive = true
+		} else {
+			cellStack.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
+			cellStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
+		}
 		
 		cellSwitch.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
 		cellSwitch.centerYAnchor.constraint(equalTo: cellStack.centerYAnchor).isActive = true

@@ -47,7 +47,13 @@ class HeaderWithLogo: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		addViews()
-		heightAnchor.constraint(equalToConstant: 110).isActive = true
+		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
+			heightAnchor.constraint(equalToConstant: 70).isActive = true
+		} else if UIDevice.current.name == "iPhone 6" || UIDevice.current.name == "iPhone 7" || UIDevice.current.name == "iPhone 8" || UIDevice.current.name == "iPhone 6 Plus" || UIDevice.current.name == "iPhone 7 Plus" || UIDevice.current.name == "iPhone 8 Plus" {
+			heightAnchor.constraint(equalToConstant: 80).isActive = true
+		} else {
+			heightAnchor.constraint(equalToConstant: 100).isActive = true
+		}
 	}
 	
 	public convenience init(leftIcon: UIImage, rightIcon: UIImage) {
@@ -120,7 +126,13 @@ class HeaderWithTextTitle: UIView {
 		super.init(frame: frame)
 		addViews()
 		backgroundColor = .white
-		heightAnchor.constraint(equalToConstant: 100).isActive = true
+		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
+			heightAnchor.constraint(equalToConstant: 70).isActive = true
+		} else if UIDevice.current.name == "iPhone 6" || UIDevice.current.name == "iPhone 7" || UIDevice.current.name == "iPhone 8" || UIDevice.current.name == "iPhone 6 Plus" || UIDevice.current.name == "iPhone 7 Plus" || UIDevice.current.name == "iPhone 8 Plus" {
+			heightAnchor.constraint(equalToConstant: 80).isActive = true
+		} else {
+			heightAnchor.constraint(equalToConstant: 100).isActive = true
+		}
 	}
 	
 	public convenience init(leftIcon: UIImage, rightIcon: UIImage, title: String) {

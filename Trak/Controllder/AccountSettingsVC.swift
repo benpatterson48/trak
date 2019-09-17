@@ -38,7 +38,6 @@ class AccountSettingsVC: UIViewController {
 		title.textColor = #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
 		title.textAlignment = .left
 		title.text = "Account Settings"
-		title.font = UIFont.boldSystemFont(ofSize: 32)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
 	}()
@@ -80,6 +79,12 @@ class AccountSettingsVC: UIViewController {
 		let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(dismissView))
 		swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
 		view.addGestureRecognizer(swipeLeft)
+		
+		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
+			pageTitle.font = UIFont.boldSystemFont(ofSize: 28)
+		} else {
+			pageTitle.font = UIFont.boldSystemFont(ofSize: 32)
+		}
 	}
 	
 	@objc func dismissView() {

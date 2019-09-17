@@ -19,7 +19,11 @@ class ExpenseCell: UITableViewCell {
 			dateFormatter.dateFormat = "MM/dd/yyyy"
 			guard let timeStamp = expense?.timestamp else {return}
 			let dueDate = timeStamp.dateValue()
-			dueDateLabel.text = "Due Date: \(dateFormatter.string(from: dueDate))"
+			if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
+				dueDateLabel.text = "Due: \(dateFormatter.string(from: dueDate))"
+			} else {
+				dueDateLabel.text = "Due Date: \(dateFormatter.string(from: dueDate))"
+			}
 			
 			guard let dueAmount = expense?.amount else {return}
 			dueAmountLabel.text = "\(dueAmount)".currency

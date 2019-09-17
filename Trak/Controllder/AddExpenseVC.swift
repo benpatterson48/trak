@@ -187,7 +187,13 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 		header.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		header.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
 		
-		fields.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 50).isActive = true
+		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
+			fields.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 16).isActive = true
+			addPaymentButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
+		} else {
+			fields.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 50).isActive = true
+			addPaymentButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
+		}
 		fields.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32).isActive = true
 		fields.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32).isActive = true
 		
@@ -209,7 +215,6 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 		addPaymentButton.heightAnchor.constraint(equalToConstant: 58).isActive = true
 		addPaymentButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32).isActive = true
 		addPaymentButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32).isActive = true
-		addPaymentButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
 	}
 	
 	//Adding data to Firestore
