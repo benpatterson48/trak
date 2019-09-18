@@ -25,8 +25,10 @@ class LoginVC: UIViewController {
         super.viewDidLoad()
 		view.backgroundColor = .white
 		addViews()
+		setDoneOnKeyboard()
 		alert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: nil))
 		stackView.button.addTarget(self, action: #selector(loginButtonWasPressed), for: .touchUpInside)
+		signUpTextButton.button.addTarget(self, action: #selector(signupButtonWasPressed), for: .touchUpInside)
 		let tap = UITapGestureRecognizer(target: self, action: #selector(viewTappedToCloseOut))
 		view.addGestureRecognizer(tap)
 	}
@@ -85,6 +87,8 @@ class LoginVC: UIViewController {
 			} else {
 				self.stackView.button.stopLoading(title: "Log In")
 				self.present(self.alert, animated: true, completion: nil)
+				self.stackView.email.textField.text = ""
+				self.stackView.password.textField.text = "" 
 			}
 		}
 	}
@@ -115,5 +119,25 @@ class LoginVC: UIViewController {
 		}
 	}
 	
+	@objc func signupButtonWasPressed() {
+		let signup = CreateAccountVC()
+		present(signup, animated: true, completion: nil)
+	}
+	
+	func setDoneOnKeyboard() {
+		let email = stackView.email.textField
+		let password = stackView.password.textField
+		let keyboardToolbar = UIToolbar()
+		keyboardToolbar.sizeToFit()
+		let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+		let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
+		keyboardToolbar.items = [flexBarButton, doneBarButton]
+		email.inputAccessoryView = keyboardToolbar
+		password.inputAccessoryView = keyboardToolbar
+	}
+	
+	@objc func dismissKeyboard() {
+		view.endEditing(true)
+	}
 
 }

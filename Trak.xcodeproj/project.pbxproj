@@ -28,6 +28,7 @@
 		1D5A5DDD2314DAD200A25BEA /* AccountSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5A5DDC2314DAD200A25BEA /* AccountSettingsVC.swift */; };
 		1D6B9B1122B9E90900E07920 /* ImageAndTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B9B1022B9E90900E07920 /* ImageAndTextButton.swift */; };
 		1D6B9B1322B9EE9200E07920 /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6B9B1222B9EE9200E07920 /* Labels.swift */; };
+		1D6D3CE32331F13B00C258DC /* KeyboardBoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6D3CE22331F13B00C258DC /* KeyboardBoundView.swift */; };
 		1D80CE5322BAE76700D69E71 /* AddNewCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80CE5222BAE76700D69E71 /* AddNewCategoryVC.swift */; };
 		1D80CE5522BB1F9500D69E71 /* ExpenseDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80CE5422BB1F9500D69E71 /* ExpenseDatePicker.swift */; };
 		1D80CE5922BB369A00D69E71 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80CE5822BB369A00D69E71 /* DataService.swift */; };
@@ -92,6 +93,7 @@
 		1D5A5DDC2314DAD200A25BEA /* AccountSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingsVC.swift; sourceTree = "<group>"; };
 		1D6B9B1022B9E90900E07920 /* ImageAndTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAndTextButton.swift; sourceTree = "<group>"; };
 		1D6B9B1222B9EE9200E07920 /* Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
+		1D6D3CE22331F13B00C258DC /* KeyboardBoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardBoundView.swift; sourceTree = "<group>"; };
 		1D80CE5222BAE76700D69E71 /* AddNewCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewCategoryVC.swift; sourceTree = "<group>"; };
 		1D80CE5422BB1F9500D69E71 /* ExpenseDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExpenseDatePicker.swift; path = ../AddExpense/ExpenseDatePicker.swift; sourceTree = "<group>"; };
 		1D80CE5822BB369A00D69E71 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				1DF1945122B1D77600DFC41B /* Fonts */,
+				1D6D3CE22331F13B00C258DC /* KeyboardBoundView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 				1DEFB40D2314F084004B24E2 /* SettingsTableSectionHeader.swift in Sources */,
 				1DE16F142315E9C90087249B /* SettingsChangeVC.swift in Sources */,
 				1D136D1822B7D4F30030C48D /* Header.swift in Sources */,
+				1D6D3CE32331F13B00C258DC /* KeyboardBoundView.swift in Sources */,
 				1D9A7EE122E6C38C00488961 /* EditExpenseVC.swift in Sources */,
 				1D4F06DE22E1A69400192C69 /* EmptyExpenseCell.swift in Sources */,
 				1DD1264322D43FFE0072A250 /* ExpensesTableHeaderView.swift in Sources */,

@@ -18,6 +18,7 @@ class GetStartedVC: UIViewController {
         super.viewDidLoad()
 		view.backgroundColor = .white 
 		addViews()
+		stackView.mainTitle.numberOfLines = 0 
 		stackView.button.addTarget(self, action: #selector(getStartedButtonWasPressed), for: .touchUpInside)
 		signUpTextButton.button.addTarget(self, action: #selector(signinButtonWasPressed), for: .touchUpInside)
     }

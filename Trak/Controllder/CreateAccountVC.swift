@@ -22,6 +22,7 @@ class CreateAccountVC: UIViewController {
         super.viewDidLoad()
 		view.backgroundColor = .white
 		addViews()
+		setDoneOnKeyboard()
 		stackView.button.addTarget(self, action: #selector(createAccountButtonWasPressed), for: .touchUpInside)
 		signUpTextButton.button.addTarget(self, action: #selector(signupButtonWasPressed), for: .touchUpInside)
 		let tap = UITapGestureRecognizer(target: self, action: #selector(viewTappedToCloseOut))
@@ -51,6 +52,7 @@ class CreateAccountVC: UIViewController {
 	fileprivate func addStackView() {
 		view.addSubview(stackView)
 		stackView.translatesAutoresizingMaskIntoConstraints = false 
+		
 		stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
 		stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 28).isActive = true
 		stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -28).isActive = true
@@ -67,6 +69,11 @@ class CreateAccountVC: UIViewController {
 				self.present(expsenses, animated: true, completion: nil)
 			} else {
 				self.stackView.button.stopLoading(title: "Create Account")
+				let alert = UIAlertController(title: "Error", message: "Sorry your account couldn't be created at this time, please try again later", preferredStyle: .alert)
+				alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+				self.present(alert, animated: true, completion: nil)
+				self.stackView.email.textField.text = ""
+				self.stackView.password.textField.text = "" 
 			}
 		}
 	}
@@ -88,6 +95,22 @@ class CreateAccountVC: UIViewController {
 				print("✅✅✅ Document successfully written!")
 			}
 		}
+	}
+	
+	func setDoneOnKeyboard() {
+		let email = stackView.email.textField
+		let password = stackView.password.textField
+		let keyboardToolbar = UIToolbar()
+		keyboardToolbar.sizeToFit()
+		let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+		let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
+		keyboardToolbar.items = [flexBarButton, doneBarButton]
+		email.inputAccessoryView = keyboardToolbar
+		password.inputAccessoryView = keyboardToolbar
+	}
+	
+	@objc func dismissKeyboard() {
+		view.endEditing(true)
 	}
 
 }
