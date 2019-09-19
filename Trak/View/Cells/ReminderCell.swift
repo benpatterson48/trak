@@ -84,6 +84,9 @@ class SetDateReminderCell: UITableViewCell {
 		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
 			reminderTitleLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
 			reminderResultLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+		} else if UIDevice.current.name == "iPhone 6" || UIDevice.current.name == "iPhone 7" || UIDevice.current.name == "iPhone 8" {
+			reminderTitleLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+			reminderResultLabel.font = UIFont.systemFont(ofSize: 15, weight: .regular)
 		} else {
 			reminderTitleLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)
 			reminderResultLabel.font = UIFont.systemFont(ofSize: 18, weight: .regular)

@@ -83,6 +83,8 @@ class SettingsChangeVC: UIViewController, MFMailComposeViewControllerDelegate, U
 		} else if self.topViewTitleLabel.text == "Year" {
 			if inputTextField.text != nil && inputTextField.text != "" && inputTextField.text != " " {
 				selectedYear = self.inputTextField.text!
+				let expenses = ExpensesVC()
+				presentFromRight(expenses)
 			} else {
 				// show incomplete error
 			}

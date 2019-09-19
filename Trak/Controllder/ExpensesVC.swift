@@ -225,7 +225,7 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		expensesTableView.topAnchor.constraint(equalTo: monthInfo.bottomAnchor, constant: 0).isActive = true
 		expensesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		expensesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-		expensesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+		expensesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16).isActive = true
 	}
 	
 	fileprivate func addEmptyStateViews() {
@@ -262,7 +262,7 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		tv.isUserInteractionEnabled = true
 		tv.showsVerticalScrollIndicator = false
 		tv.register(ExpenseCell.self, forCellReuseIdentifier: "expense")
-		tv.register(EmptyExpenseCell.self, forCellReuseIdentifier: "empty")
+		tv.register(ExpensesSectionFooter.self, forHeaderFooterViewReuseIdentifier: "footer")
 		tv.register(ExpensesSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
 		tv.register(ExpensesTableHeaderView.self, forHeaderFooterViewReuseIdentifier: "tableHeader")
 		tv.translatesAutoresizingMaskIntoConstraints = false
@@ -317,6 +317,46 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 			}
 		}
 		return cell
+	}
+	
+	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		if section == 0 {
+			return 0
+		} else if section == 1 {
+			if unpaidExpenses.isEmpty == true {
+				return 60
+			} else {
+				return 0
+			}
+		} else {
+			if paidExpenses.isEmpty == true {
+				return 60
+			} else {
+				return 0
+			}
+		}
+	}
+	
+	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "footer") as? ExpensesSectionFooter else {return nil}
+		footer.contentView.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
+		if section == 0 {
+			return nil
+		} else if section == 1 {
+			if unpaidExpenses.isEmpty == true {
+				footer.label.text = "You currently don't have any unpaid expenses! 🎉"
+				return footer
+			} else {
+				return nil
+			}
+		} else {
+			if paidExpenses.isEmpty == true {
+				footer.label.text = "You currently don't have any paid expenses this month 😅"
+				return footer
+			} else {
+				return nil
+			}
+		}
 	}
 
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

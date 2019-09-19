@@ -43,6 +43,7 @@ class ExpenseCell: UITableViewCell {
 	let expenseTitle: UILabel = {
 		let title = UILabel()
 		title.textAlignment = .left
+		title.numberOfLines = 0
 		title.textColor = UIColor.main.darkText
 		title.font = UIFont.mainFont(ofSize: 16)
 		title.translatesAutoresizingMaskIntoConstraints = false
@@ -90,7 +91,7 @@ class ExpenseCell: UITableViewCell {
 		let leftStack = UIStackView(arrangedSubviews: [expenseTitle, dueDateLabel])
 		leftStack.translatesAutoresizingMaskIntoConstraints = false
 		leftStack.axis = .vertical
-		leftStack.distribution = .fillEqually
+		leftStack.distribution = .fill
 		leftStack.alignment = .leading
 		leftStack.spacing = 5
 		
@@ -105,17 +106,17 @@ class ExpenseCell: UITableViewCell {
 		addSubview(leftStack)
 		addSubview(rightStack)
 
-		icon.topAnchor.constraint(equalTo: topAnchor, constant: 18).isActive = true
-		icon.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -18).isActive = true
-		icon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24).isActive = true
+		icon.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
+		icon.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
+		icon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
 
 		leftStack.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 16).isActive = true
-		leftStack.trailingAnchor.constraint(equalTo: rightStack.leadingAnchor, constant: -16).isActive = true 
-		leftStack.topAnchor.constraint(equalTo: topAnchor, constant: 18).isActive = true
-		leftStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -18).isActive = true
+		leftStack.trailingAnchor.constraint(equalTo: rightStack.leadingAnchor, constant: -8).isActive = true
+		leftStack.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
+		leftStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
 		
-		rightStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24).isActive = true
-		rightStack.topAnchor.constraint(equalTo: topAnchor, constant: 18).isActive = true
-		rightStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -18).isActive = true
+		rightStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
+		rightStack.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
+		rightStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
 	}
 }
