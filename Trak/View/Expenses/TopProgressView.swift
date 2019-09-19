@@ -69,10 +69,9 @@ class MonthSwipeStack: UIView {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		backgroundColor = .white
+		backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.95)
 		addViews()
-		backgroundColor = .white
-		heightAnchor.constraint(equalToConstant: 40).isActive = true
+		heightAnchor.constraint(equalToConstant: 48).isActive = true
 		monthTextField.text = selectedMonth.uppercased()
 	}
 	
@@ -83,8 +82,8 @@ class MonthSwipeStack: UIView {
 		monthTitleStack.spacing = 32
 		
 		addSubview(monthTitleStack)
-		monthTitleStack.topAnchor.constraint(equalTo: topAnchor).isActive = true
-		monthTitleStack.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+		monthTitleStack.topAnchor.constraint(equalTo: topAnchor, constant: 4).isActive = true
+		monthTitleStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
 		
 		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
 			monthTitleStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true

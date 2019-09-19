@@ -24,10 +24,10 @@ class EmptyState: UIView {
 	
 	let mainTitle: UILabel = {
 		let main = UILabel()
+		main.numberOfLines = 0
 		main.text = "You have no payments!"
 		main.textColor = UIColor.main.darkText
 		main.textAlignment = .left
-		main.font = UIFont.mainSemiBoldFont(ofSize: 26)
 		main.translatesAutoresizingMaskIntoConstraints = false
 		return main
 	}()
@@ -57,6 +57,12 @@ class EmptyState: UIView {
 		labels.distribution = .fillProportionally
 		labels.spacing = 15
 		addSubview(labels)
+		
+		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
+			mainTitle.font = UIFont.mainSemiBoldFont(ofSize: 22)
+		} else {
+			mainTitle.font = UIFont.mainSemiBoldFont(ofSize: 26)
+		}
 		
 		mainTitle.heightAnchor.constraint(equalToConstant: 30).isActive = true
 		subTitle.heightAnchor.constraint(equalToConstant: 50).isActive = true 

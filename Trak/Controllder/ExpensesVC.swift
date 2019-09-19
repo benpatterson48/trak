@@ -24,6 +24,9 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	var specificCategoryUnpaidExpenses = [Expense]()
 	var specificCategoryPaidExpenses = [Expense]()
 	
+	var checkUnpaid: [Expense] = []
+	var checkPaid: [Expense] = []
+	
 	let date = Date()
 	let cell = CategoryCell()
 	let emptyState = EmptyState()
@@ -54,7 +57,7 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		addButtonTargets()
 		view.backgroundColor = .white
 		user = Auth.auth().currentUser
-			
+		
 		expensesTableView.delegate = self
 		expensesTableView.dataSource = self
 		
@@ -203,8 +206,8 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	
 	fileprivate func addViews() {
 		view.addSubview(header)
-		view.addSubview(monthInfo)
 		view.addSubview(expensesTableView)
+		view.addSubview(monthInfo)
 		header.translatesAutoresizingMaskIntoConstraints = false
 		monthInfo.translatesAutoresizingMaskIntoConstraints = false
 		expensesTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -215,17 +218,17 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		header.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 		header.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		header.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-		header.bottomAnchor.constraint(equalTo: monthInfo.topAnchor, constant: -16).isActive = true
+		header.bottomAnchor.constraint(equalTo: monthInfo.topAnchor).isActive = true
 		
-		monthInfo.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 16).isActive = true
+		monthInfo.topAnchor.constraint(equalTo: header.bottomAnchor).isActive = true
 		monthInfo.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		monthInfo.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-		monthInfo.bottomAnchor.constraint(equalTo: expensesTableView.topAnchor, constant: 0).isActive = true 
+//		monthInfo.bottomAnchor.constraint(equalTo: expensesTableView.topAnchor, constant: 0).isActive = true 
 		
-		expensesTableView.topAnchor.constraint(equalTo: monthInfo.bottomAnchor, constant: 0).isActive = true
+		expensesTableView.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 0).isActive = true
 		expensesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		expensesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-		expensesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16).isActive = true
+		expensesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
 	}
 	
 	fileprivate func addEmptyStateViews() {
@@ -242,9 +245,9 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		header.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 		header.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		header.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-		header.bottomAnchor.constraint(equalTo: monthInfo.topAnchor, constant: -16).isActive = true
+		header.bottomAnchor.constraint(equalTo: monthInfo.topAnchor).isActive = true
 		
-		monthInfo.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 16).isActive = true
+		monthInfo.topAnchor.constraint(equalTo: header.bottomAnchor).isActive = true
 		monthInfo.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		monthInfo.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
 		
@@ -256,9 +259,9 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	
 	let expensesTableView: UITableView = {
 		let tv = UITableView(frame: .zero, style: .plain)
-		tv.bounces = false
+		tv.bounces = true
 		tv.separatorColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
-		tv.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
+		tv.backgroundColor = .white
 		tv.isUserInteractionEnabled = true
 		tv.showsVerticalScrollIndicator = false
 		tv.register(ExpenseCell.self, forCellReuseIdentifier: "expense")
@@ -319,46 +322,6 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 		return cell
 	}
 	
-	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		if section == 0 {
-			return 0
-		} else if section == 1 {
-			if unpaidExpenses.isEmpty == true {
-				return 60
-			} else {
-				return 0
-			}
-		} else {
-			if paidExpenses.isEmpty == true {
-				return 60
-			} else {
-				return 0
-			}
-		}
-	}
-	
-	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-		guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "footer") as? ExpensesSectionFooter else {return nil}
-		footer.contentView.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
-		if section == 0 {
-			return nil
-		} else if section == 1 {
-			if unpaidExpenses.isEmpty == true {
-				footer.label.text = "You currently don't have any unpaid expenses! 🎉"
-				return footer
-			} else {
-				return nil
-			}
-		} else {
-			if paidExpenses.isEmpty == true {
-				footer.label.text = "You currently don't have any paid expenses this month 😅"
-				return footer
-			} else {
-				return nil
-			}
-		}
-	}
-
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		if section == 0 {
 			let newIndex = getIndexForCurrentCartegory()
@@ -381,7 +344,7 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		if section == 0 {
-			return 450
+			return 475
 		} else {
 			return 50
 		}
@@ -513,5 +476,95 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
 		return true
+	}
+	
+	func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+		if specificCategory == true {
+			switch (section) {
+			case 0:
+				return 0
+			case 1:
+				if specificCategoryUnpaidExpenses.isEmpty == true {
+					return 70
+				} else {
+					return 0
+				}
+			case 2:
+				if specificCategoryPaidExpenses.isEmpty == true {
+					return 70
+				} else {
+					return 0
+				}
+			default:
+				return 0
+			}
+		} else {
+			switch (section) {
+			case 0:
+				return 0
+			case 1:
+				if unpaidExpenses.isEmpty == true {
+					return 70
+				} else {
+					return 0
+				}
+			case 2:
+				if paidExpenses.isEmpty == true {
+					return 70
+				} else {
+					return 0
+				}
+			default:
+				return 0
+			}
+		}
+	}
+	
+	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "footer") as? ExpensesSectionFooter else {return nil}
+		footer.contentView.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
+		if specificCategory == true {
+			switch (section) {
+			case 0:
+				return nil
+			case 1:
+				if specificCategoryUnpaidExpenses.isEmpty == true {
+					footer.label.text = "You currently don't have any unpaid expenses! 🎉"
+					return footer
+				} else {
+					return nil
+				}
+			case 2:
+				if specificCategoryPaidExpenses.isEmpty == true {
+					footer.label.text = "You currently don't have any paid expenses this month 😅"
+					return footer
+				} else {
+					return nil
+				}
+			default:
+				return nil
+			}
+		} else {
+			switch (section) {
+			case 0:
+				return nil
+			case 1:
+				if unpaidExpenses.isEmpty == true {
+					footer.label.text = "You currently don't have any unpaid expenses! 🎉"
+					return footer
+				} else {
+					return nil
+				}
+			case 2:
+				if paidExpenses.isEmpty == true {
+					footer.label.text = "You currently don't have any paid expenses this month 😅"
+					return footer
+				} else {
+					return nil
+				}
+			default:
+				return nil
+			}
+		}
 	}
 }

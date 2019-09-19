@@ -61,7 +61,6 @@ class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "category", for: indexPath) as? CategoryCell else { return UICollectionViewCell() }
 		cell.categoryTitle.text = categoriesArray[indexPath.row]
-		print("This is the indecx: \(indexPath.item) and it is selected: \(cell.isSelected)")
 		return cell
 	}
 

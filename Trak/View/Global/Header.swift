@@ -148,13 +148,13 @@ class HeaderWithTextTitle: UIView {
 		addSubview(row)
 		
 		addSubview(bottomView)
-		bottomView.topAnchor.constraint(equalTo: row.bottomAnchor, constant: 16).isActive = true
+		bottomView.topAnchor.constraint(equalTo: row.bottomAnchor, constant: 8).isActive = true
 		bottomView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
 		bottomView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
 		
 		titleLbl.centerXAnchor.constraint(equalTo: row.centerXAnchor).isActive = true
 		row.heightAnchor.constraint(equalToConstant: 20).isActive = true
-		row.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16).isActive = true
+		row.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
 		row.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24).isActive = true
 		row.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24).isActive = true
 	}

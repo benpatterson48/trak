@@ -114,15 +114,15 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 		bg.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
 		bg.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
 		
-		circleViewBG.topAnchor.constraint(equalTo: bg.topAnchor, constant: 0).isActive = true
+		circleViewBG.topAnchor.constraint(equalTo: bg.topAnchor, constant: 64).isActive = true
 		circleViewBG.leadingAnchor.constraint(equalTo: bg.leadingAnchor).isActive = true
 		circleViewBG.trailingAnchor.constraint(equalTo: bg.trailingAnchor).isActive = true
-		circleViewBG.bottomAnchor.constraint(equalTo: keyView.topAnchor, constant: -16).isActive = true
+		circleViewBG.bottomAnchor.constraint(equalTo: keyView.topAnchor, constant: -24).isActive = true
 		
 		totalStack.centerXAnchor.constraint(equalTo: circleViewBG.centerXAnchor).isActive = true
 		totalStack.centerYAnchor.constraint(equalTo: circleViewBG.centerYAnchor).isActive = true
 		
-		keyView.topAnchor.constraint(equalTo: circleViewBG.bottomAnchor, constant: 16).isActive = true
+		keyView.topAnchor.constraint(equalTo: circleViewBG.bottomAnchor, constant: 24).isActive = true
 		keyView.centerXAnchor.constraint(equalTo: bg.centerXAnchor).isActive = true
 		keyView.heightAnchor.constraint(equalToConstant: 40).isActive = true
 		keyView.bottomAnchor.constraint(equalTo: categoryCollectionView.topAnchor, constant: -32).isActive = true
