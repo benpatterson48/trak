@@ -13,7 +13,7 @@ import UserNotifications
 
 var setReminder: Bool = false 
 
-class AddExpenseVC: UIViewController, UITextFieldDelegate {
+class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentationControllerDelegate {
 	
 	var db = Firestore.firestore()
 	var paymentDate: Date?
@@ -102,7 +102,11 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 	}
 	
 	@objc func backButtonWasPressed() {
-		dismissFromLeft()
+		if #available(iOS 11, *) {
+			dismiss(animated: true, completion: nil)
+		} else {
+			dismissFromLeft()
+		}
 	}
 	
 	func setDoneOnKeyboard() {
@@ -111,11 +115,12 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 		let amount = fields.totalField.textField
 		let category = fields.categoryField.textField
 		
-		let keyboardToolbar = UIToolbar()
+		let keyboardToolbar = UIToolbar(frame: .zero)
 		keyboardToolbar.sizeToFit()
+		let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(dismissKeyboard))
 		let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 		let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
-		keyboardToolbar.items = [flexBarButton, doneBarButton]
+		keyboardToolbar.items = [cancelButton, flexBarButton, doneBarButton]
 		name.inputAccessoryView = keyboardToolbar
 		date.inputAccessoryView = keyboardToolbar
 		amount.inputAccessoryView = keyboardToolbar
@@ -148,9 +153,14 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 			let intMonth = grabMonthIndex(month: date.month)
 			self.schedulePushNotificationReminder(month: intMonth, day: Int(date.day) ?? 1, year: Int(date.year) ?? 2019, hour: Int(date.militaryHour) ?? 10, minute: Int(date.minute) ?? 00, expenseName: paymentName, expenseAmount: paymentAmount)
 		}
-		dismiss(animated: true, completion: nil)
+		if #available(iOS 13, *) {
+			dismiss(animated: true, completion: nil)
+			NotificationCenter.default.post(name: .init("refreshAfterAdd"), object: nil)
+		} else {
+			dismiss(animated: true, completion: nil)
+		}
 	}
-	
+		
 	func grabMonthIndex(month: String) -> Int {
 		let index = monthArray.firstIndex(of: month)! + 1
 		return index
@@ -186,6 +196,10 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate {
 		header.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 		header.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		header.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+		
+		if #available(iOS 13, *) {
+			header.heightAnchor.constraint(equalToConstant: 50).isActive = true 
+		}
 		
 		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
 			fields.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 16).isActive = true

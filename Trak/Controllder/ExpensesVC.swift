@@ -51,7 +51,7 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		super.viewDidAppear(true)
 		UIApplication.shared.applicationIconBadgeNumber = 0
 	}
-	
+		
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		addButtonTargets()
@@ -63,6 +63,7 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		
 		NotificationCenter.default.addObserver(self, selector: #selector(refreshList(notification:)), name:NSNotification.Name(rawValue: "refreshTable"), object: nil)
 		NotificationCenter.default.addObserver(self, selector: #selector(monthUpdatedReloadTable(notification:)), name:NSNotification.Name(rawValue: "monthUpdated"), object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshTableAfterNewAdd(notification:)), name:NSNotification.Name(rawValue: "refreshAfterAdd"), object: nil)
 		let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(addNewExpenseButtonWasPressed))
 		let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(accountSettingsButtonWasPressed))
 		swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
@@ -133,24 +134,48 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	}
 		
 	@objc func addNewExpenseButtonWasPressed() {
-		let add = AddExpenseVC()
-		presentFromRight(add)
+		if #available(iOS 13, *) {
+			let add = AddExpenseVC()
+			present(add, animated: true, completion: nil)
+		} else {
+			let add = AddExpenseVC()
+			presentFromRight(add)
+		}
 	}
 	
 	@objc func addNewPaymentButtonWasPressed() {
-		let newExpense = AddExpenseVC()
-		present(newExpense, animated: true, completion: nil)
+		if #available(iOS 13, *) {
+			let add = AddExpenseVC()
+			present(add, animated: true, completion: nil)
+		} else {
+			let newExpense = AddExpenseVC()
+			present(newExpense, animated: true, completion: nil)
+		}
+	}
+	
+	@objc func refreshTableAfterNewAdd(notification: NSNotification) {
+		DispatchQueue.main.async {
+			self.grabExpenses()
+			self.expensesTableView.reloadData()
+			self.expenseHeader.categoryCollectionView.reloadData()
+		}
 	}
 	
 	@objc func accountSettingsButtonWasPressed() {
-		let setting = AccountSettingsVC()
-		presentFromLeft(viewControllerToPresent: setting)
+		if #available(iOS 13, *) {
+			let setting = AccountSettingsVC()
+			present(setting, animated: true, completion: nil)
+		} else {
+			let setting = AccountSettingsVC()
+			presentFromLeft(viewControllerToPresent: setting)
+		}
 	}
 	
-	fileprivate func checkForMonthExisting() {
+	func checkForMonthExisting() {
 		let date = Date()
 		let year = date.year
-		db.collection("users").document(user?.uid ?? "").collection(year).getDocuments { (snapshot, error) in
+		guard let currentUser = Auth.auth().currentUser else {return}
+		db.collection("users").document(currentUser.uid).collection(year).getDocuments { (snapshot, error) in
 			if let error = error {
 				print(error)
 			} else if let snapshot = snapshot, snapshot.isEmpty == false {
@@ -161,7 +186,7 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		}
 	}
 	
-	fileprivate func checkExpensesArray() {
+	func checkExpensesArray() {
 		let docRef = db.collection("users").document(user?.uid ?? "").collection(selectedYear).document(selectedMonth)
 		docRef.getDocument() { (document, error) in
 			if let document = document, document.exists == true {
@@ -223,7 +248,6 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		monthInfo.topAnchor.constraint(equalTo: header.bottomAnchor).isActive = true
 		monthInfo.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		monthInfo.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-//		monthInfo.bottomAnchor.constraint(equalTo: expensesTableView.topAnchor, constant: 0).isActive = true 
 		
 		expensesTableView.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 0).isActive = true
 		expensesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true

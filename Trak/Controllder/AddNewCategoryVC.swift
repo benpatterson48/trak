@@ -19,6 +19,7 @@ class AddNewCategoryVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+		setDoneOnKeyboard()
 		header.rightBarButtonItem.isUserInteractionEnabled = false
 		view.backgroundColor = .white
 		createCategoryButton.setTitle("Create Category", for: .normal)
@@ -45,6 +46,18 @@ class AddNewCategoryVC: UIViewController {
 		} else {
 			return
 		}
+	}
+	
+	func setDoneOnKeyboard() {
+		let newCategoryField = newCategoryInputField.textField
+		
+		let keyboardToolbar = UIToolbar(frame: .zero)
+		keyboardToolbar.sizeToFit()
+		let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(viewTappedToCloseOut))
+		let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+		let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(viewTappedToCloseOut))
+		keyboardToolbar.items = [cancelButton, flexBarButton, doneBarButton]
+		newCategoryField.inputView = keyboardToolbar
 	}
 	
 	fileprivate func addNewCategoryToCategoryArray(named: String) {

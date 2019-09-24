@@ -11,7 +11,7 @@ import StoreKit
 import FirebaseAuth
 
 class AccountSettingsVC: UIViewController {
-		
+
 	var settingsArray: [GenericCellInput] = [
 		GenericCellInput(icon: "email", title: 		"Update your Email    "),
 		GenericCellInput(icon: "password", title: 	"Change your Password "),
@@ -53,19 +53,33 @@ class AccountSettingsVC: UIViewController {
 	}()
 	
 	let tableView: UITableView = {
-		let table = UITableView(frame: .zero, style: .grouped)
-		table.bounces = false
-		table.separatorColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
-		table.clipsToBounds = true
-		table.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
-		table.showsVerticalScrollIndicator = false
-		table.translatesAutoresizingMaskIntoConstraints = false
-		table.register(SettingsCell.self, forCellReuseIdentifier: "settings")
-		table.register(SettingsCellWithUISwitch.self, forCellReuseIdentifier: "settingsSwitch")
-		table.register(SettingsTableSectionHeader.self, forHeaderFooterViewReuseIdentifier: "sectionTitle")
-		return table
+		if #available(iOS 13.0, *) {
+			var table = UITableView(frame: .zero, style: .insetGrouped)
+			table.bounces = true
+			table.separatorColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
+			table.clipsToBounds = true
+			table.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
+			table.showsVerticalScrollIndicator = false
+			table.translatesAutoresizingMaskIntoConstraints = false
+			table.register(SettingsCell.self, forCellReuseIdentifier: "settings")
+			table.register(SettingsCellWithUISwitch.self, forCellReuseIdentifier: "settingsSwitch")
+			table.register(SettingsTableSectionHeader.self, forHeaderFooterViewReuseIdentifier: "sectionTitle")
+			return table
+		} else {
+			var table = UITableView(frame: .zero, style: .grouped)
+			table.bounces = true
+			table.separatorColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
+			table.clipsToBounds = true
+			table.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
+			table.showsVerticalScrollIndicator = false
+			table.translatesAutoresizingMaskIntoConstraints = false
+			table.register(SettingsCell.self, forCellReuseIdentifier: "settings")
+			table.register(SettingsCellWithUISwitch.self, forCellReuseIdentifier: "settingsSwitch")
+			table.register(SettingsTableSectionHeader.self, forHeaderFooterViewReuseIdentifier: "sectionTitle")
+			return table
+		}
 	}()
-	
+		
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		addViews()
@@ -88,7 +102,11 @@ class AccountSettingsVC: UIViewController {
 	}
 	
 	@objc func dismissView() {
-		dismissFromRight()
+		if #available(iOS 11, *) {
+			dismiss(animated: true, completion: nil)
+		} else {
+			dismissFromRight()
+		}
 	}
 	
 	fileprivate func addViews() {
