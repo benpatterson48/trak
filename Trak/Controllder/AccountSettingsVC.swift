@@ -35,7 +35,7 @@ class AccountSettingsVC: UIViewController {
 	
 	var pageTitle: UILabel = {
 		let title = UILabel()
-		title.textColor = #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+		title.textColor = UIColor.trakLabel
 		title.textAlignment = .left
 		title.text = "Account Settings"
 		title.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +45,7 @@ class AccountSettingsVC: UIViewController {
 	var forwardArrow: UIButton = {
 		let arrow = UIButton()
 		arrow.setTitle("Done", for: .normal)
-		arrow.setTitleColor(UIColor.main.blue, for: .normal)
+		arrow.setTitleColor(UIColor.trakBlue, for: .normal)
 		arrow.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
 		arrow.translatesAutoresizingMaskIntoConstraints = false
 		arrow.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
@@ -56,9 +56,9 @@ class AccountSettingsVC: UIViewController {
 		if #available(iOS 13.0, *) {
 			var table = UITableView(frame: .zero, style: .insetGrouped)
 			table.bounces = true
-			table.separatorColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
+			table.separatorColor = UIColor.trakSeparator
 			table.clipsToBounds = true
-			table.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
+			table.backgroundColor = UIColor.trakSecondaryBackground
 			table.showsVerticalScrollIndicator = false
 			table.translatesAutoresizingMaskIntoConstraints = false
 			table.register(SettingsCell.self, forCellReuseIdentifier: "settings")
@@ -68,9 +68,9 @@ class AccountSettingsVC: UIViewController {
 		} else {
 			var table = UITableView(frame: .zero, style: .grouped)
 			table.bounces = true
-			table.separatorColor = #colorLiteral(red: 0.9490196078, green: 0.9490196078, blue: 0.968627451, alpha: 1)
+			table.separatorColor = UIColor.trakSeparator
 			table.clipsToBounds = true
-			table.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
+			table.backgroundColor = UIColor.trakSecondaryBackground
 			table.showsVerticalScrollIndicator = false
 			table.translatesAutoresizingMaskIntoConstraints = false
 			table.register(SettingsCell.self, forCellReuseIdentifier: "settings")
@@ -88,7 +88,7 @@ class AccountSettingsVC: UIViewController {
 		tableView.dataSource = self
 		tableView.tableFooterView = UIView()
 		
-		view.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
+		view.backgroundColor = UIColor.trakSecondaryBackground
 		
 		let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(dismissView))
 		swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
@@ -102,9 +102,11 @@ class AccountSettingsVC: UIViewController {
 	}
 	
 	@objc func dismissView() {
-		if #available(iOS 11, *) {
+		if #available(iOS 13, *) {
+			NotificationCenter.default.post(name: .init("refreshCategories"), object: nil)
 			dismiss(animated: true, completion: nil)
 		} else {
+			NotificationCenter.default.post(name: .init("refreshCategories"), object: nil)
 			dismissFromRight()
 		}
 	}
@@ -141,14 +143,14 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "sectionTitle") as? SettingsTableSectionHeader else {return nil}
-		header.contentView.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
+		header.contentView.backgroundColor = UIColor.trakSecondaryBackground
 		header.label.text = sectionTitle[section]
 		return header
 	}
 	
 	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 		guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "sectionTitle") as? SettingsTableSectionHeader else {return nil}
-		footer.contentView.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
+		footer.contentView.backgroundColor = UIColor.trakSecondaryBackground
 		footer.label.numberOfLines = 0
 		footer.label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
 		footer.label.text = "Seriously, if you found something not working right, please let us know."
@@ -200,28 +202,36 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 		}
 	}
 	
+	func showCorrectTransition(for controller: UIViewController) {
+		if #available(iOS 13, *) {
+			present(controller, animated: true, completion: nil)
+		} else {
+			fadeFromRight(controller)
+		}
+	}
+	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		if indexPath.section == 0 {
 			if indexPath.row == 0 {
 				let edit = SettingsChangeVC(withPlaceholder: "Enter email", usingTitle: "Email")
-				fadeFromRight(edit)
+				showCorrectTransition(for: edit)
 			} else if indexPath.row == 1  {
 				let edit = SettingsChangeVC(withPlaceholder: "Enter password", usingTitle: "Password")
-				fadeFromRight(edit)
+				showCorrectTransition(for: edit)
 			}
 		} else if indexPath.section == 1 {
 			if indexPath.row == 0 {
 				let edit = SettingsChangeVC(withPlaceholder: "Enter Desired Year", usingTitle: "Year")
-				fadeFromRight(edit)
+				showCorrectTransition(for: edit)
 			} else {
 				let manage = ManageCategoriesVC()
-				fadeFromRight(manage)
+				showCorrectTransition(for: manage)
 			}
 		} else if indexPath.section == 2 {
 			self.reviewButtonWasPressed()
 		} else if indexPath.section == 3 {
 			let edit = SettingsChangeVC(withPlaceholder: "Please explain the issue", usingTitle: "Bug Report")
-			fadeFromRight(edit)
+			showCorrectTransition(for: edit)
 		} else if indexPath.section == 4 {
 			if indexPath.row == 0 {
 				self.moreResourcesBlogButtonWasPressed()

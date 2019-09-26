@@ -21,7 +21,7 @@ class AddNewCategoryVC: UIViewController {
         super.viewDidLoad()
 		setDoneOnKeyboard()
 		header.rightBarButtonItem.isUserInteractionEnabled = false
-		view.backgroundColor = .white
+		view.backgroundColor = UIColor.trakWhiteBackground
 		createCategoryButton.setTitle("Create Category", for: .normal)
 		addViews()
 		header.leftBarButtonItem.addTarget(self, action: #selector(backButtonWasPressed), for: .touchUpInside)
@@ -43,6 +43,7 @@ class AddNewCategoryVC: UIViewController {
 			guard let category = newCategoryInputField.textField.text else { return }
 			addNewCategoryToCategoryArray(named: category)
 			backButtonWasPressed()
+			NotificationCenter.default.post(name: .init("refreshCategories"), object: nil)
 		} else {
 			return
 		}
@@ -84,6 +85,9 @@ class AddNewCategoryVC: UIViewController {
 	}
 	
 	fileprivate func addConstraints() {
+		if #available(iOS 13, *) {
+			header.heightAnchor.constraint(equalToConstant: 50).isActive = true
+		}
 		header.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 		header.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		header.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true

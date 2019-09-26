@@ -16,7 +16,7 @@ class GetStartedStackView: UIView {
 	let mainTitle: UILabel = {
 		let main = UILabel()
 		main.text = "Ready to stay on track?"
-		main.textColor = UIColor.main.darkText
+		main.textColor = UIColor.trakLabel
 		main.textAlignment = .left
 		main.font = UIFont.mainSemiBoldFont(ofSize: 26)
 		main.translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +27,7 @@ class GetStartedStackView: UIView {
 		let sub = UILabel()
 		sub.text = "Welcome to your personalized payment tracker."
 		sub.numberOfLines = 0
-		sub.textColor = UIColor.main.lightText
+		sub.textColor = UIColor.trakSecondaryLabel
 		sub.textAlignment = .left
 		sub.font = UIFont.mainFont(ofSize: 16)
 		sub.translatesAutoresizingMaskIntoConstraints = false

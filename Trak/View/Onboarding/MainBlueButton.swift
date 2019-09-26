@@ -12,11 +12,11 @@ class MainBlueButton: UIButton {
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		backgroundColor = UIColor.main.blue
+		backgroundColor = UIColor.trakBlue
 		layer.cornerRadius = 26
 		layer.borderWidth = 4
 		layer.borderColor = #colorLiteral(red: 0.8352941176, green: 0.8705882353, blue: 1, alpha: 1)
-		setTitleColor(.white, for: .normal)
+		setTitleColor(UIColor.white, for: .normal)
 		titleLabel?.font = UIFont.mainFont(ofSize: 18)
 	}
 	

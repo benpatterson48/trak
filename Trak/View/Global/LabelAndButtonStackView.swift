@@ -13,7 +13,7 @@ class LabelAndButtonStackView: UIView {
 	let label: UILabel = {
 		let label = UILabel()
 		label.textAlignment = .left
-		label.textColor = UIColor.main.lightText
+		label.textColor = UIColor.trakLabel
 		label.font = UIFont.mainFont(ofSize: 16)
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
@@ -21,7 +21,7 @@ class LabelAndButtonStackView: UIView {
 	
 	let button: UIButton = {
 		let button = UIButton()
-		button.setTitleColor(UIColor.main.blue, for: .normal)
+		button.setTitleColor(UIColor.trakBlue, for: .normal)
 		button.titleLabel?.font = UIFont.mainFont(ofSize: 16)
 		button.translatesAutoresizingMaskIntoConstraints = false
 		return button

@@ -12,7 +12,6 @@ class HeaderWithLogo: UIView {
 	
 	let logo: UIImageView = {
 		let logo = UIImageView()
-		logo.image = UIImage(named: "trak")
 		logo.contentMode = .scaleAspectFit
 		logo.translatesAutoresizingMaskIntoConstraints = false
 		return logo
@@ -38,8 +37,8 @@ class HeaderWithLogo: UIView {
 	
 	let bottomView: UIView = {
 		let view = UIView()
-		view.backgroundColor = #colorLiteral(red: 0.9058823529, green: 0.9176470588, blue: 0.9450980392, alpha: 1)
-		view.heightAnchor.constraint(equalToConstant: 2).isActive = true
+		view.backgroundColor = UIColor.trakTertiaryWhiteBackground
+		view.heightAnchor.constraint(equalToConstant: 1).isActive = true
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
 	}()
@@ -47,6 +46,17 @@ class HeaderWithLogo: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		addViews()
+		
+		if #available(iOS 13.0, *) {
+			if traitCollection.userInterfaceStyle == .dark {
+				logo.image = UIImage(named: "trak-white")
+			} else {
+				logo.image = UIImage(named: "trak")
+			}
+		} else {
+			logo.image = UIImage(named: "trak")
+		}
+		
 		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
 			heightAnchor.constraint(equalToConstant: 70).isActive = true
 		} else if UIDevice.current.name == "iPhone 6" || UIDevice.current.name == "iPhone 7" || UIDevice.current.name == "iPhone 8" || UIDevice.current.name == "iPhone 6 Plus" || UIDevice.current.name == "iPhone 7 Plus" || UIDevice.current.name == "iPhone 8 Plus" {
@@ -90,7 +100,7 @@ class HeaderWithTextTitle: UIView {
 	let titleLbl: UILabel = {
 		let title = UILabel()
 		title.font = UIFont.mainFont(ofSize: 18)
-		title.textColor = UIColor.main.darkText
+		title.textColor = UIColor.trakLabel
 		title.textAlignment = .center
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
@@ -116,8 +126,8 @@ class HeaderWithTextTitle: UIView {
 	
 	let bottomView: UIView = {
 		let view = UIView()
-		view.backgroundColor = #colorLiteral(red: 0.9058823529, green: 0.9176470588, blue: 0.9450980392, alpha: 1)
-		view.heightAnchor.constraint(equalToConstant: 2).isActive = true
+		view.backgroundColor = UIColor.trakTertiaryWhiteBackground
+		view.heightAnchor.constraint(equalToConstant: 1).isActive = true
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
 	}()
@@ -125,7 +135,7 @@ class HeaderWithTextTitle: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		addViews()
-		backgroundColor = .white
+		backgroundColor = UIColor.trakWhiteBackground
 		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
 			heightAnchor.constraint(equalToConstant: 70).isActive = true
 		} else if UIDevice.current.name == "iPhone 6" || UIDevice.current.name == "iPhone 7" || UIDevice.current.name == "iPhone 8" || UIDevice.current.name == "iPhone 6 Plus" || UIDevice.current.name == "iPhone 7 Plus" || UIDevice.current.name == "iPhone 8 Plus" {

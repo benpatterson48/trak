@@ -17,7 +17,7 @@ class OnboardingStackView: UIView {
 	
 	let mainTitle: UILabel = {
 		let main = UILabel()
-		main.textColor = UIColor.main.darkText
+		main.textColor = UIColor.trakLabel
 		main.textAlignment = .left
 		main.font = UIFont.mainSemiBoldFont(ofSize: 26)
 		main.translatesAutoresizingMaskIntoConstraints = false

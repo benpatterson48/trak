@@ -33,9 +33,9 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 		layout.estimatedItemSize = CGSize(width: 150, height: 40)
 		let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
 		cv.translatesAutoresizingMaskIntoConstraints = false
-		cv.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
 		cv.contentInset.left = 16
 		cv.showsHorizontalScrollIndicator = false
+		cv.backgroundColor = UIColor.trakSecondaryBackground
 		cv.register(CategoryCell.self, forCellWithReuseIdentifier: "category")
 		return cv
 	}()
@@ -47,8 +47,8 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 		categoryCollectionView.delegate = dataSource
 		categoryCollectionView.dataSource = dataSource
 		calculatingExpenses()
-		bg.backgroundColor = .white
-		circleViewBG.backgroundColor = .white
+		bg.backgroundColor = UIColor.trakTertiaryWhiteBackground
+		circleViewBG.backgroundColor = UIColor.trakTertiaryWhiteBackground
 		addViews()
 		categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: [])
 	}
@@ -114,15 +114,15 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 		bg.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
 		bg.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
 		
-		circleViewBG.topAnchor.constraint(equalTo: bg.topAnchor, constant: 64).isActive = true
+		circleViewBG.topAnchor.constraint(equalTo: bg.topAnchor, constant: 0).isActive = true
 		circleViewBG.leadingAnchor.constraint(equalTo: bg.leadingAnchor).isActive = true
 		circleViewBG.trailingAnchor.constraint(equalTo: bg.trailingAnchor).isActive = true
-		circleViewBG.bottomAnchor.constraint(equalTo: keyView.topAnchor, constant: -24).isActive = true
+		circleViewBG.bottomAnchor.constraint(equalTo: keyView.topAnchor, constant: -18).isActive = true
 		
 		totalStack.centerXAnchor.constraint(equalTo: circleViewBG.centerXAnchor).isActive = true
 		totalStack.centerYAnchor.constraint(equalTo: circleViewBG.centerYAnchor).isActive = true
 		
-		keyView.topAnchor.constraint(equalTo: circleViewBG.bottomAnchor, constant: 24).isActive = true
+		keyView.topAnchor.constraint(equalTo: circleViewBG.bottomAnchor, constant: 18).isActive = true
 		keyView.centerXAnchor.constraint(equalTo: bg.centerXAnchor).isActive = true
 		keyView.heightAnchor.constraint(equalToConstant: 40).isActive = true
 		keyView.bottomAnchor.constraint(equalTo: categoryCollectionView.topAnchor, constant: -32).isActive = true

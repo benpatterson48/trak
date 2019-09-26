@@ -27,7 +27,7 @@ class ManageCategoriesVC: UIViewController {
 		let title = UILabel()
 		title.text = "Manage Categories"
 		title.textAlignment = .center
-		title.textColor = UIColor.main.darkText
+		title.textColor = UIColor.trakLabel
 		title.font = UIFont.systemFont(ofSize: 18, weight: .medium)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
@@ -95,7 +95,11 @@ class ManageCategoriesVC: UIViewController {
 	}
 	
 	func addConstraints() {
-		topView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+		if #available(iOS 13, *) {
+			topView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+		} else {
+			topView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+		}
 		topView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 		topView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		topView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -128,7 +132,7 @@ extension ManageCategoriesVC: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ExpensesSectionHeader else {return nil}
 		header.contentView.backgroundColor = #colorLiteral(red: 0.937254902, green: 0.937254902, blue: 0.9529411765, alpha: 1)
-		header.label.textColor = UIColor.main.darkText
+		header.label.textColor = UIColor.trakLabel
 		header.label.font = UIFont.systemFont(ofSize: 13)
 		header.label.text = """
 		Deleting a category does NOT delete the expenses within that category.

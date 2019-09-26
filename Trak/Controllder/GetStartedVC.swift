@@ -16,7 +16,7 @@ class GetStartedVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		view.backgroundColor = .white 
+		view.backgroundColor = UIColor.trakSecondaryBackground
 		addViews()
 		stackView.mainTitle.numberOfLines = 0 
 		stackView.button.addTarget(self, action: #selector(getStartedButtonWasPressed), for: .touchUpInside)
@@ -46,11 +46,13 @@ class GetStartedVC: UIViewController {
 	
 	@objc func getStartedButtonWasPressed() {
 		let signup = CreateAccountVC()
+		signup.modalPresentationStyle = .currentContext
 		present(signup, animated: true, completion: nil)
 	}
 	
 	@objc func signinButtonWasPressed() {
 		let login = LoginVC()
+		login.modalPresentationStyle = .currentContext
 		present(login, animated: true, completion: nil)
 	}
 

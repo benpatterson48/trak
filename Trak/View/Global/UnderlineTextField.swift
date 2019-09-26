@@ -13,7 +13,7 @@ class UnderlineTextField: UIView {
 	let textField: UITextField = {
 		let tf = UITextField()
 		tf.borderStyle = .none
-		tf.textColor = UIColor.main.darkText
+		tf.textColor = UIColor.trakLabel
 		tf.font  = UIFont.mainFont(ofSize: 18)
 		tf.translatesAutoresizingMaskIntoConstraints = false
 		return tf
@@ -21,8 +21,8 @@ class UnderlineTextField: UIView {
 	
 	let underlineView: UIView = {
 		let uv = UIView()
-		uv.backgroundColor = #colorLiteral(red: 0.7490196078, green: 0.7725490196, blue: 0.8235294118, alpha: 1)
-		uv.heightAnchor.constraint(equalToConstant: 1).isActive = true
+		uv.backgroundColor = UIColor.trakSeparator
+		uv.heightAnchor.constraint(equalToConstant: 2).isActive = true
 		uv.translatesAutoresizingMaskIntoConstraints = false
 		return uv
 	}()
@@ -69,7 +69,7 @@ class UnderlineTextFieldWithIcon: UIView {
 	let textField: UITextField = {
 		let tf = UITextField()
 		tf.borderStyle = .none
-		tf.textColor = UIColor.main.darkText
+		tf.textColor = UIColor.trakLabel
 		tf.font  = UIFont.mainFont(ofSize: 18)
 		tf.translatesAutoresizingMaskIntoConstraints = false
 		return tf
@@ -77,8 +77,8 @@ class UnderlineTextFieldWithIcon: UIView {
 	
 	let underlineView: UIView = {
 		let uv = UIView()
-		uv.backgroundColor = #colorLiteral(red: 0.7490196078, green: 0.7725490196, blue: 0.8235294118, alpha: 1)
-		uv.heightAnchor.constraint(equalToConstant: 1).isActive = true
+		uv.backgroundColor = UIColor.trakSeparator
+		uv.heightAnchor.constraint(equalToConstant: 2).isActive = true
 		uv.translatesAutoresizingMaskIntoConstraints = false
 		return uv
 	}()

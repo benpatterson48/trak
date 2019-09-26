@@ -23,7 +23,7 @@ class LoginVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		view.backgroundColor = .white
+		view.backgroundColor = UIColor.trakWhiteBackground
 		addViews()
 		setDoneOnKeyboard()
 		alert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: nil))
@@ -83,6 +83,7 @@ class LoginVC: UIViewController {
 				DAKeychain.shared["keychainEmail"] = email
 				DAKeychain.shared["keychainPassword"] = password
 				let expenses = ExpensesVC()
+				expenses.modalPresentationStyle = .currentContext
 				self.present(expenses, animated: true, completion: nil)
 			} else {
 				self.stackView.button.stopLoading(title: "Log In")
@@ -108,6 +109,7 @@ class LoginVC: UIViewController {
 					Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
 						if error == nil {
 							let expenses = ExpensesVC()
+							expenses.modalPresentationStyle = .currentContext
 							self?.present(expenses, animated: true, completion: nil)
 						} else {
 							self?.stackView.button.stopLoading(title: "Log In")
@@ -121,6 +123,7 @@ class LoginVC: UIViewController {
 	
 	@objc func signupButtonWasPressed() {
 		let signup = CreateAccountVC()
+		signup.modalPresentationStyle = .currentContext
 		present(signup, animated: true, completion: nil)
 	}
 	

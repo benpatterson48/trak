@@ -33,8 +33,8 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 	
 	let topLine: UIView = {
 		let line = UIView()
-		line.backgroundColor = #colorLiteral(red: 0.7490196078, green: 0.7725490196, blue: 0.8235294118, alpha: 1)
-		line.heightAnchor.constraint(equalToConstant: 1).isActive = true
+		line.backgroundColor = UIColor.trakSeparator
+		line.heightAnchor.constraint(equalToConstant: 2).isActive = true
 		line.translatesAutoresizingMaskIntoConstraints = false
 		return line
 	}()
@@ -43,7 +43,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 		let table  = UITableView()
 		table.bounces = false
 		table.separatorStyle = .none
-		table.backgroundColor = .white
+		table.backgroundColor = UIColor.trakWhiteBackground
 		table.isUserInteractionEnabled = true
 		table.showsVerticalScrollIndicator = false
 		table.translatesAutoresizingMaskIntoConstraints = false
@@ -69,7 +69,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 		setupCategoryPicker()
 		setupAddPaymentButton()
 		
-		view.backgroundColor = .white
+		view.backgroundColor = UIColor.trakWhiteBackground
 		
 		reminderTable.delegate = self
 		reminderTable.dataSource = self
@@ -81,6 +81,8 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 		
 		view.addGestureRecognizer(tap)
 		view.addGestureRecognizer(swipeRight)
+		
+		NotificationCenter.default.addObserver(self, selector: #selector(refreshCategories(notification:)), name:NSNotification.Name(rawValue: "refreshCategories"), object: nil)
 	}
 	
 	override func viewDidDisappear(_ animated: Bool) {
@@ -102,7 +104,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 	}
 	
 	@objc func backButtonWasPressed() {
-		if #available(iOS 11, *) {
+		if #available(iOS 13, *) {
 			dismiss(animated: true, completion: nil)
 		} else {
 			dismissFromLeft()
@@ -156,6 +158,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 		if #available(iOS 13, *) {
 			dismiss(animated: true, completion: nil)
 			NotificationCenter.default.post(name: .init("refreshAfterAdd"), object: nil)
+			NotificationCenter.default.post(name: .init("refreshOurCategories"), object: nil)
 		} else {
 			dismiss(animated: true, completion: nil)
 		}
@@ -249,7 +252,15 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 	}
 	
 	//Helper Funcs
-	fileprivate func getCategories() {
+	func getCategories() {
+		self.categoriesArray.removeAll()
+		DataService.instance.getUserCategories { (categoriesReturned) in
+			self.categoriesArray.append("")
+			self.categoriesArray.append(contentsOf: categoriesReturned)
+		}
+	}
+	
+	@objc func refreshCategories(notification: NSNotification) {
 		self.categoriesArray.removeAll()
 		DataService.instance.getUserCategories { (categoriesReturned) in
 			self.categoriesArray.append(contentsOf: categoriesReturned)
@@ -268,7 +279,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 	fileprivate func setupCategoryPicker() {
 		categoryPicker.delegate = self
 		categoryPicker.dataSource = self
-		categoryPicker.backgroundColor = .white
+		categoryPicker.backgroundColor = UIColor.trakWhiteBackground
 	}
 	
 	fileprivate func setupButtonTargets() {
@@ -385,7 +396,6 @@ extension AddExpenseVC: UITableViewDelegate, UITableViewDataSource {
 //		let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
 		
 		let request = UNNotificationRequest(identifier: "\(expenseName)", content: content, trigger: trigger)
-		print("were about to schedule notification with identifier: \(instanceIDTokenMessage)")
 		
 		center.add(request)
 	}

@@ -26,7 +26,7 @@ class EmptyState: UIView {
 		let main = UILabel()
 		main.numberOfLines = 0
 		main.text = "You have no payments!"
-		main.textColor = UIColor.main.darkText
+		main.textColor = UIColor.trakLabel
 		main.textAlignment = .left
 		main.translatesAutoresizingMaskIntoConstraints = false
 		return main
@@ -36,7 +36,7 @@ class EmptyState: UIView {
 		let sub = UILabel()
 		sub.text = "Welcome to your personalized payment tracker."
 		sub.numberOfLines = 0
-		sub.textColor = UIColor.main.lightText
+		sub.textColor = UIColor.trakSecondaryLabel
 		sub.textAlignment = .left
 		sub.font = UIFont.mainFont(ofSize: 16)
 		sub.translatesAutoresizingMaskIntoConstraints = false

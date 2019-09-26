@@ -22,7 +22,7 @@ class SettingsChangeVC: UIViewController, MFMailComposeViewControllerDelegate, U
 	
 	var topView: UIView = {
 		let view = UIView()
-		view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.968627451, alpha: 1)
+		view.backgroundColor = UIColor.trakSecondaryBackground
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
 	}()
@@ -30,7 +30,7 @@ class SettingsChangeVC: UIViewController, MFMailComposeViewControllerDelegate, U
 	var topViewTitleLabel: UILabel = {
 		let title = UILabel()
 		title.textAlignment = .center
-		title.textColor = UIColor.main.darkText
+		title.textColor = UIColor.trakLabel
 		title.font = UIFont.systemFont(ofSize: 18, weight: .medium)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
@@ -49,7 +49,7 @@ class SettingsChangeVC: UIViewController, MFMailComposeViewControllerDelegate, U
 	
 	var textFieldBackground: UIView = {
 		let background = UIView()
-		background.backgroundColor = .white
+		background.backgroundColor = UIColor.trakTertiaryWhiteBackground
 		background.translatesAutoresizingMaskIntoConstraints = false
 		return background
 	}()
@@ -62,7 +62,11 @@ class SettingsChangeVC: UIViewController, MFMailComposeViewControllerDelegate, U
 	}()
 	
 	@objc func dismissView() {
-		dismissFromLeft()
+		if #available(iOS 13, *) {
+			dismiss(animated: true, completion: nil)
+		} else {
+			dismissFromLeft()
+		}
 	}
 	
 	@objc func dismissKeyboard() {
@@ -108,7 +112,7 @@ class SettingsChangeVC: UIViewController, MFMailComposeViewControllerDelegate, U
 		addViews()
 		setupAlerts()
 		setDoneOnKeyboard()
-		view.backgroundColor = #colorLiteral(red: 0.937254902, green: 0.937254902, blue: 0.9529411765, alpha: 1)
+		view.backgroundColor = UIColor.trakSecondaryBackground
 		self.inputTextField.clearsOnBeginEditing = true
     }
 	
@@ -151,7 +155,11 @@ class SettingsChangeVC: UIViewController, MFMailComposeViewControllerDelegate, U
 	}
 	
 	func addConstraints() {
-		topView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+		if #available(iOS 13, *) {
+			topView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+		} else {
+			topView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+		}
 		topView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 		topView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		topView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true

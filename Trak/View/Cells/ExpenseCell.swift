@@ -44,7 +44,7 @@ class ExpenseCell: UITableViewCell {
 		let title = UILabel()
 		title.textAlignment = .left
 		title.numberOfLines = 0
-		title.textColor = UIColor.main.darkText
+		title.textColor = UIColor.trakLabel
 		title.font = UIFont.mainFont(ofSize: 16)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
@@ -53,7 +53,7 @@ class ExpenseCell: UITableViewCell {
 	let dueDateLabel: UILabel = {
 		let due = UILabel()
 		due.textAlignment = .left
-		due.textColor = UIColor.main.lightText
+		due.textColor = UIColor.trakSecondaryLabel
 		due.font = UIFont.mainFont(ofSize: 16)
 		due.translatesAutoresizingMaskIntoConstraints = false
 		return due
@@ -62,7 +62,7 @@ class ExpenseCell: UITableViewCell {
 	let dueAmountLabel: UILabel = {
 		let title = UILabel()
 		title.textAlignment = .right
-		title.textColor = UIColor.main.darkText
+		title.textColor = UIColor.trakLabel
 		title.font = UIFont.mainFont(ofSize: 16)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
@@ -71,7 +71,7 @@ class ExpenseCell: UITableViewCell {
 	let categoryLabel: UILabel = {
 		let due = UILabel()
 		due.textAlignment = .right
-		due.textColor = UIColor.main.lightText
+		due.textColor = UIColor.trakSecondaryLabel
 		due.font = UIFont.mainFont(ofSize: 16)
 		due.translatesAutoresizingMaskIntoConstraints = false
 		return due
@@ -81,6 +81,7 @@ class ExpenseCell: UITableViewCell {
 		super.init(style: .default, reuseIdentifier: "expense")
 		addViews()
 		selectionStyle = .none
+		backgroundColor = UIColor.trakTertiaryWhiteBackground
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -106,17 +107,17 @@ class ExpenseCell: UITableViewCell {
 		addSubview(leftStack)
 		addSubview(rightStack)
 
-		icon.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
-		icon.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
+		icon.topAnchor.constraint(equalTo: topAnchor, constant: 18).isActive = true
+		icon.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -18).isActive = true
 		icon.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
 
 		leftStack.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: 16).isActive = true
 		leftStack.trailingAnchor.constraint(equalTo: rightStack.leadingAnchor, constant: -8).isActive = true
-		leftStack.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
-		leftStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
+		leftStack.topAnchor.constraint(equalTo: topAnchor, constant: 18).isActive = true
+		leftStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -18).isActive = true
 		
 		rightStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-		rightStack.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
-		rightStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
+		rightStack.topAnchor.constraint(equalTo: topAnchor, constant: 18).isActive = true
+		rightStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -18).isActive = true
 	}
 }

@@ -11,7 +11,7 @@ import UIKit
 class MainLabel: UILabel {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		textColor = UIColor.main.lightText
+		textColor = UIColor.trakLabel
 		textAlignment = .left
 		font = UIFont.mainFont(ofSize: 18)
 		translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +30,7 @@ class MainLabel: UILabel {
 class SubLabel: UILabel {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		textColor = UIColor.main.lightText
+		textColor = UIColor.trakSecondaryLabel
 		textAlignment = .right
 		font = UIFont.mainFont(ofSize: 18)
 		translatesAutoresizingMaskIntoConstraints = false

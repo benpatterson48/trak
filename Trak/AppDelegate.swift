@@ -38,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 			if let error = error {
 				print("Error fetching remote instance ID: \(error)")
 			} else if let result = result {
-				print("Remote instance ID token: \(result.token)")
 				instanceIDTokenMessage  = result.token
 			}
 		}

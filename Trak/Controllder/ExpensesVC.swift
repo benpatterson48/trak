@@ -55,7 +55,7 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		addButtonTargets()
-		view.backgroundColor = .white
+		view.backgroundColor = UIColor.trakTertiaryWhiteBackground
 		user = Auth.auth().currentUser
 		
 		expensesTableView.delegate = self
@@ -156,8 +156,8 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	@objc func refreshTableAfterNewAdd(notification: NSNotification) {
 		DispatchQueue.main.async {
 			self.grabExpenses()
+			self.dataSource.grabCategories()
 			self.expensesTableView.reloadData()
-			self.expenseHeader.categoryCollectionView.reloadData()
 		}
 	}
 	
@@ -249,7 +249,7 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		monthInfo.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		monthInfo.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
 		
-		expensesTableView.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 0).isActive = true
+		expensesTableView.topAnchor.constraint(equalTo: monthInfo.bottomAnchor, constant: 0).isActive = true
 		expensesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		expensesTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
 		expensesTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
@@ -284,10 +284,10 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	let expensesTableView: UITableView = {
 		let tv = UITableView(frame: .zero, style: .plain)
 		tv.bounces = true
-		tv.separatorColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
-		tv.backgroundColor = .white
 		tv.isUserInteractionEnabled = true
 		tv.showsVerticalScrollIndicator = false
+		tv.separatorColor = UIColor.trakSeparator
+		tv.backgroundColor = UIColor.trakTertiaryWhiteBackground
 		tv.register(ExpenseCell.self, forCellReuseIdentifier: "expense")
 		tv.register(ExpensesSectionFooter.self, forHeaderFooterViewReuseIdentifier: "footer")
 		tv.register(ExpensesSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
@@ -361,14 +361,14 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 		} else {
 			guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ExpensesSectionHeader else {return nil}
 			header.label.attributedText = sectionNames[section].increaseLetterSpacing()
-			header.contentView.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
+			header.contentView.backgroundColor = UIColor.trakSecondaryBackground
 			return header
 		}
 	}
 	
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		if section == 0 {
-			return 475
+			return 450
 		} else {
 			return 50
 		}
@@ -410,7 +410,7 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 				}
 			})
 		}
-		action.backgroundColor = #colorLiteral(red: 0.1843137255, green: 0.3529411765, blue: 1, alpha: 1)
+		action.backgroundColor = UIColor.trakBlue
 		if cell?.expense?.isPaid == false {
 			let configuration = UISwipeActionsConfiguration(actions: [action])
 			return configuration
@@ -479,7 +479,7 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 			}
 		}
 		action.backgroundColor = #colorLiteral(red: 0.1843137255, green: 0.2196078431, blue: 0.3019607843, alpha: 1)
-		action2.backgroundColor = .red
+		action2.backgroundColor = UIColor.trakRed
 		let configuration = UISwipeActionsConfiguration(actions: [action2, action])
 		return configuration
 	}
@@ -546,7 +546,7 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 		guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "footer") as? ExpensesSectionFooter else {return nil}
-		footer.contentView.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
+		footer.contentView.backgroundColor = UIColor.trakSecondaryBackground
 		if specificCategory == true {
 			switch (section) {
 			case 0:

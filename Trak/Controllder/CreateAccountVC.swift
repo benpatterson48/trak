@@ -20,7 +20,7 @@ class CreateAccountVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		view.backgroundColor = .white
+		view.backgroundColor = UIColor.trakWhiteBackground
 		addViews()
 		setDoneOnKeyboard()
 		stackView.button.addTarget(self, action: #selector(createAccountButtonWasPressed), for: .touchUpInside)
@@ -66,6 +66,7 @@ class CreateAccountVC: UIViewController {
 			if error == nil {
 				self.addUserToDatabase(userEmail: email, userPassword: password)
 				let expsenses = ExpensesVC()
+				expsenses.modalPresentationStyle = .currentContext
 				self.present(expsenses, animated: true, completion: nil)
 			} else {
 				self.stackView.button.stopLoading(title: "Create Account")
@@ -80,6 +81,7 @@ class CreateAccountVC: UIViewController {
 	
 	@objc func signupButtonWasPressed() {
 		let login = LoginVC()
+		login.modalPresentationStyle = .currentContext
 		present(login, animated: true, completion: nil)
 	}
 	

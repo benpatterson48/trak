@@ -21,7 +21,7 @@ class CategoryCell: UICollectionViewCell {
 	let categoryTitle: UILabel = {
 		let title = UILabel()
 		title.textAlignment = .center
-		title.textColor = #colorLiteral(red: 0.1843137255, green: 0.2196078431, blue: 0.3019607843, alpha: 0.8)
+		title.textColor = UIColor.trakSecondaryLabel
 		title.font = UIFont.mainSemiBoldFont(ofSize: 18)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
@@ -29,20 +29,20 @@ class CategoryCell: UICollectionViewCell {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
 		setupViews()
 		translatesAutoresizingMaskIntoConstraints = false 
 		heightAnchor.constraint(equalToConstant: 84).isActive = true
+		backgroundColor = UIColor.trakSecondaryBackground
 	}
 	
 	override var isSelected: Bool {
 		didSet {
 			if self.isSelected == true {
-				self.pillBG.backgroundColor = UIColor.main.lightBlueBackground
-				self.categoryTitle.textColor = UIColor.main.darkText
+				self.pillBG.backgroundColor = UIColor.trakTeal
+				self.categoryTitle.textColor = UIColor.trakLabel
 			} else {
-				self.pillBG.backgroundColor = #colorLiteral(red: 0.9568627451, green: 0.9647058824, blue: 0.9882352941, alpha: 1)
-				self.categoryTitle.textColor = #colorLiteral(red: 0.1843137255, green: 0.2196078431, blue: 0.3019607843, alpha: 0.8)
+				self.categoryTitle.textColor = UIColor.trakSecondaryLabel
+				self.pillBG.backgroundColor = UIColor.trakSecondaryBackground
 			}
 		}
 	}

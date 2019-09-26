@@ -25,11 +25,7 @@ class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource
 	override init() {
 		super.init()
 		DispatchQueue.main.async {
-			DataService.instance.getUserCategories { (returned) in
-				categoriesArray.removeAll()
-				categoriesArray.append("All Categories")
-				categoriesArray.append(contentsOf: returned)
-			}
+			self.grabCategories()
 		}
 		if selectedMonth == "" {
 			selectedMonth = date.month
@@ -46,6 +42,17 @@ class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource
 		}
 	}
 	
+	func grabCategories() {
+		print("were grabbing categories")
+		DataService.instance.getUserCategories { (returned) in
+			print("This is the amount returned: \(returned.count)")
+			categoriesArray.removeAll()
+			categoriesArray.append("All Categories")
+			categoriesArray.append(contentsOf: returned)
+			print("This is how many are at the end: \(categoriesArray.count)")
+		}
+	}
+	
 	//CollectionView
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		let indexSelected = IndexPath(item: indexPath.item, section: 0)
@@ -55,6 +62,7 @@ class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		print("This is our count: \(categoriesArray.count)")
 		return categoriesArray.count
 	}
 	

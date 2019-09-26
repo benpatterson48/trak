@@ -12,7 +12,7 @@ class ManageCategoryCell: UITableViewCell {
 	
 	let categoryNameLabel: UILabel = {
 		let name = UILabel()
-		name.textColor = #colorLiteral(red: 0.2, green: 0.2, blue: 0.2, alpha: 1)
+		name.textColor = UIColor.trakLabel
 		name.textAlignment = .left
 		name.font = UIFont.systemFont(ofSize: 16, weight: .regular)
 		name.translatesAutoresizingMaskIntoConstraints = false
@@ -24,7 +24,7 @@ class ManageCategoryCell: UITableViewCell {
 		addConstraints()
 		
 		selectionStyle = .none
-		backgroundColor = .white
+		backgroundColor = UIColor.trakWhiteBackground
 	}
 	
 	func addConstraints() {

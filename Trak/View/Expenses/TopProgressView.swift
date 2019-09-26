@@ -15,7 +15,7 @@ class MonthSwipeStack: UIView {
 	let monthTextField: UILabel = {
 		let title = UILabel()
 		title.textAlignment = .center
-		title.textColor = UIColor.main.lightText
+		title.textColor = UIColor.trakSecondaryLabel
 		title.font = UIFont.mainFont(ofSize: 18)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
@@ -69,7 +69,7 @@ class MonthSwipeStack: UIView {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.95)
+		backgroundColor = UIColor.trakTertiaryWhiteBackground
 		addViews()
 		heightAnchor.constraint(equalToConstant: 48).isActive = true
 		monthTextField.text = selectedMonth.uppercased()
@@ -106,12 +106,12 @@ class CircleProgressView: CALayer {
 	
 	override init() {
 		super.init()
-		trackLayer.strokeColor = UIColor.main.yellow.cgColor
+		trackLayer.strokeColor = UIColor.trakYellow.cgColor
 		trackLayer.fillColor = UIColor.clear.cgColor
 		trackLayer.lineWidth = 22
 		trackLayer.transform = CATransform3DMakeRotation(-CGFloat.pi / 2, 0, 0, 1)
 		
-		shapeLayer.strokeColor = UIColor.main.teal.cgColor
+		shapeLayer.strokeColor = UIColor.trakTeal.cgColor
 		shapeLayer.lineCap = CAShapeLayerLineCap.round
 		shapeLayer.fillColor = UIColor.clear.cgColor
 		shapeLayer.lineWidth = 22
@@ -143,15 +143,15 @@ class TotalStackView: UIView {
 		total.text = "TOTAL"
 		total.textAlignment = .center
 		total.adjustsFontSizeToFitWidth = true
-		total.textColor = UIColor.main.lightText
-		total.font = UIFont.mainFont(ofSize: 16)
+		total.textColor = UIColor.trakSecondaryLabel
+		total.font = UIFont.mainFont(ofSize: 18)
 		total.translatesAutoresizingMaskIntoConstraints = false
 		return total
 	}()
 	
 	let currentTotalAmountLabel: UILabel = {
 		let current = UILabel()
-		current.textColor = #colorLiteral(red: 0.1843137255, green: 0.2196078431, blue: 0.3019607843, alpha: 0.8)
+		current.textColor = UIColor.trakLabel
 		current.textAlignment = .center
 		current.adjustsFontSizeToFitWidth = true
 		current.font = UIFont.systemFont(ofSize: 34, weight: .medium)
@@ -162,7 +162,7 @@ class TotalStackView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		createStackView()
-		backgroundColor = .white
+		backgroundColor = UIColor.trakTertiaryWhiteBackground
 	}
 	
 	private func createStackView() {
@@ -189,7 +189,7 @@ class KeyStackView: UIView {
 	
 	let keyTitle: UILabel = {
 		let title = UILabel()
-		title.textColor = UIColor.main.lightText
+		title.textColor = UIColor.trakSecondaryLabel
 		title.textAlignment = .left
 		title.font = UIFont.mainSemiBoldFont(ofSize: 14)
 		title.translatesAutoresizingMaskIntoConstraints = false
@@ -199,7 +199,7 @@ class KeyStackView: UIView {
 	let dotAmount: UILabel = {
 		let label = UILabel()
 		label.textAlignment = .left
-		label.textColor = UIColor.main.darkText
+		label.textColor = UIColor.trakLabel
 		label.font = UIFont.mainFont(ofSize: 18)
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
@@ -208,7 +208,7 @@ class KeyStackView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		createStackView()
-		backgroundColor = .white
+		backgroundColor = UIColor.trakTertiaryWhiteBackground
 	}
 	
 	public convenience init(title: String) {
@@ -259,7 +259,7 @@ class TotalKeyView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		createStackViews()
-		backgroundColor = .white
+		backgroundColor = UIColor.trakTertiaryWhiteBackground
 	}
 	
 	private func createStackViews() {

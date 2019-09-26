@@ -14,7 +14,7 @@ class ExpensesSectionHeader: UITableViewHeaderFooterView {
 	
 	let label: UILabel = {
 		let label = UILabel()
-		label.textColor = #colorLiteral(red: 0.1843137255, green: 0.2196078431, blue: 0.3019607843, alpha: 0.8)
+		label.textColor = UIColor.trakLabel
 		label.numberOfLines = 0
 		label.textAlignment = .left
 		label.font = UIFont.mainBoldFont(ofSize: 13)
@@ -47,7 +47,7 @@ class ExpensesSectionFooter: UITableViewHeaderFooterView {
 	
 	let label: UILabel = {
 		let label = UILabel()
-		label.textColor = #colorLiteral(red: 0.1843137255, green: 0.2196078431, blue: 0.3019607843, alpha: 0.8)
+		label.textColor = UIColor.trakLabel
 		label.numberOfLines = 0
 		label.textAlignment = .left
 		label.font = UIFont.mainFont(ofSize: 15)
