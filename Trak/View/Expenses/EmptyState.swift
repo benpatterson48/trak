@@ -14,7 +14,6 @@ class EmptyState: UIView {
 	
 	let icon: UIImageView = {
 		let icon = UIImageView()
-		icon.image = UIImage(named: "check")
 		icon.contentMode = .scaleAspectFit
 		icon.heightAnchor.constraint(equalToConstant: 100).isActive = true
 		icon.widthAnchor.constraint(equalToConstant: 100).isActive = true
@@ -47,6 +46,13 @@ class EmptyState: UIView {
 		super.init(frame: frame)
 		addViews()
 		button.setTitle("Add New Payment", for: .normal)
+		
+		if #available(iOS 13, *) {
+			icon.image = UIImage(systemName: "checkmark.circle.fill")?.withTintColor(UIColor.trakTeal, renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 100))
+		} else {
+			icon.image = UIImage(named: "check")
+		}
+
 	}
 	
 	fileprivate func addViews() {

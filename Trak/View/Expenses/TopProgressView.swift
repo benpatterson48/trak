@@ -240,7 +240,6 @@ class TotalKeyView: UIView {
 	let paidImage: UIImageView = {
 		let dot = UIImageView()
 		dot.contentMode = .scaleAspectFit
-		dot.image = UIImage(named: "teal-dot")
 		dot.translatesAutoresizingMaskIntoConstraints = false
 		return dot
 	}()
@@ -248,7 +247,6 @@ class TotalKeyView: UIView {
 	let unpaidImage: UIImageView = {
 		let dot = UIImageView()
 		dot.contentMode = .scaleAspectFit
-		dot.image = UIImage(named: "yellow-dot")
 		dot.translatesAutoresizingMaskIntoConstraints = false
 		return dot
 	}()
@@ -260,6 +258,14 @@ class TotalKeyView: UIView {
 		super.init(frame: frame)
 		createStackViews()
 		backgroundColor = UIColor.trakTertiaryWhiteBackground
+		
+		if #available(iOS 13, *) {
+			paidImage.image = UIImage(systemName: "circle.fill")?.withTintColor(UIColor.trakTeal, renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 16))
+			unpaidImage.image = UIImage(systemName: "circle.fill")?.withTintColor(UIColor.trakYellow, renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 16))
+		} else {
+			paidImage.image = UIImage(named: "teal-dot")
+			unpaidImage.image = UIImage(named: "yellow-dot")
+		}
 	}
 	
 	private func createStackViews() {

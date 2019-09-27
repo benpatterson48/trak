@@ -18,7 +18,7 @@ class ManageCategoriesVC: UIViewController {
 	
 	var topView: UIView = {
 		let view = UIView()
-		view.backgroundColor = #colorLiteral(red: 0.9607843137, green: 0.9607843137, blue: 0.968627451, alpha: 1)
+		view.backgroundColor = UIColor.trakSecondaryBackground
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
 	}()
@@ -45,16 +45,29 @@ class ManageCategoriesVC: UIViewController {
 	}()
 	
 	let tableView: UITableView = {
-		let table = UITableView(frame: .zero, style: .plain)
-		table.bounces = true
-		table.separatorColor = #colorLiteral(red: 0.937254902, green: 0.937254902, blue: 0.9529411765, alpha: 1)
-		table.clipsToBounds = true
-		table.backgroundColor = #colorLiteral(red: 0.937254902, green: 0.937254902, blue: 0.9529411765, alpha: 1)
-		table.showsVerticalScrollIndicator = false
-		table.translatesAutoresizingMaskIntoConstraints = false
-		table.register(ManageCategoryCell.self, forCellReuseIdentifier: "manage")
-		table.register(ExpensesSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
-		return table
+		if #available(iOS 13, *) {
+			let table = UITableView(frame: .zero, style: .insetGrouped)
+			table.bounces = true
+			table.clipsToBounds = true
+			table.showsVerticalScrollIndicator = false
+			table.separatorColor = UIColor.trakSeparator
+			table.backgroundColor = UIColor.trakSecondaryBackground
+			table.translatesAutoresizingMaskIntoConstraints = false
+			table.register(ManageCategoryCell.self, forCellReuseIdentifier: "manage")
+			table.register(ManageSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
+			return table
+		} else {
+			let table = UITableView(frame: .zero, style: .plain)
+			table.bounces = true
+			table.clipsToBounds = true
+			table.showsVerticalScrollIndicator = false
+			table.separatorColor = UIColor.trakSeparator
+			table.backgroundColor = UIColor.trakSecondaryBackground
+			table.translatesAutoresizingMaskIntoConstraints = false
+			table.register(ManageCategoryCell.self, forCellReuseIdentifier: "manage")
+			table.register(ManageSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
+			return table
+		}
 	}()
 	
 	@objc func dismissView() {
@@ -71,7 +84,7 @@ class ManageCategoriesVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		view.backgroundColor = #colorLiteral(red: 0.937254902, green: 0.937254902, blue: 0.9529411765, alpha: 1)
+		view.backgroundColor = UIColor.trakSecondaryBackground
 		
 		tableView.delegate = self
 		tableView.dataSource = self

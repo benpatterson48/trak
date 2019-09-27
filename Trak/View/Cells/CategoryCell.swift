@@ -12,7 +12,7 @@ class CategoryCell: UICollectionViewCell {
 	
 	let pillBG: UIView = {
 		let pill = UIView()
-		pill.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
+		pill.backgroundColor = UIColor.trakSecondaryBackground
 		pill.layer.cornerRadius = 16
 		pill.translatesAutoresizingMaskIntoConstraints = false
 		return pill
@@ -39,7 +39,7 @@ class CategoryCell: UICollectionViewCell {
 		didSet {
 			if self.isSelected == true {
 				self.pillBG.backgroundColor = UIColor.trakTeal
-				self.categoryTitle.textColor = UIColor.trakLabel
+				self.categoryTitle.textColor = UIColor.white
 			} else {
 				self.categoryTitle.textColor = UIColor.trakSecondaryLabel
 				self.pillBG.backgroundColor = UIColor.trakSecondaryBackground

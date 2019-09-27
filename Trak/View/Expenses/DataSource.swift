@@ -21,7 +21,7 @@ class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource
 	var specificCategoryUnpaidExpenses = [Expense]()
 	var specificCategoryPaidExpenses = [Expense]()
 	let sectionNames: Array = ["", "UNPAID", "PAID"]
-
+	
 	override init() {
 		super.init()
 		DispatchQueue.main.async {

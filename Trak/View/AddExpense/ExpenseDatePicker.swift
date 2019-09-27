@@ -14,6 +14,14 @@ class ExpenseDatePicker: UIDatePicker {
 		timeZone = NSTimeZone.local
 		backgroundColor = UIColor.trakWhiteBackground
 		datePickerMode = .date
+		minimumDate = returnSelectedDateAsDate()
+	}
+	
+	func returnSelectedDateAsDate() -> Date {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = "MMMM yyyy"
+		guard let min = dateFormatter.date(from: "\(selectedMonth) \(selectedYear)") else { return Date() }
+		return min
 	}
 	
 	required init?(coder aDecoder: NSCoder) {

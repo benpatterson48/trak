@@ -13,6 +13,7 @@ class HeaderWithLogo: UIView {
 	let logo: UIImageView = {
 		let logo = UIImageView()
 		logo.contentMode = .scaleAspectFit
+		logo.image = UIImage(named: "trak")
 		logo.translatesAutoresizingMaskIntoConstraints = false
 		return logo
 	}()
@@ -46,16 +47,6 @@ class HeaderWithLogo: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		addViews()
-		
-		if #available(iOS 13.0, *) {
-			if traitCollection.userInterfaceStyle == .dark {
-				logo.image = UIImage(named: "trak-white")
-			} else {
-				logo.image = UIImage(named: "trak")
-			}
-		} else {
-			logo.image = UIImage(named: "trak")
-		}
 		
 		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
 			heightAnchor.constraint(equalToConstant: 70).isActive = true
@@ -136,12 +127,17 @@ class HeaderWithTextTitle: UIView {
 		super.init(frame: frame)
 		addViews()
 		backgroundColor = UIColor.trakWhiteBackground
-		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
-			heightAnchor.constraint(equalToConstant: 70).isActive = true
-		} else if UIDevice.current.name == "iPhone 6" || UIDevice.current.name == "iPhone 7" || UIDevice.current.name == "iPhone 8" || UIDevice.current.name == "iPhone 6 Plus" || UIDevice.current.name == "iPhone 7 Plus" || UIDevice.current.name == "iPhone 8 Plus" {
-			heightAnchor.constraint(equalToConstant: 80).isActive = true
+		
+		if #available(iOS 13, *) {
+			heightAnchor.constraint(equalToConstant: 50).isActive = true
 		} else {
-			heightAnchor.constraint(equalToConstant: 100).isActive = true
+			if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
+				heightAnchor.constraint(equalToConstant: 70).isActive = true
+			} else if UIDevice.current.name == "iPhone 6" || UIDevice.current.name == "iPhone 7" || UIDevice.current.name == "iPhone 8" || UIDevice.current.name == "iPhone 6 Plus" || UIDevice.current.name == "iPhone 7 Plus" || UIDevice.current.name == "iPhone 8 Plus" {
+				heightAnchor.constraint(equalToConstant: 80).isActive = true
+			} else {
+				heightAnchor.constraint(equalToConstant: 100).isActive = true
+			}
 		}
 	}
 	

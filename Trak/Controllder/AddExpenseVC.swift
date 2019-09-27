@@ -144,6 +144,10 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 	}
 	
 	@objc func addPaymentButtonWasPressed() {
+		if fields.nameField.textField.text?.contains(".") == true {
+			showIncompleteFormAlert()
+			return
+		}
 		guard let paymentName = fields.nameField.textField.text, fields.nameField.textField.text != nil else { print("name");showIncompleteFormAlert(); return }
 		guard let paymentAmount = fields.totalField.textField.text?.removeCurrency else { print("payamount");showIncompleteFormAlert(); return }
 		guard let paymentAmountDouble = Double(paymentAmount) else { print("aqmtdoubt");showIncompleteFormAlert(); return }
@@ -158,12 +162,11 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 		if #available(iOS 13, *) {
 			dismiss(animated: true, completion: nil)
 			NotificationCenter.default.post(name: .init("refreshAfterAdd"), object: nil)
-			NotificationCenter.default.post(name: .init("refreshOurCategories"), object: nil)
 		} else {
 			dismiss(animated: true, completion: nil)
 		}
 	}
-		
+	
 	func grabMonthIndex(month: String) -> Int {
 		let index = monthArray.firstIndex(of: month)! + 1
 		return index
@@ -199,10 +202,6 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 		header.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
 		header.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		header.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-		
-		if #available(iOS 13, *) {
-			header.heightAnchor.constraint(equalToConstant: 50).isActive = true 
-		}
 		
 		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
 			fields.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 16).isActive = true
@@ -300,6 +299,15 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 	}
 	
 	fileprivate func showIncompleteFormAlert() {
+		present(alert, animated: true, completion: nil)
+	}
+	
+	func showIncorrectSymbolsAlert() {
+		let alert = UIAlertController(title: "Wow", message: """
+		Your title can't contain any "."
+		Please edit and try again.
+		""", preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: "Try Again", style: .default, handler: nil))
 		present(alert, animated: true, completion: nil)
 	}
 }

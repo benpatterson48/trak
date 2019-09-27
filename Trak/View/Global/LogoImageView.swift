@@ -12,6 +12,7 @@ class LogoImageView: UIView {
 	let logo: UIImageView = {
 		let logo = UIImageView()
 		logo.contentMode = .scaleAspectFit
+		logo.image = UIImage(named: "trak")
 		logo.widthAnchor.constraint(equalToConstant: 110).isActive = true 
 		logo.translatesAutoresizingMaskIntoConstraints = false
 		return logo
@@ -20,15 +21,6 @@ class LogoImageView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		setupConstraints()
-		if #available(iOS 13.0, *) {
-			if traitCollection.userInterfaceStyle == .dark {
-				logo.image = UIImage(named: "trak-white")
-			} else {
-				logo.image = UIImage(named: "trak")
-			}
-		} else {
-			logo.image = UIImage(named: "trak")
-		}
 	}
 	
 	fileprivate func setupConstraints() {

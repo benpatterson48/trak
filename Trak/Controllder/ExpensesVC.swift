@@ -287,7 +287,7 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 		tv.isUserInteractionEnabled = true
 		tv.showsVerticalScrollIndicator = false
 		tv.separatorColor = UIColor.trakSeparator
-		tv.backgroundColor = UIColor.trakTertiaryWhiteBackground
+		tv.backgroundColor = UIColor.trakSecondaryBackground
 		tv.register(ExpenseCell.self, forCellReuseIdentifier: "expense")
 		tv.register(ExpensesSectionFooter.self, forHeaderFooterViewReuseIdentifier: "footer")
 		tv.register(ExpensesSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
@@ -328,18 +328,34 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: "expense", for: indexPath) as? ExpenseCell else { return UITableViewCell() }
 		if specificCategory {
 			if indexPath.section == 1 {
-				cell.icon.image = UIImage(named: "unpaid-icon")
+				if #available(iOS 13, *) {
+					cell.icon.image = UIImage(systemName: "xmark.circle.fill")?.withTintColor(UIColor.trakYellow.withAlphaComponent(0.6), renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 30))
+				} else {
+					cell.icon.image = UIImage(named: "unpaid-icon")
+				}
 				cell.expense = specificCategoryUnpaidExpenses[indexPath.item]
 			} else if indexPath.section == 2 {
-				cell.icon.image = UIImage(named: "paid-icon")
+				if #available(iOS 13, *) {
+					cell.icon.image = UIImage(systemName: "checkmark.circle.fill")?.withTintColor(UIColor.trakTeal.withAlphaComponent(0.6), renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 30))
+				} else {
+					cell.icon.image = UIImage(named: "paid-icon")
+				}
 				cell.expense = specificCategoryPaidExpenses[indexPath.item]
 			}
 		} else {
 			if indexPath.section == 1 {
-				cell.icon.image = UIImage(named: "unpaid-icon")
+				if #available(iOS 13, *) {
+					cell.icon.image = UIImage(systemName: "xmark.circle.fill")?.withTintColor(UIColor.trakYellow.withAlphaComponent(0.6), renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 30))
+				} else {
+					cell.icon.image = UIImage(named: "unpaid-icon")
+				}
 				cell.expense = unpaidExpenses[indexPath.item]
 			} else if indexPath.section == 2 {
-				cell.icon.image = UIImage(named: "paid-icon")
+				if #available(iOS 13, *) {
+					cell.icon.image = UIImage(systemName: "checkmark.circle.fill")?.withTintColor(UIColor.trakTeal.withAlphaComponent(0.6), renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 30))
+				} else {
+					cell.icon.image = UIImage(named: "paid-icon")
+				}
 				cell.expense = paidExpenses[indexPath.item]
 			}
 		}
