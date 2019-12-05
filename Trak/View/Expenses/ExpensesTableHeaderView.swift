@@ -35,7 +35,7 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 		cv.translatesAutoresizingMaskIntoConstraints = false
 		cv.contentInset.left = 16
 		cv.showsHorizontalScrollIndicator = false
-		cv.backgroundColor = UIColor.trakSecondaryBackground
+		cv.backgroundColor = UIColor.secondarySystemBackground
 		cv.register(CategoryCell.self, forCellWithReuseIdentifier: "category")
 		return cv
 	}()
@@ -47,8 +47,8 @@ class ExpensesTableHeaderView: UITableViewHeaderFooterView {
 		categoryCollectionView.delegate = dataSource
 		categoryCollectionView.dataSource = dataSource
 		calculatingExpenses()
-		bg.backgroundColor = UIColor.trakTertiaryWhiteBackground
-		circleViewBG.backgroundColor = UIColor.trakTertiaryWhiteBackground
+		bg.backgroundColor = UIColor.tertiarySystemBackground
+		circleViewBG.backgroundColor = UIColor.tertiarySystemBackground
 		addViews()
 		categoryCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: [])
 	}

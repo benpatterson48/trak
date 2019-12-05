@@ -25,7 +25,7 @@ class EmptyState: UIView {
 		let main = UILabel()
 		main.numberOfLines = 0
 		main.text = "You have no payments!"
-		main.textColor = UIColor.trakLabel
+		main.textColor = UIColor.label
 		main.textAlignment = .left
 		main.translatesAutoresizingMaskIntoConstraints = false
 		return main
@@ -35,7 +35,7 @@ class EmptyState: UIView {
 		let sub = UILabel()
 		sub.text = "Welcome to your personalized payment tracker."
 		sub.numberOfLines = 0
-		sub.textColor = UIColor.trakSecondaryLabel
+		sub.textColor = UIColor.secondaryLabel
 		sub.textAlignment = .left
 		sub.font = UIFont.mainFont(ofSize: 16)
 		sub.translatesAutoresizingMaskIntoConstraints = false
@@ -48,7 +48,7 @@ class EmptyState: UIView {
 		button.setTitle("Add New Payment", for: .normal)
 		
 		if #available(iOS 13, *) {
-			icon.image = UIImage(systemName: "checkmark.circle.fill")?.withTintColor(UIColor.trakTeal, renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 100))
+			icon.image = UIImage(systemName: "checkmark.circle.fill")?.withTintColor(UIColor.systemBlue, renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 100))
 		} else {
 			icon.image = UIImage(named: "check")
 		}

@@ -22,7 +22,7 @@ class SettingsChangeVC: UIViewController, MFMailComposeViewControllerDelegate, U
 	
 	var topView: UIView = {
 		let view = UIView()
-		view.backgroundColor = UIColor.trakSecondaryBackground
+		view.backgroundColor = UIColor.secondarySystemBackground
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
 	}()
@@ -30,7 +30,7 @@ class SettingsChangeVC: UIViewController, MFMailComposeViewControllerDelegate, U
 	var topViewTitleLabel: UILabel = {
 		let title = UILabel()
 		title.textAlignment = .center
-		title.textColor = UIColor.trakLabel
+		title.textColor = UIColor.label
 		title.font = UIFont.systemFont(ofSize: 18, weight: .medium)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
@@ -49,7 +49,7 @@ class SettingsChangeVC: UIViewController, MFMailComposeViewControllerDelegate, U
 	
 	var textFieldBackground: UIView = {
 		let background = UIView()
-		background.backgroundColor = UIColor.trakTertiaryWhiteBackground
+		background.backgroundColor = UIColor.tertiarySystemBackground
 		background.translatesAutoresizingMaskIntoConstraints = false
 		return background
 	}()
@@ -112,7 +112,7 @@ class SettingsChangeVC: UIViewController, MFMailComposeViewControllerDelegate, U
 		addViews()
 		setupAlerts()
 		setDoneOnKeyboard()
-		view.backgroundColor = UIColor.trakSecondaryBackground
+		view.backgroundColor = UIColor.secondarySystemBackground
 		self.inputTextField.clearsOnBeginEditing = true
     }
 	

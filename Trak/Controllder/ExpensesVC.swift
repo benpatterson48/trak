@@ -55,7 +55,7 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		addButtonTargets()
-		view.backgroundColor = UIColor.trakTertiaryWhiteBackground
+		view.backgroundColor = UIColor.tertiarySystemBackground
 		user = Auth.auth().currentUser
 		
 		expensesTableView.delegate = self
@@ -134,23 +134,13 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	}
 		
 	@objc func addNewExpenseButtonWasPressed() {
-		if #available(iOS 13, *) {
-			let add = AddExpenseVC()
-			present(add, animated: true, completion: nil)
-		} else {
-			let add = AddExpenseVC()
-			presentFromRight(add)
-		}
+		let add = AddExpenseVC()
+		present(add, animated: true, completion: nil)
 	}
 	
 	@objc func addNewPaymentButtonWasPressed() {
-		if #available(iOS 13, *) {
-			let add = AddExpenseVC()
-			present(add, animated: true, completion: nil)
-		} else {
-			let newExpense = AddExpenseVC()
-			present(newExpense, animated: true, completion: nil)
-		}
+		let add = AddExpenseVC()
+		present(add, animated: true, completion: nil)
 	}
 	
 	@objc func refreshTableAfterNewAdd(notification: NSNotification) {
@@ -162,13 +152,8 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	}
 	
 	@objc func accountSettingsButtonWasPressed() {
-		if #available(iOS 13, *) {
-			let setting = AccountSettingsVC()
-			present(setting, animated: true, completion: nil)
-		} else {
-			let setting = AccountSettingsVC()
-			presentFromLeft(viewControllerToPresent: setting)
-		}
+		let setting = AccountSettingsVC()
+		present(setting, animated: true, completion: nil)
 	}
 	
 	func checkForMonthExisting() {
@@ -282,12 +267,12 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	}
 	
 	let expensesTableView: UITableView = {
-		let tv = UITableView(frame: .zero, style: .plain)
+		let tv = UITableView(frame: .zero, style: .insetGrouped)
 		tv.bounces = true
 		tv.isUserInteractionEnabled = true
 		tv.showsVerticalScrollIndicator = false
-		tv.separatorColor = UIColor.trakSeparator
-		tv.backgroundColor = UIColor.trakSecondaryBackground
+		tv.separatorColor = UIColor.separator
+		tv.backgroundColor = UIColor.secondarySystemBackground
 		tv.register(ExpenseCell.self, forCellReuseIdentifier: "expense")
 		tv.register(ExpensesSectionFooter.self, forHeaderFooterViewReuseIdentifier: "footer")
 		tv.register(ExpensesSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
@@ -328,34 +313,18 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: "expense", for: indexPath) as? ExpenseCell else { return UITableViewCell() }
 		if specificCategory {
 			if indexPath.section == 1 {
-				if #available(iOS 13, *) {
-					cell.icon.image = UIImage(systemName: "xmark.circle.fill")?.withTintColor(UIColor.trakYellow.withAlphaComponent(0.6), renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 30))
-				} else {
-					cell.icon.image = UIImage(named: "unpaid-icon")
-				}
+				cell.icon.image = UIImage(systemName: "xmark.circle.fill")?.withTintColor(UIColor.systemGray3.withAlphaComponent(0.6), renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 30))
 				cell.expense = specificCategoryUnpaidExpenses[indexPath.item]
 			} else if indexPath.section == 2 {
-				if #available(iOS 13, *) {
-					cell.icon.image = UIImage(systemName: "checkmark.circle.fill")?.withTintColor(UIColor.trakTeal.withAlphaComponent(0.6), renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 30))
-				} else {
-					cell.icon.image = UIImage(named: "paid-icon")
-				}
+				cell.icon.image = UIImage(systemName: "checkmark.circle.fill")?.withTintColor(UIColor.systemBlue.withAlphaComponent(0.6), renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 30))
 				cell.expense = specificCategoryPaidExpenses[indexPath.item]
 			}
 		} else {
 			if indexPath.section == 1 {
-				if #available(iOS 13, *) {
-					cell.icon.image = UIImage(systemName: "xmark.circle.fill")?.withTintColor(UIColor.trakYellow.withAlphaComponent(0.6), renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 30))
-				} else {
-					cell.icon.image = UIImage(named: "unpaid-icon")
-				}
+				cell.icon.image = UIImage(systemName: "xmark.circle.fill")?.withTintColor(UIColor.systemGray3.withAlphaComponent(0.6), renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 30))
 				cell.expense = unpaidExpenses[indexPath.item]
 			} else if indexPath.section == 2 {
-				if #available(iOS 13, *) {
-					cell.icon.image = UIImage(systemName: "checkmark.circle.fill")?.withTintColor(UIColor.trakTeal.withAlphaComponent(0.6), renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 30))
-				} else {
-					cell.icon.image = UIImage(named: "paid-icon")
-				}
+				cell.icon.image = UIImage(systemName: "checkmark.circle.fill")?.withTintColor(UIColor.systemBlue.withAlphaComponent(0.6), renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 30))
 				cell.expense = paidExpenses[indexPath.item]
 			}
 		}
@@ -377,7 +346,7 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 		} else {
 			guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ExpensesSectionHeader else {return nil}
 			header.label.attributedText = sectionNames[section].increaseLetterSpacing()
-			header.contentView.backgroundColor = UIColor.trakSecondaryBackground
+			header.contentView.backgroundColor = UIColor.secondarySystemBackground
 			return header
 		}
 	}
@@ -426,7 +395,7 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 				}
 			})
 		}
-		action.backgroundColor = UIColor.trakBlue
+		action.backgroundColor = UIColor.systemBlue
 		if cell?.expense?.isPaid == false {
 			let configuration = UISwipeActionsConfiguration(actions: [action])
 			return configuration
@@ -495,7 +464,7 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 			}
 		}
 		action.backgroundColor = #colorLiteral(red: 0.1843137255, green: 0.2196078431, blue: 0.3019607843, alpha: 1)
-		action2.backgroundColor = UIColor.trakRed
+		action2.backgroundColor = UIColor.systemRed
 		let configuration = UISwipeActionsConfiguration(actions: [action2, action])
 		return configuration
 	}
@@ -562,7 +531,7 @@ extension ExpensesVC: UITableViewDelegate, UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 		guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "footer") as? ExpensesSectionFooter else {return nil}
-		footer.contentView.backgroundColor = UIColor.trakSecondaryBackground
+		footer.contentView.backgroundColor = UIColor.secondarySystemBackground
 		if specificCategory == true {
 			switch (section) {
 			case 0:

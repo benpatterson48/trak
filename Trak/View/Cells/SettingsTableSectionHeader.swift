@@ -14,7 +14,7 @@ class SettingsTableSectionHeader: UITableViewHeaderFooterView {
 	
 	let label: UILabel = {
 		let label = UILabel()
-		label.textColor = UIColor.trakLabel
+		label.textColor = UIColor.label
 		label.textAlignment = .left
 		label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
 		label.translatesAutoresizingMaskIntoConstraints = false

@@ -20,7 +20,7 @@ class CreateAccountVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		view.backgroundColor = UIColor.trakWhiteBackground
+		view.backgroundColor = UIColor.systemBackground
 		addViews()
 		setDoneOnKeyboard()
 		stackView.button.addTarget(self, action: #selector(createAccountButtonWasPressed), for: .touchUpInside)

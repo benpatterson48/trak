@@ -23,7 +23,7 @@ class LoginVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		view.backgroundColor = UIColor.trakWhiteBackground
+		view.backgroundColor = UIColor.systemBackground
 		addViews()
 		setDoneOnKeyboard()
 		alert.addAction(UIAlertAction(title: "Try Again", style: .cancel, handler: nil))

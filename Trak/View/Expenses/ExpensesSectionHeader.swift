@@ -14,7 +14,7 @@ class ExpensesSectionHeader: UITableViewHeaderFooterView {
 	
 	let label: UILabel = {
 		let label = UILabel()
-		label.textColor = UIColor.trakLabel
+		label.textColor = UIColor.label
 		label.numberOfLines = 0
 		label.textAlignment = .left
 		label.font = UIFont.mainBoldFont(ofSize: 13)
@@ -47,7 +47,7 @@ class ExpensesSectionFooter: UITableViewHeaderFooterView {
 	
 	let label: UILabel = {
 		let label = UILabel()
-		label.textColor = UIColor.trakSecondaryLabel
+		label.textColor = UIColor.secondaryLabel
 		label.numberOfLines = 0
 		label.textAlignment = .left
 		label.font = UIFont.mainFont(ofSize: 15)
@@ -80,7 +80,7 @@ class ManageSectionHeader: UITableViewHeaderFooterView {
 	
 	let label: UILabel = {
 		let label = UILabel()
-		label.textColor = UIColor.trakLabel
+		label.textColor = UIColor.label
 		label.numberOfLines = 0
 		label.textAlignment = .left
 		label.font = UIFont.mainBoldFont(ofSize: 13)
@@ -92,7 +92,7 @@ class ManageSectionHeader: UITableViewHeaderFooterView {
 		super.init(reuseIdentifier: reuseIdentifier)
 		addSubview(label)
 		addLabelConstraints()
-		backgroundColor = UIColor.trakSecondaryBackground
+		backgroundColor = UIColor.secondarySystemBackground
 	}
 	
 	private func addLabelConstraints() {

@@ -18,7 +18,7 @@ class ManageCategoriesVC: UIViewController {
 	
 	var topView: UIView = {
 		let view = UIView()
-		view.backgroundColor = UIColor.trakSecondaryBackground
+		view.backgroundColor = UIColor.secondarySystemBackground
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
 	}()
@@ -27,7 +27,7 @@ class ManageCategoriesVC: UIViewController {
 		let title = UILabel()
 		title.text = "Manage Categories"
 		title.textAlignment = .center
-		title.textColor = UIColor.trakLabel
+		title.textColor = UIColor.label
 		title.font = UIFont.systemFont(ofSize: 18, weight: .medium)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
@@ -50,8 +50,8 @@ class ManageCategoriesVC: UIViewController {
 			table.bounces = true
 			table.clipsToBounds = true
 			table.showsVerticalScrollIndicator = false
-			table.separatorColor = UIColor.trakSeparator
-			table.backgroundColor = UIColor.trakSecondaryBackground
+			table.separatorColor = UIColor.separator
+			table.backgroundColor = UIColor.secondarySystemBackground
 			table.translatesAutoresizingMaskIntoConstraints = false
 			table.register(ManageCategoryCell.self, forCellReuseIdentifier: "manage")
 			table.register(ManageSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
@@ -61,8 +61,8 @@ class ManageCategoriesVC: UIViewController {
 			table.bounces = true
 			table.clipsToBounds = true
 			table.showsVerticalScrollIndicator = false
-			table.separatorColor = UIColor.trakSeparator
-			table.backgroundColor = UIColor.trakSecondaryBackground
+			table.separatorColor = UIColor.separator
+			table.backgroundColor = UIColor.secondarySystemBackground
 			table.translatesAutoresizingMaskIntoConstraints = false
 			table.register(ManageCategoryCell.self, forCellReuseIdentifier: "manage")
 			table.register(ManageSectionHeader.self, forHeaderFooterViewReuseIdentifier: "header")
@@ -84,7 +84,7 @@ class ManageCategoriesVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		view.backgroundColor = UIColor.trakSecondaryBackground
+		view.backgroundColor = UIColor.secondarySystemBackground
 		
 		tableView.delegate = self
 		tableView.dataSource = self
@@ -145,7 +145,7 @@ extension ManageCategoriesVC: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ExpensesSectionHeader else {return nil}
 		header.contentView.backgroundColor = #colorLiteral(red: 0.937254902, green: 0.937254902, blue: 0.9529411765, alpha: 1)
-		header.label.textColor = UIColor.trakLabel
+		header.label.textColor = UIColor.label
 		header.label.font = UIFont.systemFont(ofSize: 13)
 		header.label.text = """
 		Deleting a category does NOT delete the expenses within that category.

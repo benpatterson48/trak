@@ -29,7 +29,7 @@ class SettingsCell: UITableViewCell {
 	
 	let cellTitle: UILabel = {
 		let title = UILabel()
-		title.textColor = UIColor.trakLabel
+		title.textColor = UIColor.label
 		title.textAlignment = .left
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
@@ -57,7 +57,7 @@ class SettingsCell: UITableViewCell {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupConstraints()
 		selectionStyle = .none
-		backgroundColor = UIColor.trakTertiaryWhiteBackground
+		backgroundColor = UIColor.tertiarySystemBackground
 		
 		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
 			cellTitle.font = UIFont.systemFont(ofSize: 14, weight: .regular)
@@ -113,7 +113,7 @@ class SettingsCellWithUISwitch: UITableViewCell {
 	
 	let cellTitle: UILabel = {
 		let title = UILabel()
-		title.textColor = UIColor.trakLabel
+		title.textColor = UIColor.label
 		title.textAlignment = .left
 		title.font = UIFont.systemFont(ofSize: 16, weight: .regular)
 		title.translatesAutoresizingMaskIntoConstraints = false
@@ -139,7 +139,7 @@ class SettingsCellWithUISwitch: UITableViewCell {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupConstraints()
-		backgroundColor = UIColor.trakTertiaryWhiteBackground
+		backgroundColor = UIColor.tertiarySystemBackground
 		cellSwitch.isOn = UserDefaults.standard.bool(forKey: "enabledFaceID")
 		
 		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {

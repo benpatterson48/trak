@@ -14,7 +14,7 @@ class ReminderCell: UITableViewCell {
 
 	let cellTitle: UILabel = {
 		let title = UILabel()
-		title.textColor = UIColor.trakLabel
+		title.textColor = UIColor.label
 		title.text = "Remind me on a day"
 		title.textAlignment = .left
 		title.font = UIFont.systemFont(ofSize: 18, weight: .regular)
@@ -31,7 +31,7 @@ class ReminderCell: UITableViewCell {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupConstraints()
-		backgroundColor = UIColor.trakWhiteBackground
+		backgroundColor = UIColor.systemBackground
 	}
 	
 	func setupConstraints() {
@@ -56,7 +56,7 @@ class SetDateReminderCell: UITableViewCell {
 	
 	let reminderTitleLabel: UILabel = {
 		let title = UILabel()
-		title.textColor = UIColor.trakLabel
+		title.textColor = UIColor.label
 		title.text = "Set Reminder"
 		title.textAlignment = .left
 		title.translatesAutoresizingMaskIntoConstraints = false
@@ -65,7 +65,7 @@ class SetDateReminderCell: UITableViewCell {
 	
 	let reminderResultLabel: UITextField = {
 		let result = UITextField()
-		result.textColor = UIColor.trakSecondaryLabel
+		result.textColor = UIColor.secondaryLabel
 		result.textAlignment = .right
 		result.inputView = reminderDatePicker
 		result.font = UIFont.systemFont(ofSize: 18, weight: .regular)
@@ -76,8 +76,8 @@ class SetDateReminderCell: UITableViewCell {
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupConstraints()
-		backgroundColor = UIColor.trakWhiteBackground
-		reminderDatePicker.backgroundColor = UIColor.trakWhiteBackground
+		backgroundColor = UIColor.systemBackground
+		reminderDatePicker.backgroundColor = UIColor.systemBackground
 		reminderDatePicker.minimumDate = grabCurrentDate()
 		reminderResultLabel.placeholder = grabCurrentDateString()
 		

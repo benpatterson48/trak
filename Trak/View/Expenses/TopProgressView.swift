@@ -15,7 +15,7 @@ class MonthSwipeStack: UIView {
 	let monthTextField: UILabel = {
 		let title = UILabel()
 		title.textAlignment = .center
-		title.textColor = UIColor.trakSecondaryLabel
+		title.textColor = UIColor.secondaryLabel
 		title.font = UIFont.mainFont(ofSize: 18)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
@@ -69,7 +69,7 @@ class MonthSwipeStack: UIView {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		backgroundColor = UIColor.trakTertiaryWhiteBackground
+		backgroundColor = UIColor.tertiarySystemBackground
 		addViews()
 		heightAnchor.constraint(equalToConstant: 48).isActive = true
 		monthTextField.text = selectedMonth.uppercased()
@@ -106,12 +106,12 @@ class CircleProgressView: CALayer {
 	
 	override init() {
 		super.init()
-		trackLayer.strokeColor = UIColor.trakYellow.cgColor
+		trackLayer.strokeColor = UIColor.systemGray3.cgColor
 		trackLayer.fillColor = UIColor.clear.cgColor
 		trackLayer.lineWidth = 22
 		trackLayer.transform = CATransform3DMakeRotation(-CGFloat.pi / 2, 0, 0, 1)
 		
-		shapeLayer.strokeColor = UIColor.trakTeal.cgColor
+		shapeLayer.strokeColor = UIColor.systemBlue.cgColor
 		shapeLayer.lineCap = CAShapeLayerLineCap.round
 		shapeLayer.fillColor = UIColor.clear.cgColor
 		shapeLayer.lineWidth = 22
@@ -143,7 +143,7 @@ class TotalStackView: UIView {
 		total.text = "TOTAL"
 		total.textAlignment = .center
 		total.adjustsFontSizeToFitWidth = true
-		total.textColor = UIColor.trakSecondaryLabel
+		total.textColor = UIColor.secondaryLabel
 		total.font = UIFont.mainFont(ofSize: 18)
 		total.translatesAutoresizingMaskIntoConstraints = false
 		return total
@@ -151,7 +151,7 @@ class TotalStackView: UIView {
 	
 	let currentTotalAmountLabel: UILabel = {
 		let current = UILabel()
-		current.textColor = UIColor.trakLabel
+		current.textColor = UIColor.label
 		current.textAlignment = .center
 		current.adjustsFontSizeToFitWidth = true
 		current.font = UIFont.systemFont(ofSize: 34, weight: .medium)
@@ -162,7 +162,7 @@ class TotalStackView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		createStackView()
-		backgroundColor = UIColor.trakTertiaryWhiteBackground
+		backgroundColor = UIColor.tertiarySystemBackground
 	}
 	
 	private func createStackView() {
@@ -189,7 +189,7 @@ class KeyStackView: UIView {
 	
 	let keyTitle: UILabel = {
 		let title = UILabel()
-		title.textColor = UIColor.trakSecondaryLabel
+		title.textColor = UIColor.secondaryLabel
 		title.textAlignment = .left
 		title.font = UIFont.mainSemiBoldFont(ofSize: 14)
 		title.translatesAutoresizingMaskIntoConstraints = false
@@ -199,7 +199,7 @@ class KeyStackView: UIView {
 	let dotAmount: UILabel = {
 		let label = UILabel()
 		label.textAlignment = .left
-		label.textColor = UIColor.trakLabel
+		label.textColor = UIColor.label
 		label.font = UIFont.mainFont(ofSize: 18)
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
@@ -208,7 +208,7 @@ class KeyStackView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		createStackView()
-		backgroundColor = UIColor.trakTertiaryWhiteBackground
+		backgroundColor = UIColor.tertiarySystemBackground
 	}
 	
 	public convenience init(title: String) {
@@ -257,11 +257,11 @@ class TotalKeyView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		createStackViews()
-		backgroundColor = UIColor.trakTertiaryWhiteBackground
+		backgroundColor = UIColor.tertiarySystemBackground
 		
 		if #available(iOS 13, *) {
-			paidImage.image = UIImage(systemName: "circle.fill")?.withTintColor(UIColor.trakTeal, renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 16))
-			unpaidImage.image = UIImage(systemName: "circle.fill")?.withTintColor(UIColor.trakYellow, renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 16))
+			paidImage.image = UIImage(systemName: "circle.fill")?.withTintColor(UIColor.systemBlue, renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 16))
+			unpaidImage.image = UIImage(systemName: "circle.fill")?.withTintColor(UIColor.systemGray3, renderingMode: .alwaysOriginal).withConfiguration(UIImage.SymbolConfiguration(pointSize: 16))
 		} else {
 			paidImage.image = UIImage(named: "teal-dot")
 			unpaidImage.image = UIImage(named: "yellow-dot")

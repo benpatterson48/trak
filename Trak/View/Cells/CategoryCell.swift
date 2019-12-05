@@ -12,7 +12,7 @@ class CategoryCell: UICollectionViewCell {
 	
 	let pillBG: UIView = {
 		let pill = UIView()
-		pill.backgroundColor = UIColor.trakSecondaryBackground
+		pill.backgroundColor = UIColor.secondarySystemBackground
 		pill.layer.cornerRadius = 16
 		pill.translatesAutoresizingMaskIntoConstraints = false
 		return pill
@@ -21,7 +21,7 @@ class CategoryCell: UICollectionViewCell {
 	let categoryTitle: UILabel = {
 		let title = UILabel()
 		title.textAlignment = .center
-		title.textColor = UIColor.trakSecondaryLabel
+		title.textColor = UIColor.secondaryLabel
 		title.font = UIFont.mainSemiBoldFont(ofSize: 18)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
@@ -32,17 +32,17 @@ class CategoryCell: UICollectionViewCell {
 		setupViews()
 		translatesAutoresizingMaskIntoConstraints = false 
 		heightAnchor.constraint(equalToConstant: 84).isActive = true
-		backgroundColor = UIColor.trakSecondaryBackground
+		backgroundColor = UIColor.secondarySystemBackground
 	}
 	
 	override var isSelected: Bool {
 		didSet {
 			if self.isSelected == true {
-				self.pillBG.backgroundColor = UIColor.trakTeal
+				self.pillBG.backgroundColor = UIColor.systemBlue
 				self.categoryTitle.textColor = UIColor.white
 			} else {
-				self.categoryTitle.textColor = UIColor.trakSecondaryLabel
-				self.pillBG.backgroundColor = UIColor.trakSecondaryBackground
+				self.categoryTitle.textColor = UIColor.secondaryLabel
+				self.pillBG.backgroundColor = UIColor.secondarySystemBackground
 			}
 		}
 	}

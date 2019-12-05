@@ -57,7 +57,6 @@
 		1DF1945C22B1DA6100DFC41B /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1945722B1D7C600DFC41B /* SF-Pro-Text-Regular.otf */; };
 		1DF1945D22B1DA6400DFC41B /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1945522B1D7C600DFC41B /* SF-Pro-Text-Semibold.otf */; };
 		1DF1945F22B1DA9200DFC41B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1945E22B1DA9200DFC41B /* Font.swift */; };
-		1DF1946122B1E06E00DFC41B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1946022B1E06E00DFC41B /* Color.swift */; };
 		1DF1946322B2003B00DFC41B /* LogoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1946222B2003B00DFC41B /* LogoImageView.swift */; };
 		1DF1946722B2069A00DFC41B /* GetStartedStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1946622B2069A00DFC41B /* GetStartedStackView.swift */; };
 		1DF1946B22B206F900DFC41B /* LabelAndButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1946A22B206F900DFC41B /* LabelAndButtonStackView.swift */; };
@@ -124,7 +123,6 @@
 		1DF1945622B1D7C600DFC41B /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
 		1DF1945722B1D7C600DFC41B /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
 		1DF1945E22B1DA9200DFC41B /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
-		1DF1946022B1E06E00DFC41B /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		1DF1946222B2003B00DFC41B /* LogoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoImageView.swift; sourceTree = "<group>"; };
 		1DF1946622B2069A00DFC41B /* GetStartedStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedStackView.swift; sourceTree = "<group>"; };
 		1DF1946A22B206F900DFC41B /* LabelAndButtonStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelAndButtonStackView.swift; sourceTree = "<group>"; };
@@ -284,7 +282,6 @@
 			isa = PBXGroup;
 			children = (
 				1DF1945E22B1DA9200DFC41B /* Font.swift */,
-				1DF1946022B1E06E00DFC41B /* Color.swift */,
 				1D136D1222B560450030C48D /* Button.swift */,
 				1D80CE5A22BB519E00D69E71 /* String.swift */,
 				1D5243E822BCA03200DD8F92 /* Date.swift */,
@@ -495,7 +492,6 @@
 				1DBC81FC22C5974100C91D6C /* Category.swift in Sources */,
 				1DF1947922B378BE00DFC41B /* UnderlineTextField.swift in Sources */,
 				1D6B9B1122B9E90900E07920 /* ImageAndTextButton.swift in Sources */,
-				1DF1946122B1E06E00DFC41B /* Color.swift in Sources */,
 				1DEFB4092314E29D004B24E2 /* SettingsCell.swift in Sources */,
 				1D052F16231894AE0040145A /* TouchIDAuthentication.swift in Sources */,
 				1DF1944C22B1C46D00DFC41B /* GetStartedVC.swift in Sources */,
@@ -681,7 +677,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XR8B6CD39Y;
 				INFOPLIST_FILE = Trak/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -704,7 +700,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = XR8B6CD39Y;
 				INFOPLIST_FILE = Trak/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

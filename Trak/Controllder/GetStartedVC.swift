@@ -16,7 +16,7 @@ class GetStartedVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		view.backgroundColor = UIColor.trakSecondaryBackground
+		view.backgroundColor = UIColor.secondarySystemBackground
 		addViews()
 		stackView.mainTitle.numberOfLines = 0 
 		stackView.button.addTarget(self, action: #selector(getStartedButtonWasPressed), for: .touchUpInside)

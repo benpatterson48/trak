@@ -12,7 +12,7 @@ class MainBlueButton: UIButton {
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		backgroundColor = UIColor.trakBlue
+		backgroundColor = UIColor.systemBlue
 		layer.cornerRadius = 26
 		layer.borderWidth = 4
 		layer.borderColor = #colorLiteral(red: 0.8352941176, green: 0.8705882353, blue: 1, alpha: 1)

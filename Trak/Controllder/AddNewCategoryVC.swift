@@ -21,7 +21,7 @@ class AddNewCategoryVC: UIViewController {
         super.viewDidLoad()
 		setDoneOnKeyboard()
 		header.rightBarButtonItem.isUserInteractionEnabled = false
-		view.backgroundColor = UIColor.trakWhiteBackground
+		view.backgroundColor = UIColor.systemBackground
 		createCategoryButton.setTitle("Create Category", for: .normal)
 		addViews()
 		header.leftBarButtonItem.addTarget(self, action: #selector(backButtonWasPressed), for: .touchUpInside)

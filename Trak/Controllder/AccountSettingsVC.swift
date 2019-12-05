@@ -35,7 +35,7 @@ class AccountSettingsVC: UIViewController {
 	
 	var pageTitle: UILabel = {
 		let title = UILabel()
-		title.textColor = UIColor.trakLabel
+		title.textColor = UIColor.label
 		title.textAlignment = .left
 		title.text = "Account Settings"
 		title.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +45,7 @@ class AccountSettingsVC: UIViewController {
 	var forwardArrow: UIButton = {
 		let arrow = UIButton()
 		arrow.setTitle("Done", for: .normal)
-		arrow.setTitleColor(UIColor.trakBlue, for: .normal)
+		arrow.setTitleColor(UIColor.systemBlue, for: .normal)
 		arrow.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
 		arrow.translatesAutoresizingMaskIntoConstraints = false
 		arrow.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
@@ -53,31 +53,17 @@ class AccountSettingsVC: UIViewController {
 	}()
 	
 	let tableView: UITableView = {
-		if #available(iOS 13.0, *) {
-			var table = UITableView(frame: .zero, style: .insetGrouped)
-			table.bounces = true
-			table.separatorColor = UIColor.trakSeparator
-			table.clipsToBounds = true
-			table.backgroundColor = UIColor.trakSecondaryBackground
-			table.showsVerticalScrollIndicator = false
-			table.translatesAutoresizingMaskIntoConstraints = false
-			table.register(SettingsCell.self, forCellReuseIdentifier: "settings")
-			table.register(SettingsCellWithUISwitch.self, forCellReuseIdentifier: "settingsSwitch")
-			table.register(SettingsTableSectionHeader.self, forHeaderFooterViewReuseIdentifier: "sectionTitle")
-			return table
-		} else {
-			var table = UITableView(frame: .zero, style: .grouped)
-			table.bounces = true
-			table.separatorColor = UIColor.trakSeparator
-			table.clipsToBounds = true
-			table.backgroundColor = UIColor.trakSecondaryBackground
-			table.showsVerticalScrollIndicator = false
-			table.translatesAutoresizingMaskIntoConstraints = false
-			table.register(SettingsCell.self, forCellReuseIdentifier: "settings")
-			table.register(SettingsCellWithUISwitch.self, forCellReuseIdentifier: "settingsSwitch")
-			table.register(SettingsTableSectionHeader.self, forHeaderFooterViewReuseIdentifier: "sectionTitle")
-			return table
-		}
+		var table = UITableView(frame: .zero, style: .insetGrouped)
+		table.bounces = true
+		table.separatorColor = UIColor.separator
+		table.clipsToBounds = true
+		table.backgroundColor = UIColor.secondarySystemBackground
+		table.showsVerticalScrollIndicator = false
+		table.translatesAutoresizingMaskIntoConstraints = false
+		table.register(SettingsCell.self, forCellReuseIdentifier: "settings")
+		table.register(SettingsCellWithUISwitch.self, forCellReuseIdentifier: "settingsSwitch")
+		table.register(SettingsTableSectionHeader.self, forHeaderFooterViewReuseIdentifier: "sectionTitle")
+		return table
 	}()
 		
 	override func viewDidLoad() {
@@ -88,7 +74,7 @@ class AccountSettingsVC: UIViewController {
 		tableView.dataSource = self
 		tableView.tableFooterView = UIView()
 		
-		view.backgroundColor = UIColor.trakSecondaryBackground
+		view.backgroundColor = UIColor.secondarySystemBackground
 		
 		let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(dismissView))
 		swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
@@ -143,14 +129,14 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "sectionTitle") as? SettingsTableSectionHeader else {return nil}
-		header.contentView.backgroundColor = UIColor.trakSecondaryBackground
+		header.contentView.backgroundColor = UIColor.secondarySystemBackground
 		header.label.text = sectionTitle[section]
 		return header
 	}
 	
 	func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
 		guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "sectionTitle") as? SettingsTableSectionHeader else {return nil}
-		footer.contentView.backgroundColor = UIColor.trakSecondaryBackground
+		footer.contentView.backgroundColor = UIColor.secondarySystemBackground
 		footer.label.numberOfLines = 0
 		footer.label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
 		footer.label.text = "Seriously, if you found something not working right, please let us know."

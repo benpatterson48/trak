@@ -38,7 +38,7 @@ class HeaderWithLogo: UIView {
 	
 	let bottomView: UIView = {
 		let view = UIView()
-		view.backgroundColor = UIColor.trakTertiaryWhiteBackground
+		view.backgroundColor = UIColor.tertiarySystemBackground
 		view.heightAnchor.constraint(equalToConstant: 1).isActive = true
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
@@ -91,7 +91,7 @@ class HeaderWithTextTitle: UIView {
 	let titleLbl: UILabel = {
 		let title = UILabel()
 		title.font = UIFont.mainFont(ofSize: 18)
-		title.textColor = UIColor.trakLabel
+		title.textColor = UIColor.label
 		title.textAlignment = .center
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
@@ -117,7 +117,7 @@ class HeaderWithTextTitle: UIView {
 	
 	let bottomView: UIView = {
 		let view = UIView()
-		view.backgroundColor = UIColor.trakTertiaryWhiteBackground
+		view.backgroundColor = UIColor.tertiarySystemBackground
 		view.heightAnchor.constraint(equalToConstant: 1).isActive = true
 		view.translatesAutoresizingMaskIntoConstraints = false
 		return view
@@ -126,7 +126,7 @@ class HeaderWithTextTitle: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		addViews()
-		backgroundColor = UIColor.trakWhiteBackground
+		backgroundColor = UIColor.systemBackground
 		
 		if #available(iOS 13, *) {
 			heightAnchor.constraint(equalToConstant: 50).isActive = true

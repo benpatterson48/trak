@@ -44,7 +44,7 @@ class EditExpenseVC: UIViewController, UITextFieldDelegate {
 		let table  = UITableView()
 		table.bounces = false
 		table.separatorStyle = .none
-		table.backgroundColor = UIColor.trakWhiteBackground
+		table.backgroundColor = UIColor.systemBackground
 		table.isUserInteractionEnabled = true
 		table.showsVerticalScrollIndicator = false
 		table.translatesAutoresizingMaskIntoConstraints = false
@@ -92,7 +92,7 @@ class EditExpenseVC: UIViewController, UITextFieldDelegate {
 		setupCategoryPicker()
 		setupAddPaymentButton()
 		
-		view.backgroundColor = UIColor.trakWhiteBackground
+		view.backgroundColor = UIColor.systemBackground
 		
 		reminderTable.delegate = self
 		reminderTable.dataSource = self
@@ -274,7 +274,7 @@ class EditExpenseVC: UIViewController, UITextFieldDelegate {
 	fileprivate func setupCategoryPicker() {
 		categoryPicker.delegate = self
 		categoryPicker.dataSource = self
-		categoryPicker.backgroundColor = UIColor.trakWhiteBackground
+		categoryPicker.backgroundColor = UIColor.systemBackground
 	}
 	
 	fileprivate func setupButtonTargets() {
@@ -374,7 +374,7 @@ extension EditExpenseVC: UITableViewDelegate, UITableViewDataSource {
 		} else {
 			setReminder = true
 			reminderTable.separatorStyle = .singleLine
-			reminderTable.separatorColor = UIColor.trakOpaqueSeparator
+			reminderTable.separatorColor = UIColor.opaqueSeparator
 			reminderTable.reloadData()
 		}
 	}

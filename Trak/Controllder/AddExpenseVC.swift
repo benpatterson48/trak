@@ -33,7 +33,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 	
 	let topLine: UIView = {
 		let line = UIView()
-		line.backgroundColor = UIColor.trakSeparator
+		line.backgroundColor = UIColor.separator
 		line.heightAnchor.constraint(equalToConstant: 2).isActive = true
 		line.translatesAutoresizingMaskIntoConstraints = false
 		return line
@@ -43,7 +43,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 		let table  = UITableView()
 		table.bounces = false
 		table.separatorStyle = .none
-		table.backgroundColor = UIColor.trakWhiteBackground
+		table.backgroundColor = UIColor.systemBackground
 		table.isUserInteractionEnabled = true
 		table.showsVerticalScrollIndicator = false
 		table.translatesAutoresizingMaskIntoConstraints = false
@@ -69,7 +69,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 		setupCategoryPicker()
 		setupAddPaymentButton()
 		
-		view.backgroundColor = UIColor.trakWhiteBackground
+		view.backgroundColor = UIColor.systemBackground
 		
 		reminderTable.delegate = self
 		reminderTable.dataSource = self
@@ -278,7 +278,7 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 	fileprivate func setupCategoryPicker() {
 		categoryPicker.delegate = self
 		categoryPicker.dataSource = self
-		categoryPicker.backgroundColor = UIColor.trakWhiteBackground
+		categoryPicker.backgroundColor = UIColor.systemBackground
 	}
 	
 	fileprivate func setupButtonTargets() {

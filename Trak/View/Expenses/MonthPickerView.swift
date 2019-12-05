@@ -16,7 +16,7 @@ class MonthPickerView: UIPickerView {
 		super.init(frame: frame)
 		dataSource = self
 		delegate = self
-		backgroundColor = UIColor.trakWhiteBackground
+		backgroundColor = UIColor.systemBackground
 		
 		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(changeMonth))
 		let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)

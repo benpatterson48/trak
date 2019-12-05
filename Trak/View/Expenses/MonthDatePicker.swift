@@ -12,7 +12,7 @@ class MonthDatePicker: UIDatePicker {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		timeZone = NSTimeZone.local
-		backgroundColor = UIColor.trakWhiteBackground
+		backgroundColor = UIColor.systemBackground
 		datePickerMode = .date
 	}
 	

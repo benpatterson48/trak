@@ -44,7 +44,7 @@ class ExpenseCell: UITableViewCell {
 		let title = UILabel()
 		title.textAlignment = .left
 		title.numberOfLines = 0
-		title.textColor = UIColor.trakLabel
+		title.textColor = UIColor.label
 		title.font = UIFont.mainFont(ofSize: 16)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
@@ -53,7 +53,7 @@ class ExpenseCell: UITableViewCell {
 	let dueDateLabel: UILabel = {
 		let due = UILabel()
 		due.textAlignment = .left
-		due.textColor = UIColor.trakSecondaryLabel
+		due.textColor = UIColor.secondaryLabel
 		due.font = UIFont.mainFont(ofSize: 16)
 		due.translatesAutoresizingMaskIntoConstraints = false
 		return due
@@ -62,7 +62,7 @@ class ExpenseCell: UITableViewCell {
 	let dueAmountLabel: UILabel = {
 		let title = UILabel()
 		title.textAlignment = .right
-		title.textColor = UIColor.trakLabel
+		title.textColor = UIColor.label
 		title.font = UIFont.mainFont(ofSize: 16)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
@@ -71,7 +71,7 @@ class ExpenseCell: UITableViewCell {
 	let categoryLabel: UILabel = {
 		let due = UILabel()
 		due.textAlignment = .right
-		due.textColor = UIColor.trakSecondaryLabel
+		due.textColor = UIColor.secondaryLabel
 		due.font = UIFont.mainFont(ofSize: 16)
 		due.translatesAutoresizingMaskIntoConstraints = false
 		return due
@@ -81,7 +81,7 @@ class ExpenseCell: UITableViewCell {
 		super.init(style: .default, reuseIdentifier: "expense")
 		addViews()
 		selectionStyle = .none
-		backgroundColor = UIColor.trakTertiaryWhiteBackground
+		backgroundColor = UIColor.tertiarySystemBackground
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
