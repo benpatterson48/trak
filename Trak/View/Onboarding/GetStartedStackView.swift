@@ -18,7 +18,7 @@ class GetStartedStackView: UIView {
 		main.text = "Ready to stay on track?"
 		main.textColor = UIColor.label
 		main.textAlignment = .left
-		main.font = UIFont.mainSemiBoldFont(ofSize: 26)
+		main.font = UIFont.systemFont(ofSize: 26, weight: .semibold)
 		main.translatesAutoresizingMaskIntoConstraints = false
 		return main
 	}()
@@ -29,7 +29,7 @@ class GetStartedStackView: UIView {
 		sub.numberOfLines = 0
 		sub.textColor = UIColor.secondaryLabel
 		sub.textAlignment = .left
-		sub.font = UIFont.mainFont(ofSize: 16)
+		sub.font = UIFont.systemFont(ofSize: 16)
 		sub.translatesAutoresizingMaskIntoConstraints = false
 		return sub
 	}()

@@ -37,7 +37,7 @@ class EmptyState: UIView {
 		sub.numberOfLines = 0
 		sub.textColor = UIColor.secondaryLabel
 		sub.textAlignment = .left
-		sub.font = UIFont.mainFont(ofSize: 16)
+		sub.font = UIFont.systemFont(ofSize: 16)
 		sub.translatesAutoresizingMaskIntoConstraints = false
 		return sub
 	}()
@@ -65,9 +65,9 @@ class EmptyState: UIView {
 		addSubview(labels)
 		
 		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
-			mainTitle.font = UIFont.mainSemiBoldFont(ofSize: 22)
+			mainTitle.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
 		} else {
-			mainTitle.font = UIFont.mainSemiBoldFont(ofSize: 26)
+			mainTitle.font = UIFont.systemFont(ofSize: 26, weight: .semibold)
 		}
 		
 		mainTitle.heightAnchor.constraint(equalToConstant: 30).isActive = true

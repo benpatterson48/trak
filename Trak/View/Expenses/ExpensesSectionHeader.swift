@@ -17,7 +17,7 @@ class ExpensesSectionHeader: UITableViewHeaderFooterView {
 		label.textColor = UIColor.label
 		label.numberOfLines = 0
 		label.textAlignment = .left
-		label.font = UIFont.mainBoldFont(ofSize: 13)
+		label.font = UIFont.boldSystemFont(ofSize: 13)
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()
@@ -50,7 +50,7 @@ class ExpensesSectionFooter: UITableViewHeaderFooterView {
 		label.textColor = UIColor.secondaryLabel
 		label.numberOfLines = 0
 		label.textAlignment = .left
-		label.font = UIFont.mainFont(ofSize: 15)
+		label.font = UIFont.systemFont(ofSize: 15)
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()
@@ -83,7 +83,7 @@ class ManageSectionHeader: UITableViewHeaderFooterView {
 		label.textColor = UIColor.label
 		label.numberOfLines = 0
 		label.textAlignment = .left
-		label.font = UIFont.mainBoldFont(ofSize: 13)
+		label.font = UIFont.boldSystemFont(ofSize: 13)
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()

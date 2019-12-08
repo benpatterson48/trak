@@ -17,7 +17,7 @@ class MainBlueButton: UIButton {
 		layer.borderWidth = 4
 		layer.borderColor = #colorLiteral(red: 0.8352941176, green: 0.8705882353, blue: 1, alpha: 1)
 		setTitleColor(UIColor.white, for: .normal)
-		titleLabel?.font = UIFont.mainFont(ofSize: 18)
+		titleLabel?.font = UIFont.systemFont(ofSize: 18)
 	}
 	
 	required init?(coder aDecoder: NSCoder) {

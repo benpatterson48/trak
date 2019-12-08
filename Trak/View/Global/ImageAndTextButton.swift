@@ -12,7 +12,7 @@ class ImageAndTextButton: UIView {
 	let label: UIButton = {
 		let label = UIButton()
 		label.setTitleColor(#colorLiteral(red: 0.231372549, green: 0.3921568627, blue: 1, alpha: 1), for: .normal)
-		label.titleLabel?.font = UIFont.mainFont(ofSize: 18)
+		label.titleLabel?.font = UIFont.systemFont(ofSize: 18)
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()

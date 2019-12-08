@@ -52,7 +52,7 @@ class AddNewCategoryVC: UIViewController {
 	func setDoneOnKeyboard() {
 		let newCategoryField = newCategoryInputField.textField
 		
-		let keyboardToolbar = UIToolbar(frame: .zero)
+		let keyboardToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 35))
 		keyboardToolbar.sizeToFit()
 		let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(viewTappedToCloseOut))
 		let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)

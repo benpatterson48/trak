@@ -13,7 +13,7 @@ class MainLabel: UILabel {
 		super.init(frame: frame)
 		textColor = UIColor.label
 		textAlignment = .left
-		font = UIFont.mainFont(ofSize: 18)
+		font = UIFont.systemFont(ofSize: 18)
 		translatesAutoresizingMaskIntoConstraints = false
 	}
 	
@@ -32,7 +32,7 @@ class SubLabel: UILabel {
 		super.init(frame: frame)
 		textColor = UIColor.secondaryLabel
 		textAlignment = .right
-		font = UIFont.mainFont(ofSize: 18)
+		font = UIFont.systemFont(ofSize: 18)
 		translatesAutoresizingMaskIntoConstraints = false
 	}
 	

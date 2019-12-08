@@ -45,7 +45,7 @@ class ExpenseCell: UITableViewCell {
 		title.textAlignment = .left
 		title.numberOfLines = 0
 		title.textColor = UIColor.label
-		title.font = UIFont.mainFont(ofSize: 16)
+		title.font = UIFont.systemFont(ofSize: 16)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
 	}()
@@ -54,7 +54,7 @@ class ExpenseCell: UITableViewCell {
 		let due = UILabel()
 		due.textAlignment = .left
 		due.textColor = UIColor.secondaryLabel
-		due.font = UIFont.mainFont(ofSize: 16)
+		due.font = UIFont.systemFont(ofSize: 16)
 		due.translatesAutoresizingMaskIntoConstraints = false
 		return due
 	}()
@@ -63,7 +63,7 @@ class ExpenseCell: UITableViewCell {
 		let title = UILabel()
 		title.textAlignment = .right
 		title.textColor = UIColor.label
-		title.font = UIFont.mainFont(ofSize: 16)
+		title.font = UIFont.systemFont(ofSize: 16)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
 	}()
@@ -72,7 +72,7 @@ class ExpenseCell: UITableViewCell {
 		let due = UILabel()
 		due.textAlignment = .right
 		due.textColor = UIColor.secondaryLabel
-		due.font = UIFont.mainFont(ofSize: 16)
+		due.font = UIFont.systemFont(ofSize: 16)
 		due.translatesAutoresizingMaskIntoConstraints = false
 		return due
 	}()

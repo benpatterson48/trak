@@ -22,7 +22,7 @@ class CategoryCell: UICollectionViewCell {
 		let title = UILabel()
 		title.textAlignment = .center
 		title.textColor = UIColor.secondaryLabel
-		title.font = UIFont.mainSemiBoldFont(ofSize: 18)
+		title.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
 	}()

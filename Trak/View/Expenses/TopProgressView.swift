@@ -16,7 +16,7 @@ class MonthSwipeStack: UIView {
 		let title = UILabel()
 		title.textAlignment = .center
 		title.textColor = UIColor.secondaryLabel
-		title.font = UIFont.mainFont(ofSize: 18)
+		title.font = UIFont.systemFont(ofSize: 18)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
 	}()
@@ -72,7 +72,7 @@ class MonthSwipeStack: UIView {
 		backgroundColor = UIColor.tertiarySystemBackground
 		addViews()
 		heightAnchor.constraint(equalToConstant: 48).isActive = true
-		monthTextField.text = selectedMonth.uppercased()
+		monthTextField.text = "\(selectedMonth.uppercased()) \(selectedYear)"
 	}
 	
 	func addViews() {
@@ -144,7 +144,7 @@ class TotalStackView: UIView {
 		total.textAlignment = .center
 		total.adjustsFontSizeToFitWidth = true
 		total.textColor = UIColor.secondaryLabel
-		total.font = UIFont.mainFont(ofSize: 18)
+		total.font = UIFont.systemFont(ofSize: 18)
 		total.translatesAutoresizingMaskIntoConstraints = false
 		return total
 	}()
@@ -191,7 +191,7 @@ class KeyStackView: UIView {
 		let title = UILabel()
 		title.textColor = UIColor.secondaryLabel
 		title.textAlignment = .left
-		title.font = UIFont.mainSemiBoldFont(ofSize: 14)
+		title.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
 	}()
@@ -200,7 +200,7 @@ class KeyStackView: UIView {
 		let label = UILabel()
 		label.textAlignment = .left
 		label.textColor = UIColor.label
-		label.font = UIFont.mainFont(ofSize: 18)
+		label.font = UIFont.systemFont(ofSize: 18)
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()

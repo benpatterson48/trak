@@ -56,7 +56,6 @@
 		1DF1945B22B1DA5E00DFC41B /* SF-Pro-Text-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1945422B1D7C600DFC41B /* SF-Pro-Text-Medium.otf */; };
 		1DF1945C22B1DA6100DFC41B /* SF-Pro-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1945722B1D7C600DFC41B /* SF-Pro-Text-Regular.otf */; };
 		1DF1945D22B1DA6400DFC41B /* SF-Pro-Text-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1945522B1D7C600DFC41B /* SF-Pro-Text-Semibold.otf */; };
-		1DF1945F22B1DA9200DFC41B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1945E22B1DA9200DFC41B /* Font.swift */; };
 		1DF1946322B2003B00DFC41B /* LogoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1946222B2003B00DFC41B /* LogoImageView.swift */; };
 		1DF1946722B2069A00DFC41B /* GetStartedStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1946622B2069A00DFC41B /* GetStartedStackView.swift */; };
 		1DF1946B22B206F900DFC41B /* LabelAndButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1946A22B206F900DFC41B /* LabelAndButtonStackView.swift */; };
@@ -122,7 +121,6 @@
 		1DF1945522B1D7C600DFC41B /* SF-Pro-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Semibold.otf"; sourceTree = "<group>"; };
 		1DF1945622B1D7C600DFC41B /* SF-Pro-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Bold.otf"; sourceTree = "<group>"; };
 		1DF1945722B1D7C600DFC41B /* SF-Pro-Text-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-Regular.otf"; sourceTree = "<group>"; };
-		1DF1945E22B1DA9200DFC41B /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		1DF1946222B2003B00DFC41B /* LogoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoImageView.swift; sourceTree = "<group>"; };
 		1DF1946622B2069A00DFC41B /* GetStartedStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStartedStackView.swift; sourceTree = "<group>"; };
 		1DF1946A22B206F900DFC41B /* LabelAndButtonStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelAndButtonStackView.swift; sourceTree = "<group>"; };
@@ -281,7 +279,6 @@
 		1DF1944A22B1C3BF00DFC41B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				1DF1945E22B1DA9200DFC41B /* Font.swift */,
 				1D136D1222B560450030C48D /* Button.swift */,
 				1D80CE5A22BB519E00D69E71 /* String.swift */,
 				1D5243E822BCA03200DD8F92 /* Date.swift */,
@@ -533,7 +530,6 @@
 				1DAC1F2E2322162C0090C8F4 /* ManageCategoriesVC.swift in Sources */,
 				1D136D1A22B887CC0030C48D /* AddExpenseVC.swift in Sources */,
 				1DF1947122B336B800DFC41B /* CreateAccountVC.swift in Sources */,
-				1DF1945F22B1DA9200DFC41B /* Font.swift in Sources */,
 				1D80CE5B22BB519E00D69E71 /* String.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

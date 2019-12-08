@@ -130,7 +130,7 @@ class LoginVC: UIViewController {
 	func setDoneOnKeyboard() {
 		let email = stackView.email.textField
 		let password = stackView.password.textField
-		let keyboardToolbar = UIToolbar()
+		let keyboardToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 35))
 		keyboardToolbar.sizeToFit()
 		let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 		let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))

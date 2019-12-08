@@ -24,7 +24,7 @@ class EmptyExpenseCell: UITableViewCell {
 		let lbl = UILabel()
 		lbl.textAlignment = .center
 		lbl.textColor = UIColor.label
-		lbl.font = UIFont.mainFont(ofSize: 16)
+		lbl.font = UIFont.systemFont(ofSize: 16)
 		lbl.text = "You currently don't have any expenses"
 		lbl.translatesAutoresizingMaskIntoConstraints = false
 		return lbl

@@ -90,7 +90,7 @@ class HeaderWithLogo: UIView {
 class HeaderWithTextTitle: UIView {
 	let titleLbl: UILabel = {
 		let title = UILabel()
-		title.font = UIFont.mainFont(ofSize: 18)
+		title.font = UIFont.systemFont(ofSize: 18)
 		title.textColor = UIColor.label
 		title.textAlignment = .center
 		title.translatesAutoresizingMaskIntoConstraints = false
