@@ -10,7 +10,7 @@ import UIKit
 
 let activitySpinner: UIActivityIndicatorView = {
 	let ac = UIActivityIndicatorView()
-	ac.style = .whiteLarge
+	ac.style = UIActivityIndicatorView.Style.large
 	ac.translatesAutoresizingMaskIntoConstraints = false
 	return ac
 }()

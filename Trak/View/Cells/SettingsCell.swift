@@ -10,15 +10,29 @@ import UIKit
 
 class SettingsCell: UITableViewCell {
 	
-	var setting: GenericCellInput? {
+	let cellConfiguration = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 16, weight: .light), scale: .small)
+	
+	var setting: SettingsCellModel? {
 		didSet {
 			guard let iconImageString = setting?.icon else {return}
-			self.cellIcon.image = UIImage(named: iconImageString)
+			self.cellIcon.image = UIImage(systemName: iconImageString)?.withTintColor(.white).withRenderingMode(.alwaysOriginal).withConfiguration(cellConfiguration)
 			
 			guard let titleString = setting?.title else {return}
 			self.cellTitle.text = titleString
+			
+			guard let backgroundColor = setting?.backgroundColor else {return}
+			self.cellIconBackground.backgroundColor = backgroundColor
 		}
 	}
+	
+	let cellIconBackground: UIView = {
+		let bg = UIView()
+		bg.layer.cornerRadius = 6
+		bg.translatesAutoresizingMaskIntoConstraints = false
+		
+		bg.heightAnchor.constraint(equalToConstant: 27).isActive = true
+		return bg
+	}()
 	
 	let cellIcon: UIImageView = {
 		let icon = UIImageView()
@@ -31,6 +45,7 @@ class SettingsCell: UITableViewCell {
 		let title = UILabel()
 		title.textColor = UIColor.label
 		title.textAlignment = .left
+		title.font = UIFont.systemFont(ofSize: 16, weight: .light)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
 	}()
@@ -38,19 +53,8 @@ class SettingsCell: UITableViewCell {
 	let cellArrow: UIImageView = {
 		let arrow = UIImageView()
 		arrow.contentMode = .scaleAspectFit
-		arrow.image = UIImage(named: "arrow")
 		arrow.translatesAutoresizingMaskIntoConstraints = false
 		return arrow
-	}()
-	
-	lazy var cellStack: UIStackView = {
-		let stack = UIStackView(arrangedSubviews: [self.cellIcon, self.cellTitle])
-		stack.axis = .horizontal
-		stack.distribution = .fillProportionally
-		stack.alignment = .fill
-		stack.spacing = 10
-		stack.translatesAutoresizingMaskIntoConstraints = false
-		return stack
 	}()
 	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -59,15 +63,7 @@ class SettingsCell: UITableViewCell {
 		selectionStyle = .none
 		backgroundColor = UIColor.tertiarySystemBackground
 		
-		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
-			cellTitle.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-			cellArrow.heightAnchor.constraint(equalToConstant: 20).isActive = true
-			cellArrow.widthAnchor.constraint(equalToConstant: 20).isActive = true
-		} else {
-			cellTitle.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-			cellArrow.heightAnchor.constraint(equalToConstant: 30).isActive = true
-			cellArrow.widthAnchor.constraint(equalToConstant: 30).isActive = true
-		}
+		cellArrow.image = UIImage(systemName: "chevron.right")?.withTintColor(.secondaryLabel).withRenderingMode(.alwaysOriginal).withConfiguration(cellConfiguration)
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -75,34 +71,58 @@ class SettingsCell: UITableViewCell {
 	}
 	
 	func setupConstraints() {
-		addSubview(cellStack)
+		addSubview(cellTitle)
+		addSubview(cellIconBackground)
 		addSubview(cellArrow)
-		cellStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24).isActive = true
-		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
-			cellStack.topAnchor.constraint(equalTo: topAnchor, constant: 6).isActive = true
-			cellStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6).isActive = true
-		} else {
-			cellStack.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
-			cellStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
-		}
+		cellIconBackground.addSubview(cellIcon)
+		cellArrow.translatesAutoresizingMaskIntoConstraints = false
+		cellIcon.translatesAutoresizingMaskIntoConstraints = false
+		cellTitle.translatesAutoresizingMaskIntoConstraints = false
+		cellIconBackground.translatesAutoresizingMaskIntoConstraints = false
+		
+		cellIconBackground.widthAnchor.constraint(equalToConstant: 27).isActive = true
+		cellIconBackground.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
+		cellIconBackground.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
+		cellIconBackground.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true
+		
+		cellIcon.centerYAnchor.constraint(equalTo: cellIconBackground.centerYAnchor).isActive = true
+		cellIcon.centerXAnchor.constraint(equalTo: cellIconBackground.centerXAnchor).isActive = true
+		
+		cellTitle.leadingAnchor.constraint(equalTo: cellIconBackground.trailingAnchor, constant: 12).isActive = true
+		cellTitle.trailingAnchor.constraint(equalTo: cellArrow.leadingAnchor, constant: -8).isActive = true 
+		cellTitle.centerYAnchor.constraint(equalTo: cellIconBackground.centerYAnchor).isActive = true
 		
 		cellArrow.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8).isActive = true
-		cellArrow.centerYAnchor.constraint(equalTo: cellStack.centerYAnchor).isActive = true
+		cellArrow.centerYAnchor.constraint(equalTo: cellTitle.centerYAnchor).isActive = true
 	}
 	
 }
 
 class SettingsCellWithUISwitch: UITableViewCell {
 	
-	var setting: GenericCellInput? {
+	let cellConfiguration = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 16, weight: .light), scale: .small)
+	
+	var setting: SettingsCellModel? {
 		didSet {
 			guard let iconImageString = setting?.icon else {return}
-			self.cellIcon.image = UIImage(named: iconImageString)
+			self.cellIcon.image = UIImage(systemName: iconImageString)?.withTintColor(.white).withRenderingMode(.alwaysOriginal).withConfiguration(cellConfiguration)
 			
 			guard let titleString = setting?.title else {return}
 			self.cellTitle.text = titleString
+			
+			guard let backgroundColor = setting?.backgroundColor else {return}
+			self.cellIconBackground.backgroundColor = backgroundColor
 		}
 	}
+	
+	let cellIconBackground: UIView = {
+		let bg = UIView()
+		bg.layer.cornerRadius = 6
+		bg.translatesAutoresizingMaskIntoConstraints = false
+		
+		bg.heightAnchor.constraint(equalToConstant: 27).isActive = true
+		return bg
+	}()
 	
 	let cellIcon: UIImageView = {
 		let icon = UIImageView()
@@ -126,44 +146,37 @@ class SettingsCellWithUISwitch: UITableViewCell {
 		return cellSwitch
 	}()
 	
-	lazy var cellStack: UIStackView = {
-		let stack = UIStackView(arrangedSubviews: [self.cellIcon, self.cellTitle])
-		stack.axis = .horizontal
-		stack.distribution = .fillProportionally
-		stack.alignment = .fill
-		stack.spacing = 10
-		stack.translatesAutoresizingMaskIntoConstraints = false
-		return stack
-	}()
-	
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		setupConstraints()
 		backgroundColor = UIColor.tertiarySystemBackground
 		cellSwitch.isOn = UserDefaults.standard.bool(forKey: "enabledFaceID")
-		
-		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
-			cellTitle.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-		} else {
-			cellTitle.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-		}
 	}
 	
 	func setupConstraints() {
-		addSubview(cellStack)
+		addSubview(cellTitle)
+		addSubview(cellIconBackground)
 		addSubview(cellSwitch)
-		cellStack.translatesAutoresizingMaskIntoConstraints = false
-		cellStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24).isActive = true
-		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
-			cellStack.topAnchor.constraint(equalTo: topAnchor, constant: 6).isActive = true
-			cellStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6).isActive = true
-		} else {
-			cellStack.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
-			cellStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
-		}
+		cellIconBackground.addSubview(cellIcon)
+		cellSwitch.translatesAutoresizingMaskIntoConstraints = false
+		cellIcon.translatesAutoresizingMaskIntoConstraints = false
+		cellTitle.translatesAutoresizingMaskIntoConstraints = false
+		cellIconBackground.translatesAutoresizingMaskIntoConstraints = false
+		
+		cellIconBackground.widthAnchor.constraint(equalToConstant: 27).isActive = true
+		cellIconBackground.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
+		cellIconBackground.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
+		cellIconBackground.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true
+		
+		cellIcon.centerYAnchor.constraint(equalTo: cellIconBackground.centerYAnchor).isActive = true
+		cellIcon.centerXAnchor.constraint(equalTo: cellIconBackground.centerXAnchor).isActive = true
+		
+		cellTitle.leadingAnchor.constraint(equalTo: cellIconBackground.trailingAnchor, constant: 12).isActive = true
+		cellTitle.trailingAnchor.constraint(equalTo: cellSwitch.leadingAnchor, constant: -8).isActive = true
+		cellTitle.centerYAnchor.constraint(equalTo: cellIconBackground.centerYAnchor).isActive = true
 		
 		cellSwitch.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-		cellSwitch.centerYAnchor.constraint(equalTo: cellStack.centerYAnchor).isActive = true
+		cellSwitch.centerYAnchor.constraint(equalTo: cellTitle.centerYAnchor).isActive = true
 	}
 	
 	required init?(coder aDecoder: NSCoder) {

@@ -152,7 +152,7 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 	}
 	
 	@objc func accountSettingsButtonWasPressed() {
-		let setting = AccountSettingsVC()
+		let setting = UINavigationController(rootViewController: AccountSettingsVC())
 		present(setting, animated: true, completion: nil)
 	}
 	

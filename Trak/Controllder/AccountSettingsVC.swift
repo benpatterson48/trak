@@ -12,16 +12,16 @@ import FirebaseAuth
 
 class AccountSettingsVC: UIViewController {
 
-	var settingsArray: [GenericCellInput] = [
-		GenericCellInput(icon: "email", title: 		"Update your Email    "),
-		GenericCellInput(icon: "password", title: 	"Change your Password "),
-		GenericCellInput(icon: "faceid", title: 	"Face/ Touch ID          "),
-		GenericCellInput(icon: "year", title: 		"Change the Year      "),
-		GenericCellInput(icon: "category", title: 	"Manage Categories    "),
-		GenericCellInput(icon: "review", title: 	"Leave a Review       "),
-		GenericCellInput(icon: "bug", title: 		"Report a Bug         "),
-		GenericCellInput(icon: "blog", title: 		"Check out our Website"),
-		GenericCellInput(icon: "logout", title: 	"Logout               ")
+	var settingsArray: [SettingsCellModel] = [
+		SettingsCellModel(icon: "envelope", title: "Update your Email", color: UIColor.systemBlue.withAlphaComponent(0.8)),
+		SettingsCellModel(icon: "lock", title: "Change your Password", color: UIColor.systemBlue.withAlphaComponent(0.8)),
+		SettingsCellModel(icon: "faceid", title: "Face/ Touch ID", color: UIColor.systemBlue.withAlphaComponent(0.8)),
+		SettingsCellModel(icon: "calendar", title: "Change the Year", color: UIColor.systemBlue.withAlphaComponent(0.8)),
+		SettingsCellModel(icon: "tag", title: "Manage Categories", color: UIColor.systemBlue.withAlphaComponent(0.8)),
+		SettingsCellModel(icon: "star", title: "Leave a Review", color: UIColor.systemBlue.withAlphaComponent(0.8)),
+		SettingsCellModel(icon: "ant", title: "Report a Bug", color: UIColor.systemBlue.withAlphaComponent(0.8)),
+		SettingsCellModel(icon: "doc.plaintext", title: "Check out our Website", color: UIColor.systemBlue.withAlphaComponent(0.8)),
+		SettingsCellModel(icon: "arrowshape.turn.up.left", title: "Logout", color: UIColor.systemBlue.withAlphaComponent(0.8))
 	]
 	
 	var sectionTitle: [String] = [
@@ -32,15 +32,6 @@ class AccountSettingsVC: UIViewController {
 		"",
 		""
 	]
-	
-	var pageTitle: UILabel = {
-		let title = UILabel()
-		title.textColor = UIColor.label
-		title.textAlignment = .left
-		title.text = "Account Settings"
-		title.translatesAutoresizingMaskIntoConstraints = false
-		return title
-	}()
 	
 	var forwardArrow: UIButton = {
 		let arrow = UIButton()
@@ -74,17 +65,19 @@ class AccountSettingsVC: UIViewController {
 		tableView.dataSource = self
 		tableView.tableFooterView = UIView()
 		
+		setupNavigationControllerTitle()
+		
 		view.backgroundColor = UIColor.secondarySystemBackground
 		
 		let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(dismissView))
 		swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
 		view.addGestureRecognizer(swipeLeft)
-		
-		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
-			pageTitle.font = UIFont.boldSystemFont(ofSize: 28)
-		} else {
-			pageTitle.font = UIFont.boldSystemFont(ofSize: 32)
-		}
+	}
+	
+	func setupNavigationControllerTitle() {
+		navigationController?.navigationBar.prefersLargeTitles = true
+		navigationController?.navigationBar.topItem?.title = "Settings"
+		navigationController?.navigationBar.backgroundColor = .secondarySystemBackground
 	}
 	
 	@objc func dismissView() {
@@ -98,12 +91,6 @@ class AccountSettingsVC: UIViewController {
 	}
 	
 	fileprivate func addViews() {
-		view.addSubview(pageTitle)
-		pageTitle.translatesAutoresizingMaskIntoConstraints = false
-		
-		view.addSubview(forwardArrow)
-		forwardArrow.translatesAutoresizingMaskIntoConstraints = false
-		
 		view.addSubview(tableView)
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		
@@ -111,14 +98,7 @@ class AccountSettingsVC: UIViewController {
 	}
 	
 	fileprivate func addConstraints() {
-		pageTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32).isActive = true
-		pageTitle.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 24).isActive = true
-		pageTitle.trailingAnchor.constraint(equalTo: forwardArrow.leadingAnchor, constant: -16).isActive = true
-		
-		forwardArrow.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16).isActive = true
-		forwardArrow.bottomAnchor.constraint(equalTo: pageTitle.bottomAnchor).isActive = true
-		
-		tableView.topAnchor.constraint(equalTo: pageTitle.bottomAnchor, constant: 12).isActive = true
+		tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 8).isActive = true
 		tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
 		tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
 		tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
@@ -138,7 +118,6 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 		guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "sectionTitle") as? SettingsTableSectionHeader else {return nil}
 		footer.contentView.backgroundColor = UIColor.secondarySystemBackground
 		footer.label.numberOfLines = 0
-		footer.label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
 		footer.label.text = "Seriously, if you found something not working right, please let us know."
 		if section == 3 {
 			return footer
@@ -189,11 +168,7 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 	}
 	
 	func showCorrectTransition(for controller: UIViewController) {
-		if #available(iOS 13, *) {
-			present(controller, animated: true, completion: nil)
-		} else {
-			fadeFromRight(controller)
-		}
+		present(controller, animated: true, completion: nil)
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

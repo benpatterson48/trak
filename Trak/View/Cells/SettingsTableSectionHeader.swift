@@ -14,9 +14,9 @@ class SettingsTableSectionHeader: UITableViewHeaderFooterView {
 	
 	let label: UILabel = {
 		let label = UILabel()
-		label.textColor = UIColor.label
+		label.textColor = UIColor.secondaryLabel
 		label.textAlignment = .left
-		label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+		label.font = UIFont.systemFont(ofSize: 16, weight: .light)
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()
@@ -31,7 +31,7 @@ class SettingsTableSectionHeader: UITableViewHeaderFooterView {
 	
 	private func addLabelConstraints() {
 		label.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
-		label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24).isActive = true
+		label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32).isActive = true
 		label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24).isActive = true
 		label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
 	}

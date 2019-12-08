@@ -17,3 +17,15 @@ struct GenericCellInput {
 		self.title = title
 	}
 }
+
+struct SettingsCellModel {
+	let icon: String?
+	let title: String?
+	let backgroundColor: UIColor?
+	
+	init(icon: String, title: String, color: UIColor) {
+		self.icon = icon
+		self.title = title
+		self.backgroundColor = color
+	}
+}
