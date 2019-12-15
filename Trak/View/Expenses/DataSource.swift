@@ -30,7 +30,7 @@ class DataSource: NSObject, UICollectionViewDelegate, UICollectionViewDataSource
 		if selectedMonth == "" {
 			selectedMonth = date.month
 		}
-		if selectedYear == "" {
+		if selectedYear == "" || selectedYear == " " {
 			selectedYear = date.year
 		}
 		grabExpenses()

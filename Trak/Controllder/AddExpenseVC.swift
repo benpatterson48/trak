@@ -28,8 +28,27 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 	let expenseDatePicker = ExpenseDatePicker()
 	let categoryPicker = UIPickerView()
 	let addCategoryButton = ImageAndTextButton(labelText: "Create New Category", iconImage: "circle-add")
-	let header = HeaderWithTextTitle(leftIcon: UIImage(named: "back")!, rightIcon: UIImage(named: "space")!, title: "Add New Payment")
 	let alert = UIAlertController(title: "Form Not Complete", message: "Please complete every field to submit", preferredStyle: .alert)
+	
+	lazy var header: UILabel = {
+		let header = UILabel()
+		header.textColor = .label
+		header.textAlignment = .center
+		header.text = "Add New Expense"
+		header.font = UIFont.systemFont(ofSize: 34, weight: .bold)
+		header.translatesAutoresizingMaskIntoConstraints = false
+		return header
+	}()
+	
+	lazy var headerSubLbl: UILabel = {
+		let lbl = UILabel()
+		lbl.textAlignment = .center
+		lbl.textColor = .secondaryLabel
+		lbl.text = "Enter your expense details below."
+		lbl.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+		lbl.translatesAutoresizingMaskIntoConstraints = false
+		return lbl
+	}()
 	
 	let topLine: UIView = {
 		let line = UIView()
@@ -62,7 +81,6 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 		setReminder = false 
 		
 		addViews()
-		setupHeader()
 		setupFields()
 		setDoneOnKeyboard()
 		setupButtonTargets()
@@ -186,12 +204,14 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 		view.addSubview(header)
 		view.addSubview(fields)
 		view.addSubview(topLine)
+		view.addSubview(headerSubLbl)
 		view.addSubview(addCategoryButton)
 		view.addSubview(addPaymentButton)
 		view.addSubview(reminderTable)
 		header.translatesAutoresizingMaskIntoConstraints = false
 		fields.translatesAutoresizingMaskIntoConstraints = false
 		topLine.translatesAutoresizingMaskIntoConstraints = false
+		headerSubLbl.translatesAutoresizingMaskIntoConstraints = false
 		addCategoryButton.translatesAutoresizingMaskIntoConstraints = false
 		addPaymentButton.translatesAutoresizingMaskIntoConstraints = false
 		reminderTable.translatesAutoresizingMaskIntoConstraints = false
@@ -199,15 +219,19 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 	}
 	
 	fileprivate func addConstraints() {
-		header.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+		header.topAnchor.constraint(equalTo: view.topAnchor, constant: 32).isActive = true
 		header.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		header.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
 		
+		headerSubLbl.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 12).isActive = true
+		headerSubLbl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+		headerSubLbl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+		
 		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
-			fields.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 16).isActive = true
+			fields.topAnchor.constraint(equalTo: headerSubLbl.bottomAnchor, constant: 16).isActive = true
 			addPaymentButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8).isActive = true
 		} else {
-			fields.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 50).isActive = true
+			fields.topAnchor.constraint(equalTo: headerSubLbl.bottomAnchor, constant: 50).isActive = true
 			addPaymentButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16).isActive = true
 		}
 		fields.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32).isActive = true
@@ -268,11 +292,6 @@ class AddExpenseVC: UIViewController, UITextFieldDelegate, UIAdaptivePresentatio
 	
 	fileprivate func setupAddPaymentButton() {
 		addPaymentButton.setTitle("Add Payment", for: .normal)
-	}
-	
-	fileprivate func setupHeader() {
-		header.rightBarButtonItem.isUserInteractionEnabled = false
-		header.leftBarButtonItem.addTarget(self, action: #selector(backButtonWasPressed), for: .touchUpInside)
 	}
 	
 	fileprivate func setupCategoryPicker() {

@@ -200,14 +200,14 @@ class ExpensesVC: UIViewController, UITextFieldDelegate {
 				self.addViews()
 				self.grabExpenses()
 				DispatchQueue.main.async {
-					self.monthInfo.monthTextField.text = selectedMonth.uppercased()
+					self.monthInfo.monthTextField.text = "\(selectedMonth.uppercased()) \(selectedYear)"
 				}
 			} else {
 				self.header.removeFromSuperview()
 				self.expensesTableView.removeFromSuperview()
 				self.addEmptyStateViews()
 				DispatchQueue.main.async {
-					self.monthInfo.monthTextField.text = selectedMonth.uppercased()
+					self.monthInfo.monthTextField.text = "\(selectedMonth.uppercased()) \(selectedYear)"
 				}
 			}
 		}

@@ -16,13 +16,13 @@ class ExpenseCell: UITableViewCell {
 			expenseTitle.text = title
 			
 			let dateFormatter = DateFormatter()
-			dateFormatter.dateFormat = "MM/dd/yyyy"
+			dateFormatter.dateFormat = "E, MMM d"
 			guard let timeStamp = expense?.timestamp else {return}
 			let dueDate = timeStamp.dateValue()
 			if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
-				dueDateLabel.text = "Due: \(dateFormatter.string(from: dueDate))"
+				dueDateLabel.text = "\(dateFormatter.string(from: dueDate))"
 			} else {
-				dueDateLabel.text = "Due Date: \(dateFormatter.string(from: dueDate))"
+				dueDateLabel.text = "\(dateFormatter.string(from: dueDate))"
 			}
 			
 			guard let dueAmount = expense?.amount else {return}

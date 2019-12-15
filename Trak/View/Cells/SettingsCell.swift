@@ -81,8 +81,7 @@ class SettingsCell: UITableViewCell {
 		cellIconBackground.translatesAutoresizingMaskIntoConstraints = false
 		
 		cellIconBackground.widthAnchor.constraint(equalToConstant: 27).isActive = true
-		cellIconBackground.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
-		cellIconBackground.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
+		cellIconBackground.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 		cellIconBackground.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true
 		
 		cellIcon.centerYAnchor.constraint(equalTo: cellIconBackground.centerYAnchor).isActive = true
@@ -164,8 +163,7 @@ class SettingsCellWithUISwitch: UITableViewCell {
 		cellIconBackground.translatesAutoresizingMaskIntoConstraints = false
 		
 		cellIconBackground.widthAnchor.constraint(equalToConstant: 27).isActive = true
-		cellIconBackground.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
-		cellIconBackground.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12).isActive = true
+		cellIconBackground.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 		cellIconBackground.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true
 		
 		cellIcon.centerYAnchor.constraint(equalTo: cellIconBackground.centerYAnchor).isActive = true
