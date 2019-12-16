@@ -26,7 +26,7 @@ class EmptyState: UIView {
 		main.numberOfLines = 0
 		main.text = "You have no payments!"
 		main.textColor = UIColor.label
-		main.textAlignment = .left
+		main.textAlignment = .center
 		main.translatesAutoresizingMaskIntoConstraints = false
 		return main
 	}()
@@ -36,7 +36,7 @@ class EmptyState: UIView {
 		sub.text = "Welcome to your personalized payment tracker."
 		sub.numberOfLines = 0
 		sub.textColor = UIColor.secondaryLabel
-		sub.textAlignment = .left
+		sub.textAlignment = .center
 		sub.font = UIFont.systemFont(ofSize: 16)
 		sub.translatesAutoresizingMaskIntoConstraints = false
 		return sub
@@ -59,19 +59,19 @@ class EmptyState: UIView {
 		let labels = UIStackView(arrangedSubviews: [mainTitle, subTitle])
 		labels.translatesAutoresizingMaskIntoConstraints = false
 		labels.axis = .vertical
-		labels.alignment = .leading
+		labels.alignment = .center
 		labels.distribution = .fillProportionally
-		labels.spacing = 15
+		labels.spacing = 8
 		addSubview(labels)
 		
 		if UIDevice.current.name == "iPhone SE" || UIDevice.current.name == "iPhone 5" || UIDevice.current.name == "iPhone 5s" {
-			mainTitle.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
+			mainTitle.font = UIFont.boldSystemFont(ofSize: 22)
 		} else {
-			mainTitle.font = UIFont.systemFont(ofSize: 26, weight: .semibold)
+			mainTitle.font = UIFont.boldSystemFont(ofSize: 26)
 		}
 		
 		mainTitle.heightAnchor.constraint(equalToConstant: 30).isActive = true
-		subTitle.heightAnchor.constraint(equalToConstant: 50).isActive = true 
+		subTitle.heightAnchor.constraint(equalToConstant: 40).isActive = true
 		
 		let mainStackView = UIStackView(arrangedSubviews: [icon, labels, button])
 		mainStackView.translatesAutoresizingMaskIntoConstraints = false

@@ -174,15 +174,15 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		if indexPath.section == 0 {
 			if indexPath.row == 0 {
-				let edit = SettingsChangeVC(withPlaceholder: "Enter email", usingTitle: "Email")
+				let edit = SettingsChangeVC(withPlaceholder: "Enter email", usingTitle: "Email", withSubTitle: "Enter your new email below.")
 				showCorrectTransition(for: edit)
 			} else if indexPath.row == 1  {
-				let edit = SettingsChangeVC(withPlaceholder: "Enter password", usingTitle: "Password")
+				let edit = SettingsChangeVC(withPlaceholder: "Enter password", usingTitle: "Password", withSubTitle: "Enter your new password below")
 				showCorrectTransition(for: edit)
 			}
 		} else if indexPath.section == 1 {
 			if indexPath.row == 0 {
-				let edit = SettingsChangeVC(withPlaceholder: "Enter Desired Year", usingTitle: "Year")
+				let edit = SettingsChangeVC(withPlaceholder: "Enter Desired Year", usingTitle: "Year", withSubTitle: "Enter the year you wish to view.")
 				showCorrectTransition(for: edit)
 			} else {
 				let manage = ManageCategoriesVC()
@@ -191,7 +191,7 @@ extension AccountSettingsVC: UITableViewDelegate, UITableViewDataSource {
 		} else if indexPath.section == 2 {
 			self.reviewButtonWasPressed()
 		} else if indexPath.section == 3 {
-			let edit = SettingsChangeVC(withPlaceholder: "Please explain the issue", usingTitle: "Bug Report")
+			let edit = SettingsChangeVC(withPlaceholder: "Please explain the issue", usingTitle: "Bug Report", withSubTitle: "Please describe the problem or issue you're having.")
 			showCorrectTransition(for: edit)
 		} else if indexPath.section == 4 {
 			if indexPath.row == 0 {

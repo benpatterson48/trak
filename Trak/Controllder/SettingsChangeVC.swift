@@ -31,20 +31,18 @@ class SettingsChangeVC: UIViewController, MFMailComposeViewControllerDelegate, U
 		let title = UILabel()
 		title.textAlignment = .center
 		title.textColor = UIColor.label
-		title.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+		title.font = UIFont.systemFont(ofSize: 34, weight: .bold)
 		title.translatesAutoresizingMaskIntoConstraints = false
 		return title
 	}()
 	
-	var topViewBackButton: UIButton = {
-		let back = UIButton()
-		back.contentMode = .scaleAspectFit
-		back.translatesAutoresizingMaskIntoConstraints = false
-		back.setBackgroundImage(UIImage(named: "back"), for: .normal)
-		back.widthAnchor.constraint(equalToConstant: 20).isActive = true
-		back.heightAnchor.constraint(equalToConstant: 20).isActive = true
-		back.addTarget(self, action: #selector(dismissView), for: .touchUpInside)
-		return back
+	var subTitleLbl: UILabel = {
+		let title = UILabel()
+		title.textAlignment = .center
+		title.textColor = UIColor.label
+		title.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+		title.translatesAutoresizingMaskIntoConstraints = false
+		return title
 	}()
 	
 	var textFieldBackground: UIView = {
@@ -64,8 +62,6 @@ class SettingsChangeVC: UIViewController, MFMailComposeViewControllerDelegate, U
 	@objc func dismissView() {
 		if #available(iOS 13, *) {
 			dismiss(animated: true, completion: nil)
-		} else {
-			dismissFromLeft()
 		}
 	}
 	
@@ -102,7 +98,7 @@ class SettingsChangeVC: UIViewController, MFMailComposeViewControllerDelegate, U
 		let keyboardToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 35))
 		keyboardToolbar.sizeToFit()
 		let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-		let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
+		let doneBarButton = UIBarButtonItem(title: "Enter", style: .done, target: self, action: #selector(dismissKeyboard))
 		keyboardToolbar.items = [flexBarButton, doneBarButton]
 		input.inputAccessoryView = keyboardToolbar
 	}
@@ -116,9 +112,10 @@ class SettingsChangeVC: UIViewController, MFMailComposeViewControllerDelegate, U
 		self.inputTextField.clearsOnBeginEditing = true
     }
 	
-	public convenience init(withPlaceholder: String, usingTitle: String) {
+	public convenience init(withPlaceholder: String, usingTitle: String, withSubTitle: String) {
 		self.init()
 		topViewTitleLabel.text = usingTitle
+		subTitleLbl.text = withSubTitle
 		inputTextField.text = withPlaceholder
 	}
 	
@@ -139,11 +136,9 @@ class SettingsChangeVC: UIViewController, MFMailComposeViewControllerDelegate, U
 	}
 	
 	func addViews() {
-		view.addSubview(topView)
-		topView.addSubview(topViewBackButton)
-		topViewBackButton.addSubview(topViewTitleLabel)
-		topView.translatesAutoresizingMaskIntoConstraints = false
-		topViewBackButton.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(topViewTitleLabel)
+		view.addSubview(subTitleLbl)
+		subTitleLbl.translatesAutoresizingMaskIntoConstraints = false
 		topViewTitleLabel.translatesAutoresizingMaskIntoConstraints = false
 		
 		view.addSubview(textFieldBackground)
@@ -155,22 +150,15 @@ class SettingsChangeVC: UIViewController, MFMailComposeViewControllerDelegate, U
 	}
 	
 	func addConstraints() {
-		if #available(iOS 13, *) {
-			topView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-		} else {
-			topView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-		}
-		topView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-		topView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-		topView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+		topViewTitleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 32).isActive = true
+		topViewTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+		topViewTitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
 		
-		topViewTitleLabel.centerXAnchor.constraint(equalTo: topView.centerXAnchor).isActive = true
-		topViewTitleLabel.bottomAnchor.constraint(equalTo: topView.bottomAnchor, constant: -10).isActive = true
+		subTitleLbl.topAnchor.constraint(equalTo: topViewTitleLabel.bottomAnchor, constant: 12).isActive = true
+		subTitleLbl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+		subTitleLbl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
 		
-		topViewBackButton.leadingAnchor.constraint(equalTo: topView.leadingAnchor, constant: 16).isActive = true
-		topViewBackButton.centerYAnchor.constraint(equalTo: topViewTitleLabel.centerYAnchor).isActive = true
-		
-		textFieldBackground.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 40).isActive = true
+		textFieldBackground.topAnchor.constraint(equalTo: subTitleLbl.bottomAnchor, constant: 40).isActive = true
 		textFieldBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
 		textFieldBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
 		textFieldBackground.heightAnchor.constraint(equalToConstant: 40).isActive = true
